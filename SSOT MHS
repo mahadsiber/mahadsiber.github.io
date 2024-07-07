@@ -1,0 +1,66 @@
+Demi meningkatkan efektivitas, transparansi, dan kolaborasi dalam proses diskusi objektif dalam Bahtsul Masail ala Ma'had Al-Hadlarah As-Siberniyah, maka penting disusun suatu SSOT (single source of truth). 
+
+## Struktur SSOT
+
+### 1. Informasi Umum
+
+Ringkasan informasi yang bisa diakses publik dan panduan akses bagi partisipan.
+
+### 2. Bahtsul Masail
+
+**2.1. Topik**
+Daftar topik yang terkategorisasi.
+
+**2.2. Referensi**
+Pustaka referensi yang dipergunakan dalam diskusi.
+
+**2.3. Glosarium**
+Kumpulan istilah bidang khusus (domain-specific language) dan definisinya.
+
+**2.4. Poin-poin Temuan**
+Ringkasan poin-poin penting sepanjang diskusi.
+
+**2.5. Kesimpulan dan Rekomendasi**
+Daftar hasil dan rekomendasi tiap sesi diskusi.
+
+## 3. Supervisi
+
+**3.1. Indeks Penilaian**
+Sistem dan daftar penilaian atas partisipasi dan kontribusi partisipan.
+
+**3.2. Notulensi Diskusi**
+Dokumentasi lengkap setiap sesi diskusi, terkoneksi dengan indeks penilaian.
+
+**3.3. Monitoring dan Evaluasi**
+Instrumen dan metriks untuk menilai efektivitas sistem diskusi dan sistem AI.
+
+
+## Fungsi SSOT
+
+**1. Pusat Pengelolaan Informasi**
+Menjaga konsistensi informasi agar semua partisipan memiliki informasi yang sama persis, mutakhir, serta meminimalisir duplikasi informasi.
+
+**2. Penunjang Kolaborasi**
+Untuk memudahkan kolaborasi antar partisipan dan interaksi antara partisipan dengan instrumen dan sumber daya diskusi.
+
+**3. Manajemen Pengetahuan**
+Menyediakan struktur yang jelas dan sistematis mengenai topik-topik, poin-poin  temuan, dan hasil-hasil diskusi untuk memudahkan referensi di masa mendatang.
+
+**4. Optimalisasi AI**
+Mengoptimalkan penggunaan AI untuk menunjang analisis persoalan, identifikasi pola, wawasan, dan rekomendasi yang (diharapkan) objektif dan bebas bias.
+
+**5. Monitoring dan Evaluasi**
+Memberikan indeks penilaian atas partisipasi dan kontribusi peserta diskusi untuk tujuan pendidikan dan sertifikasi, serta penilaian atas efektivitas sistem diskusi dan sistem AI untuk tujuan perbaikan dan pembaruan berkelanjutan.
+
+**6. Penyediaan dan Penyajian Sumber Daya**
+Menyediakan referensi dan glosarium domain-specific untuk membantu partisipan memahami istilah dan konsep yang relevan dalam diskusi, dan memudahkan akses wacana bagi diskusi dan partisipan yang akan datang. 
+
+**7. Kepastian dan Transparansi**
+Memastikan seluruh informasi akurat, terpercaya, dan relevan bisa diakses oleh seluruh partisipan dan pihak-pihak lainnya sesuai kebijakan pengelola. 
+
+
+***
+
+SSOT sekompleks ini tentu memerlukan kerja dan waktu yang tidak singkat. Maka ia harus bersifat terbuka untuk pembaruan, sekaligus memiliki rekaman versi yang tetap demi menjaga riwayat perubahan, misalnya dengan sistem Git.
+
+---diperbarui 3 Juli 2024 / 26 Dzulhijjah 1445
