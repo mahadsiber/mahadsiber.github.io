@@ -8,5 +8,5 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 
 * [Sistem Bahtsul Masail ala MHS](https://github.com/ekajogja/mhs/wiki/Sistem-Bahtsul-Masail-ala-MHS)
 * [Simulasi Bahtsul Masail aa MHS](https://github.com/ekajogja/mhs/wiki/Simulasi-Bahtsul-Masail-ala-MHS)
-* [SSOT MHS](https://github.com/ekajogja/mhs/wiki/SSOT-MHS) dan .
+* [SSOT MHS](https://github.com/ekajogja/mhs/wiki/SSOT-MHS).
 
