@@ -4,5 +4,9 @@ Alamat: [Pondok Pesantren Kali Opak Piyungan Yogyakarta](https://maps.app.goo.gl
 
 Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 
-Model kajian dan pendidikan kami menggunakan [Bahtsul Masail ala MHS](mahadsiber.github.io/Sistem-Bahtsul-Masail-ala-MHS) dengan rincian yang terumus dalam [SSOT MHS](mahadsiber.github.io/SSOT-MHS) dan [Simulasi Bahtsul Masail](mahadsiber.github.io/Simulasi-Bahtsul-Masail-ala-MHS).
+### Sumber Daya
+
+* [Sistem Bahtsul Masail ala MHS](https://github.com/ekajogja/mhs/wiki/Sistem-Bahtsul-Masail-ala-MHS)
+* [Simulasi Bahtsul Masail aa MHS](https://github.com/ekajogja/mhs/wiki/Simulasi-Bahtsul-Masail-ala-MHS)
+* [SSOT MHS](https://github.com/ekajogja/mhs/wiki/SSOT-MHS) dan .
 
