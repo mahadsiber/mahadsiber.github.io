@@ -1,4 +1,4 @@
-Ma'had Al-Hadlarah As-Siberniyah adalah embaga kajian dan pendidikan Islami yang berfungsi sebagai ruang bersama kerja-kerja analisis, rekomendasi, dan advokasi kebijakan, etika, dan tata kelola teknologi baru (emerging tech).
+**Ma'had Al-Hadlarah As-Siberniyah** (MHS) adalah lembaga kajian dan pendidikan Islami yang berfungsi sebagai ruang bersama kerja-kerja analisis, rekomendasi, dan advokasi kebijakan, etika, dan tata kelola teknologi baru (emerging tech).
 
 ### Alamat
 
