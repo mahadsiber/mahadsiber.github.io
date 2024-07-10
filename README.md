@@ -13,4 +13,4 @@
 * [Sistem Bahtsul Masail ala MHS](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Sistem-Bahtsul-Masail-ala-MHS)
 * [Simulasi Bahtsul Masail aa MHS](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Simulasi-Bahtsul-Masail-ala-MHS)
 * [SSOT MHS](https://github.com/mahadsiber/mahadsiber.github.io/wiki/SSOT-MHS).
-
+* [Referensi Mata Kuliah](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Referensi-Mata-Kuliah)
