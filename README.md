@@ -10,7 +10,7 @@ Ma'had Al-Hadlarah As-Siberniyah adalah embaga kajian dan pendidikan Islami yang
 
 ### Sumber Daya
 
-* [Sistem Bahtsul Masail ala MHS](https://github.com/ekajogja/mhs/wiki/Sistem-Bahtsul-Masail-ala-MHS)
-* [Simulasi Bahtsul Masail aa MHS](https://github.com/ekajogja/mhs/wiki/Simulasi-Bahtsul-Masail-ala-MHS)
-* [SSOT MHS](https://github.com/ekajogja/mhs/wiki/SSOT-MHS).
+* [Sistem Bahtsul Masail ala MHS](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Sistem-Bahtsul-Masail-ala-MHS)
+* [Simulasi Bahtsul Masail aa MHS](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Simulasi-Bahtsul-Masail-ala-MHS)
+* [SSOT MHS](https://github.com/mahadsiber/mahadsiber.github.io/wiki/SSOT-MHS).
 
