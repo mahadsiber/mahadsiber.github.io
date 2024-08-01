@@ -1,3 +1,23 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var quill = new Quill('#content', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['link', 'image'],
+                ['clean'],
+                ['hr']
+            ]
+        },
+        placeholder: 'Compose an epic...',
+        readOnly: false,
+        bounds: '#content',
+        scrollingContainer: '#content'
+    });
+});
+
 document.getElementById('addAuthor').addEventListener('click', function() {
     const authorFields = document.querySelector('.author-fields');
     const newAuthorField = document.createElement('div');
@@ -86,15 +106,14 @@ document_authors:
 
     markdownContent += `---
 
-Isi artikel`;
+${document.querySelector('.ql-editor').innerHTML}`;
 
     const blob = new Blob([markdownContent], {type: 'text/markdown'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     
-    // Ambil judul artikel dan gunakan sebagai nama file
-    const title = formData.get('title').replace(/[^a-zA-Z0-9]/g, '_'); // Menghapus karakter khusus
+    const title = formData.get('title').replace(/[^a-zA-Z0-9]/g, '_');
     a.download = `${title}.md`;
     
     document.body.appendChild(a);
