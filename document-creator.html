@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form to Markdown</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulir Artikel</h1>
+        <form id="articleForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title"><br>
+
+            <label for="authors">Authors:</label>
+            <div class="author-fields">
+                <div>
+                    <input type="text" name="authorName" placeholder="Name">
+                    <input type="text" name="authorAffiliation" placeholder="Affiliation">
+                </div>
+            </div>
+            <button type="button" id="addAuthor">Add Author</button><br>
+
+            <label for="journal">Journal:</label>
+            <input type="text" id="journal" name="journal"><br>
+
+            <label for="pages">Pages:</label>
+            <input type="text" id="pages" name="pages"><br>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year"><br>
+
+            <label for="doi">DOI:</label>
+            <input type="text" id="doi" name="doi"><br>
+
+            <label for="keywords">Keywords:</label>
+            <input type="text" id="keywords" name="keywords"><br>
+
+            <label for="abstract">Abstract:</label>
+            <textarea id="abstract" name="abstract"></textarea><br>
+
+            <label for="sentiment">Sentiment:</label>
+            <input type="text" id="sentiment" name="sentiment"><br>
+
+            <label for="ideology">Ideology:</label>
+            <input type="text" id="ideology" name="ideology"><br>
+
+            <label for="philosophical_views">Philosophical Views:</label>
+            <input type="text" id="philosophical_views" name="philosophical_views"><br>
+
+            <label for="thought_streams">Thought Streams:</label>
+            <input type="text" id="thought_streams" name="thought_streams"><br>
+
+            <label for="study_fields">Study Fields:</label>
+            <input type="text" id="study_fields" name="study_fields"><br>
+
+            <label for="related_articles">Related Articles:</label>
+            <div class="related-articles-fields">
+                <div>
+                    <input type="text" name="relatedArticleTitle" placeholder="Title">
+                    <input type="text" name="relatedArticleDOI" placeholder="DOI">
+                </div>
+            </div>
+            <button type="button" id="addRelatedArticle">Add Related Article</button><br>
+
+            <label for="document_type">Document Type:</label>
+            <input type="text" id="document_type" name="document_type"><br>
+
+            <label for="document_authors">Document Authors:</label>
+            <div class="document-author-fields">
+                <div>
+                    <input type="text" name="documentAuthorName" placeholder="Name">
+                    <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation">
+                </div>
+            </div>
+            <button type="button" id="addDocumentAuthor">Add Document Author</button><br>
+
+            <button type="button" id="exportMarkdown">Export as Markdown</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
