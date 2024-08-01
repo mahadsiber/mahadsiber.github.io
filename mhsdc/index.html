@@ -13,10 +13,10 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             background: white;
-            padding: 20px;
+            padding: 50px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -48,17 +48,24 @@
             cursor: pointer;
         }
 
+        button#exportMarkdown {
+            background-color: green;
+            margin: 20 auto;
+        }
+
         button:hover {
             background-color: #0056b3;
         }
 
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #f8f9fa;
+            margin: auto;
+            padding: 10px 50px 50px 50px;
+            background-color: #fff;
             font-family: Arial, sans-serif;
             font-size: 14px;
             color: #6c757d;
+            max-width: 800px;
         }
 
         .notification {
@@ -104,13 +111,20 @@
 <body>
     <div class="container">
         <h1>MHS Doc Creator</h1>
-        <p>Referensi: <a target="_blank" href="https://github.com/mahadsiber/mahadsiber.github.io/wiki/Standarisasi-Format-Dokumen-MHS">Standar Format Dokumen MHS</a></p>
-        
+        <center>Versi 0.2</center>
+        <br>
+        <p style="text-align: center;">Referensi: <a target="_blank" href="https://github.com/mahadsiber/mahadsiber.github.io/wiki/Standarisasi-Format-Dokumen-MHS">Standar Format Dokumen MHS</a></p>
+        <br>
+        <p></p>
+        <details>
+            <summary>Impor file markdown (opsional)</summary>
+            <input type="file" id="importMarkdown" accept=".md">
+            <button type="button" id="importButton">Impor</button>
+        </details>
+        <br><br>
         <form id="articleForm" novalidate>
-            <input type="file" id="importMarkdown" accept=".md,.txt">
-            <button type="button" id="importButton">Import Markdown/txt</button>
-
-            <br><br><label for="title">Title:</label>
+            <hr />
+            <br><label for="title">Title:</label>
             <input type="text" id="title" name="title"><br>
 
             <br><br><label for="authors">Authors:</label>
@@ -120,7 +134,7 @@
                     <input type="text" name="authorAffiliation" placeholder="Affiliation">
                 </div>
             </div>
-            <button type="button" id="addAuthor">Add Author</button><br>
+            <button type="button" id="addAuthor">+ Author</button><br>
 
             <br><br><label for="journal">Journal:</label>
             <input type="text" id="journal" name="journal"><br>
@@ -140,7 +154,7 @@
                     <input type="text" name="keyword" placeholder="Keyword">
                 </div>
             </div>
-            <button type="button" id="addKeyword">Add Keyword</button><br>
+            <button type="button" id="addKeyword">+ Keyword</button><br>
 
             <br><br><label for="abstract">Abstract:</label>
             <textarea id="abstract" name="abstract"></textarea><br>
@@ -160,7 +174,7 @@
                     <input type="text" name="thoughtStream" placeholder="Thought Stream">
                 </div>
             </div>
-            <button type="button" id="addThoughtStream">Add Thought Stream</button><br>
+            <button type="button" id="addThoughtStream">+ Thought Stream</button><br>
 
             <br><br><label for="study_fields">Study Fields:</label>
             <div class="study-fields-fields">
@@ -168,7 +182,7 @@
                     <input type="text" name="studyField" placeholder="Study Field">
                 </div>
             </div>
-            <button type="button" id="addStudyField">Add Study Field</button><br>
+            <button type="button" id="addStudyField">+ Study Field</button><br>
 
             <br><br><label for="related_articles">Related Articles:</label>
             <div class="related-articles-fields">
@@ -177,7 +191,7 @@
                     <input type="text" name="relatedArticleDOI" placeholder="DOI">
                 </div>
             </div>
-            <button type="button" id="addRelatedArticle">Add Related Article</button><br>
+            <button type="button" id="addRelatedArticle">+ Related Article</button><br>
 
             <br><br><label for="document_type">Document Type:</label>
             <input type="text" id="document_type" name="document_type"><br>
@@ -189,12 +203,12 @@
                     <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation">
                 </div>
             </div>
-            <button type="button" id="addDocumentAuthor">Add Document Author</button><br>
+            <button type="button" id="addDocumentAuthor">+ Document Author</button><br>
 
             <br><br><label for="content">Isi Artikel:</label>
             <div id="content" style="min-height: 300px;"></div>
 
-            <button type="button" id="exportMarkdown">Export as Markdown</button>
+            <button type="button" id="exportMarkdown">Ekspor Markdown</button>
             
         </form>
 
@@ -460,103 +474,88 @@ ${document.querySelector('.ql-editor').innerHTML}`;
                                     document.getElementById('document_type').value = value.replace(/"/g, '');
                                     break;
                                 case 'authors':
-                                    try {
-                                        const authors = JSON.parse(value.replace(/'/g, '"'));
-                                        const authorFields = document.querySelector('.author-fields');
-                                        authorFields.innerHTML = '';
-                                        authors.forEach(author => {
-                                            const newAuthorField = document.createElement('div');
-                                            newAuthorField.innerHTML = `
-                                                <input type="text" name="authorName" placeholder="Name" value="${author.name}">
-                                                <input type="text" name="authorAffiliation" placeholder="Affiliation" value="${author.affiliation}">
-                                            `;
-                                            authorFields.appendChild(newAuthorField);
-                                        });
-                                    } catch (e) {
-                                        console.error('Error parsing authors:', e);
-                                    }
+                                    const authors = value.split(',').map(author => {
+                                        const [name, affiliation] = author.split('(').map(str => str.trim().replace(/[)"']/g, ''));
+                                        return { name, affiliation };
+                                    });
+                                    const authorFields = document.querySelector('.author-fields');
+                                    authorFields.innerHTML = '';
+                                    authors.forEach(author => {
+                                        const newAuthorField = document.createElement('div');
+                                        newAuthorField.innerHTML = `
+                                            <input type="text" name="authorName" placeholder="Name" value="${author.name}">
+                                            <input type="text" name="authorAffiliation" placeholder="Affiliation" value="${author.affiliation}">
+                                        `;
+                                        authorFields.appendChild(newAuthorField);
+                                    });
                                     break;
                                 case 'keywords':
-                                    try {
-                                        const keywords = JSON.parse(value.replace(/'/g, '"'));
-                                        const keywordsFields = document.querySelector('.keywords-fields');
-                                        keywordsFields.innerHTML = '';
-                                        keywords.forEach(keyword => {
-                                            const newKeywordField = document.createElement('div');
-                                            newKeywordField.innerHTML = `
-                                                <input type="text" name="keyword" placeholder="Keyword" value="${keyword}">
-                                            `;
-                                            keywordsFields.appendChild(newKeywordField);
-                                        });
-                                    } catch (e) {
-                                        console.error('Error parsing keywords:', e);
-                                    }
+                                    const keywords = value.split(',').map(keyword => keyword.trim().replace(/[)"']/g, ''));
+                                    const keywordsFields = document.querySelector('.keywords-fields');
+                                    keywordsFields.innerHTML = '';
+                                    keywords.forEach(keyword => {
+                                        const newKeywordField = document.createElement('div');
+                                        newKeywordField.innerHTML = `
+                                            <input type="text" name="keyword" placeholder="Keyword" value="${keyword}">
+                                        `;
+                                        keywordsFields.appendChild(newKeywordField);
+                                    });
                                     break;
                                 case 'thought_streams':
-                                    try {
-                                        const thoughtStreams = JSON.parse(value.replace(/'/g, '"'));
-                                        const thoughtStreamsFields = document.querySelector('.thought-streams-fields');
-                                        thoughtStreamsFields.innerHTML = '';
-                                        thoughtStreams.forEach(thoughtStream => {
-                                            const newThoughtStreamField = document.createElement('div');
-                                            newThoughtStreamField.innerHTML = `
-                                                <input type="text" name="thoughtStream" placeholder="Thought Stream" value="${thoughtStream}">
-                                            `;
-                                            thoughtStreamsFields.appendChild(newThoughtStreamField);
-                                        });
-                                    } catch (e) {
-                                        console.error('Error parsing thought streams:', e);
-                                    }
+                                    const thoughtStreams = value.split(',').map(thoughtStream => thoughtStream.trim().replace(/[)"']/g, ''));
+                                    const thoughtStreamsFields = document.querySelector('.thought-streams-fields');
+                                    thoughtStreamsFields.innerHTML = '';
+                                    thoughtStreams.forEach(thoughtStream => {
+                                        const newThoughtStreamField = document.createElement('div');
+                                        newThoughtStreamField.innerHTML = `
+                                            <input type="text" name="thoughtStream" placeholder="Thought Stream" value="${thoughtStream}">
+                                        `;
+                                        thoughtStreamsFields.appendChild(newThoughtStreamField);
+                                    });
                                     break;
                                 case 'study_fields':
-                                    try {
-                                        const studyFields = JSON.parse(value.replace(/'/g, '"'));
-                                        const studyFieldsFields = document.querySelector('.study-fields-fields');
-                                        studyFieldsFields.innerHTML = '';
-                                        studyFields.forEach(studyField => {
-                                            const newStudyFieldField = document.createElement('div');
-                                            newStudyFieldField.innerHTML = `
-                                                <input type="text" name="studyField" placeholder="Study Field" value="${studyField}">
-                                            `;
-                                            studyFieldsFields.appendChild(newStudyFieldField);
-                                        });
-                                    } catch (e) {
-                                        console.error('Error parsing study fields:', e);
-                                    }
+                                    const studyFields = value.split(',').map(studyField => studyField.trim().replace(/[)"']/g, ''));
+                                    const studyFieldsFields = document.querySelector('.study-fields-fields');
+                                    studyFieldsFields.innerHTML = '';
+                                    studyFields.forEach(studyField => {
+                                        const newStudyFieldField = document.createElement('div');
+                                        newStudyFieldField.innerHTML = `
+                                            <input type="text" name="studyField" placeholder="Study Field" value="${studyField}">
+                                        `;
+                                        studyFieldsFields.appendChild(newStudyFieldField);
+                                    });
                                     break;
                                 case 'related_articles':
-                                    try {
-                                        const relatedArticles = JSON.parse(value.replace(/'/g, '"'));
-                                        const relatedArticlesFields = document.querySelector('.related-articles-fields');
-                                        relatedArticlesFields.innerHTML = '';
-                                        relatedArticles.forEach(relatedArticle => {
-                                            const newRelatedArticleField = document.createElement('div');
-                                            newRelatedArticleField.innerHTML = `
-                                                <input type="text" name="relatedArticleTitle" placeholder="Title" value="${relatedArticle.title}">
-                                                <input type="text" name="relatedArticleDOI" placeholder="DOI" value="${relatedArticle.doi}">
-                                            `;
-                                            relatedArticlesFields.appendChild(newRelatedArticleField);
-                                        });
-                                    } catch (e) {
-                                        console.error('Error parsing related articles:', e);
-                                    }
+                                    const relatedArticles = value.split(',').map(relatedArticle => {
+                                        const [title, doi] = relatedArticle.split('(').map(str => str.trim().replace(/[)"']/g, ''));
+                                        return { title, doi };
+                                    });
+                                    const relatedArticlesFields = document.querySelector('.related-articles-fields');
+                                    relatedArticlesFields.innerHTML = '';
+                                    relatedArticles.forEach(relatedArticle => {
+                                        const newRelatedArticleField = document.createElement('div');
+                                        newRelatedArticleField.innerHTML = `
+                                            <input type="text" name="relatedArticleTitle" placeholder="Title" value="${relatedArticle.title}">
+                                            <input type="text" name="relatedArticleDOI" placeholder="DOI" value="${relatedArticle.doi}">
+                                        `;
+                                        relatedArticlesFields.appendChild(newRelatedArticleField);
+                                    });
                                     break;
                                 case 'document_authors':
-                                    try {
-                                        const documentAuthors = JSON.parse(value.replace(/'/g, '"'));
-                                        const documentAuthorFields = document.querySelector('.document-author-fields');
-                                        documentAuthorFields.innerHTML = '';
-                                        documentAuthors.forEach(documentAuthor => {
-                                            const newDocumentAuthorField = document.createElement('div');
-                                            newDocumentAuthorField.innerHTML = `
-                                                <input type="text" name="documentAuthorName" placeholder="Name" value="${documentAuthor.name}">
-                                                <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation" value="${documentAuthor.affiliation}">
-                                            `;
-                                            documentAuthorFields.appendChild(newDocumentAuthorField);
-                                        });
-                                    } catch (e) {
-                                        console.error('Error parsing document authors:', e);
-                                    }
+                                    const documentAuthors = value.split(',').map(documentAuthor => {
+                                        const [name, affiliation] = documentAuthor.split('(').map(str => str.trim().replace(/[)"']/g, ''));
+                                        return { name, affiliation };
+                                    });
+                                    const documentAuthorFields = document.querySelector('.document-author-fields');
+                                    documentAuthorFields.innerHTML = '';
+                                    documentAuthors.forEach(documentAuthor => {
+                                        const newDocumentAuthorField = document.createElement('div');
+                                        newDocumentAuthorField.innerHTML = `
+                                            <input type="text" name="documentAuthorName" placeholder="Name" value="${documentAuthor.name}">
+                                            <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation" value="${documentAuthor.affiliation}">
+                                        `;
+                                        documentAuthorFields.appendChild(newDocumentAuthorField);
+                                    });
                                     break;
                                 default:
                                     break;
