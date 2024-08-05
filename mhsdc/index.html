@@ -1,227 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MHS Document Creator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 50px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            padding: 10px 15px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-        }
-
-        button#exportMarkdown {
-            background-color: green;
-            margin: 20 auto;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            text-align: center;
-            margin: auto;
-            padding: 10px 50px 50px 50px;
-            background-color: #fff;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            color: #6c757d;
-            max-width: 800px;
-        }
-
-        .notification {
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .spinner {
-            display: none;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #09f;
-            animation: spin 1s ease infinite;
-            margin: 10px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h1>MHS Doc Creator</h1>
-        <center>Versi 0.2</center>
-        <br>
-        <p style="text-align: center;">Referensi: <a target="_blank" href="https://github.com/mahadsiber/mahadsiber.github.io/wiki/Standarisasi-Format-Dokumen-MHS">Standar Format Dokumen MHS</a></p>
-        <br>
-        <p></p>
-        <details>
-            <summary>Impor file markdown (opsional)</summary>
-            <input type="file" id="importMarkdown" accept=".md">
-            <button type="button" id="importButton">Impor</button>
-        </details>
-        <br><br>
-        <form id="articleForm" novalidate>
-            <hr />
-            <br><label for="title">Title:</label>
-            <input type="text" id="title" name="title"><br>
-
-            <br><br><label for="authors">Authors:</label>
-            <div class="author-fields">
-                <div>
-                    <input type="text" name="authorName" placeholder="Name">
-                    <input type="text" name="authorAffiliation" placeholder="Affiliation">
-                </div>
-            </div>
-            <button type="button" id="addAuthor">+ Author</button><br>
-
-            <br><br><label for="journal">Journal:</label>
-            <input type="text" id="journal" name="journal"><br>
-
-            <br><br><label for="pages">Pages:</label>
-            <input type="text" id="pages" name="pages"><br>
-
-            <br><br><label for="year">Year:</label>
-            <input type="number" id="year" name="year"><br>
-
-            <br><br><label for="doi">DOI:</label>
-            <input type="text" id="doi" name="doi"><br>
-
-            <br><br><label for="keywords">Keywords:</label>
-            <div class="keywords-fields">
-                <div>
-                    <input type="text" name="keyword" placeholder="Keyword">
-                </div>
-            </div>
-            <button type="button" id="addKeyword">+ Keyword</button><br>
-
-            <br><br><label for="abstract">Abstract:</label>
-            <textarea id="abstract" name="abstract"></textarea><br>
-
-            <br><br><label for="sentiment">Sentiment:</label>
-            <input type="text" id="sentiment" name="sentiment"><br>
-
-            <br><br><label for="ideology">Ideology:</label>
-            <input type="text" id="ideology" name="ideology"><br>
-
-            <br><br><label for="philosophical_views">Philosophical Views:</label>
-            <input type="text" id="philosophical_views" name="philosophical_views"><br>
-
-            <br><br><label for="thought_streams">Thought Streams:</label>
-            <div class="thought-streams-fields">
-                <div>
-                    <input type="text" name="thoughtStream" placeholder="Thought Stream">
-                </div>
-            </div>
-            <button type="button" id="addThoughtStream">+ Thought Stream</button><br>
-
-            <br><br><label for="study_fields">Study Fields:</label>
-            <div class="study-fields-fields">
-                <div>
-                    <input type="text" name="studyField" placeholder="Study Field">
-                </div>
-            </div>
-            <button type="button" id="addStudyField">+ Study Field</button><br>
-
-            <br><br><label for="related_articles">Related Articles:</label>
-            <div class="related-articles-fields">
-                <div>
-                    <input type="text" name="relatedArticleTitle" placeholder="Title">
-                    <input type="text" name="relatedArticleDOI" placeholder="DOI">
-                </div>
-            </div>
-            <button type="button" id="addRelatedArticle">+ Related Article</button><br>
-
-            <br><br><label for="document_type">Document Type:</label>
-            <input type="text" id="document_type" name="document_type"><br>
-
-            <br><br><label for="document_authors">Document Authors:</label>
-            <div class="document-author-fields">
-                <div>
-                    <input type="text" name="documentAuthorName" placeholder="Name">
-                    <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation">
-                </div>
-            </div>
-            <button type="button" id="addDocumentAuthor">+ Document Author</button><br>
-
-            <br><br><label for="content">Isi Artikel:</label>
-            <div id="content" style="min-height: 300px;"></div>
-
-            <button type="button" id="exportMarkdown">Ekspor Markdown</button>
-            
-        </form>
-
-        <div class="notification success" id="successNotification">Import successful!</div>
-        <div class="notification error" id="errorNotification">Import failed!</div>
-        <div class="spinner" id="spinner"></div>
-    </div>
-    <footer>
-        Made with ❤️ by Ma'had al-Hadlarah as-Siberniyah
-    </footer>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MHS Document Creator</title><style>body{font-family:Arial,sans-serif;background-color:#f4f4f4;margin:0;padding:20px}.container{max-width:800px;margin:auto;background:#fff;padding:50px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,.1)}h1{text-align:center}label{display:block;margin-top:10px}input,textarea{width:100%;padding:8px;margin-top:5px;border:1px solid #ccc;border-radius:4px}button{padding:10px 15px;margin-top:10px;border:none;border-radius:4px;background-color:#007bff;color:#fff;cursor:pointer}button#exportMarkdown{background-color:green;margin:20 auto}button:hover{background-color:#0056b3}footer{text-align:center;margin:auto;padding:10px 50px 50px 50px;background-color:#fff;font-family:Arial,sans-serif;font-size:14px;color:#6c757d;max-width:800px}.notification{padding:10px;margin-top:10px;border-radius:4px;display:none}.success{background-color:#d4edda;color:#155724}.error{background-color:#f8d7da;color:#721c24}.spinner{display:none;border:4px solid rgba(0,0,0,.1);width:36px;height:36px;border-radius:50%;border-left-color:#09f;animation:spin 1s ease infinite;margin:10px auto}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style><link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script></head><body><div class="container"><h1>MHS Doc Creator</h1><center>Versi 0.3</center><br><p style="text-align:center">Referensi: <a target="_blank" href="https://github.com/mahadsiber/mahadsiber.github.io/wiki/Standarisasi-Format-Dokumen-MHS">Standar Format Dokumen MHS</a></p><br><p></p><form id="articleForm" novalidate><hr><br><label for="title">Title:</label> <input type="text" id="title" name="title"><br><br><br><label for="authors">Authors (comma-separated):</label> <input type="text" id="authors" name="authors" placeholder="Author 1 (Institution), Author 2 (Institution)"><br><br><br><label for="journal">Journal:</label> <input type="text" id="journal" name="journal"><br><br><br><label for="pages">Pages:</label> <input type="text" id="pages" name="pages"><br><br><br><label for="year">Year:</label> <input type="number" id="year" name="year"><br><br><br><label for="doi">DOI:</label> <input type="text" id="doi" name="doi"><br><br><br><label for="keywords">Keywords (comma-separated):</label> <input type="text" id="keywords" name="keywords" placeholder="Keyword 1, Keyword 2"><br><br><br><label for="abstract">Abstract:</label> <textarea id="abstract" name="abstract"></textarea><br><br><br><label for="sentiment">Sentiment:</label> <input type="text" id="sentiment" name="sentiment"><br><br><br><label for="ideology">Ideology:</label> <input type="text" id="ideology" name="ideology"><br><br><br><label for="philosophical_views">Philosophical Views:</label> <input type="text" id="philosophical_views" name="philosophical_views"><br><br><br><label for="thought_streams">Thought Streams (comma-separated):</label> <input type="text" id="thought_streams" name="thought_streams" placeholder="Thought Stream 1, Thought Stream 2"><br><br><br><label for="study_fields">Study Fields (comma-separated):</label> <input type="text" id="study_fields" name="study_fields" placeholder="Study Field 1, Study Field 2"><br><br><br><label for="related_articles">Related Articles (comma-separated):</label> <input type="text" id="related_articles" name="related_articles" placeholder="Article 1, Article 2"><br><br><br><label for="document_type">Document Type:</label> <input type="text" id="document_type" name="document_type"><br><br><br><label for="document_authors">Document Authors (comma-separated):</label> <input type="text" id="document_authors" name="document_authors" placeholder="Document Author 1 (Kali Opak Cyber Culture Institute)"><br><br><br><label for="content">Isi Artikel:</label><div id="content" style="min-height:300px"></div><button type="button" id="exportMarkdown">Ekspor Markdown</button></form><div class="notification success" id="successNotification">Export successful!</div><div class="notification error" id="errorNotification">Export failed!</div><div class="spinner" id="spinner"></div></div><footer>Made with ❤️ by Ma'had al-Hadlarah as-Siberniyah</footer><script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
             var quill = new Quill('#content', {
                 theme: 'snow',
                 modules: {
@@ -234,67 +11,10 @@
                         ['hr']
                     ]
                 },
-                placeholder: 'Compose an epic...',
+                placeholder: 'Seluruh konten dokumen diletakkan di sini.',
                 readOnly: false,
                 bounds: '#content',
                 scrollingContainer: '#content'
-            });
-
-            document.getElementById('addAuthor').addEventListener('click', function() {
-                const authorFields = document.querySelector('.author-fields');
-                const newAuthorField = document.createElement('div');
-                newAuthorField.innerHTML = `
-                    <input type="text" name="authorName" placeholder="Name">
-                    <input type="text" name="authorAffiliation" placeholder="Affiliation">
-                `;
-                authorFields.appendChild(newAuthorField);
-            });
-
-            document.getElementById('addKeyword').addEventListener('click', function() {
-                const keywordsFields = document.querySelector('.keywords-fields');
-                const newKeywordField = document.createElement('div');
-                newKeywordField.innerHTML = `
-                    <input type="text" name="keyword" placeholder="Keyword">
-                `;
-                keywordsFields.appendChild(newKeywordField);
-            });
-
-            document.getElementById('addThoughtStream').addEventListener('click', function() {
-                const thoughtStreamsFields = document.querySelector('.thought-streams-fields');
-                const newThoughtStreamField = document.createElement('div');
-                newThoughtStreamField.innerHTML = `
-                    <input type="text" name="thoughtStream" placeholder="Thought Stream">
-                `;
-                thoughtStreamsFields.appendChild(newThoughtStreamField);
-            });
-
-            document.getElementById('addStudyField').addEventListener('click', function() {
-                const studyFieldsFields = document.querySelector('.study-fields-fields');
-                const newStudyFieldField = document.createElement('div');
-                newStudyFieldField.innerHTML = `
-                    <input type="text" name="studyField" placeholder="Study Field">
-                `;
-                studyFieldsFields.appendChild(newStudyFieldField);
-            });
-
-            document.getElementById('addRelatedArticle').addEventListener('click', function() {
-                const relatedArticlesFields = document.querySelector('.related-articles-fields');
-                const newRelatedArticleField = document.createElement('div');
-                newRelatedArticleField.innerHTML = `
-                    <input type="text" name="relatedArticleTitle" placeholder="Title">
-                    <input type="text" name="relatedArticleDOI" placeholder="DOI">
-                `;
-                relatedArticlesFields.appendChild(newRelatedArticleField);
-            });
-
-            document.getElementById('addDocumentAuthor').addEventListener('click', function() {
-                const documentAuthorFields = document.querySelector('.document-author-fields');
-                const newDocumentAuthorField = document.createElement('div');
-                newDocumentAuthorField.innerHTML = `
-                    <input type="text" name="documentAuthorName" placeholder="Name">
-                    <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation">
-                `;
-                documentAuthorFields.appendChild(newDocumentAuthorField);
             });
 
             document.getElementById('exportMarkdown').addEventListener('click', function() {
@@ -302,82 +22,22 @@
                 const formData = new FormData(form);
                 let markdownContent = `---
 title: "${formData.get('title')}"
-authors:
-`;
-
-                const authorFields = document.querySelectorAll('.author-fields input[name="authorName"]');
-                authorFields.forEach(field => {
-                    const name = field.value;
-                    const affiliation = field.nextElementSibling.value;
-                    markdownContent += `  - name: "${name}"
-    affiliation: "${affiliation}"
-`;
-                });
-
-                markdownContent += `journal: "${formData.get('journal')}"
+authors: "${formData.get('authors')}"
+journal: "${formData.get('journal')}"
 pages: "${formData.get('pages')}"
 year: ${formData.get('year')}
 doi: "${formData.get('doi')}"
-keywords:
-`;
-
-                const keywordFields = document.querySelectorAll('.keywords-fields input[name="keyword"]');
-                keywordFields.forEach(field => {
-                    const keyword = field.value;
-                    markdownContent += `  - "${keyword}"
-`;
-                });
-
-                markdownContent += `abstract: "${formData.get('abstract')}"
+keywords: "${formData.get('keywords')}"
+abstract: "${formData.get('abstract')}"
 sentiment: "${formData.get('sentiment')}"
 ideology: "${formData.get('ideology')}"
 philosophical_views: "${formData.get('philosophical_views')}"
-thought_streams:
-`;
-
-                const thoughtStreamFields = document.querySelectorAll('.thought-streams-fields input[name="thoughtStream"]');
-                thoughtStreamFields.forEach(field => {
-                    const thoughtStream = field.value;
-                    markdownContent += `  - "${thoughtStream}"
-`;
-                });
-
-                markdownContent += `study_fields:
-`;
-
-                const studyFieldFields = document.querySelectorAll('.study-fields-fields input[name="studyField"]');
-                studyFieldFields.forEach(field => {
-                    const studyField = field.value;
-                    markdownContent += `  - "${studyField}"
-`;
-                });
-
-                markdownContent += `related_articles:
-`;
-
-                const relatedArticleFields = document.querySelectorAll('.related-articles-fields input[name="relatedArticleTitle"]');
-                relatedArticleFields.forEach(field => {
-                    const title = field.value;
-                    const doi = field.nextElementSibling.value;
-                    markdownContent += `  - title: "${title}"
-    doi: "${doi}"
-`;
-                });
-
-                markdownContent += `document_type: "${formData.get('document_type')}"
-document_authors:
-`;
-
-                const documentAuthorFields = document.querySelectorAll('.document-author-fields input[name="documentAuthorName"]');
-                documentAuthorFields.forEach(field => {
-                    const name = field.value;
-                    const affiliation = field.nextElementSibling.value;
-                    markdownContent += `  - name: "${name}"
-    affiliation: "${affiliation}"
-`;
-                });
-
-                markdownContent += `---
+thought_streams: "${formData.get('thought_streams')}"
+study_fields: "${formData.get('study_fields')}"
+related_articles: "${formData.get('related_articles')}"
+document_type: "${formData.get('document_type')}"
+document_authors: "${formData.get('document_authors')}"
+---
 
 ${document.querySelector('.ql-editor').innerHTML}`;
 
@@ -385,198 +45,21 @@ ${document.querySelector('.ql-editor').innerHTML}`;
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                
-                const title = formData.get('title').replace(/[^a-zA-Z0-9]/g, '_');
-                a.download = `${title}.md`;
-                
+                a.download = `${formData.get('title')}.md`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
+
+                showNotification('success', 'Export successful!');
             });
 
-            document.getElementById('importButton').addEventListener('click', function() {
-                const fileInput = document.getElementById('importMarkdown');
-                const file = fileInput.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onloadstart = function() {
-                        document.getElementById('spinner').style.display = 'block';
-                    };
-                    reader.onload = function(e) {
-                        document.getElementById('spinner').style.display = 'none';
-                        const content = e.target.result;
-                        try {
-                            parseMarkdown(content);
-                            document.getElementById('successNotification').style.display = 'block';
-                            setTimeout(() => {
-                                document.getElementById('successNotification').style.display = 'none';
-                            }, 3000);
-                        } catch (error) {
-                            console.error(error);
-                            document.getElementById('errorNotification').textContent = `Import failed: ${error.message}`;
-                            document.getElementById('errorNotification').style.display = 'block';
-                            setTimeout(() => {
-                                document.getElementById('errorNotification').style.display = 'none';
-                            }, 3000);
-                        }
-                    };
-                    reader.onerror = function() {
-                        document.getElementById('spinner').style.display = 'none';
-                        document.getElementById('errorNotification').textContent = 'File read error';
-                        document.getElementById('errorNotification').style.display = 'block';
-                        setTimeout(() => {
-                            document.getElementById('errorNotification').style.display = 'none';
-                        }, 3000);
-                    };
-                    reader.readAsText(file);
-                }
-            });
-
-            function parseMarkdown(content) {
-                const metadataRegex = /---\n([\s\S]*?)\n---/;
-                const match = content.match(metadataRegex);
-                if (match) {
-                    const metadata = match[1];
-                    const metadataLines = metadata.split('\n');
-                    metadataLines.forEach(line => {
-                        const [key, value] = line.split(':').map(str => str.trim());
-                        if (key && value) {
-                            switch (key) {
-                                case 'title':
-                                    document.getElementById('title').value = value.replace(/"/g, '');
-                                    break;
-                                case 'journal':
-                                    document.getElementById('journal').value = value.replace(/"/g, '');
-                                    break;
-                                case 'pages':
-                                    document.getElementById('pages').value = value.replace(/"/g, '');
-                                    break;
-                                case 'year':
-                                    document.getElementById('year').value = parseInt(value);
-                                    break;
-                                case 'doi':
-                                    document.getElementById('doi').value = value.replace(/"/g, '');
-                                    break;
-                                case 'abstract':
-                                    document.getElementById('abstract').value = value.replace(/"/g, '');
-                                    break;
-                                case 'sentiment':
-                                    document.getElementById('sentiment').value = value.replace(/"/g, '');
-                                    break;
-                                case 'ideology':
-                                    document.getElementById('ideology').value = value.replace(/"/g, '');
-                                    break;
-                                case 'philosophical_views':
-                                    document.getElementById('philosophical_views').value = value.replace(/"/g, '');
-                                    break;
-                                case 'document_type':
-                                    document.getElementById('document_type').value = value.replace(/"/g, '');
-                                    break;
-                                case 'authors':
-                                    const authors = value.split(',').map(author => {
-                                        const [name, affiliation] = author.split('(').map(str => str.trim().replace(/[)"']/g, ''));
-                                        return { name, affiliation };
-                                    });
-                                    const authorFields = document.querySelector('.author-fields');
-                                    authorFields.innerHTML = '';
-                                    authors.forEach(author => {
-                                        const newAuthorField = document.createElement('div');
-                                        newAuthorField.innerHTML = `
-                                            <input type="text" name="authorName" placeholder="Name" value="${author.name}">
-                                            <input type="text" name="authorAffiliation" placeholder="Affiliation" value="${author.affiliation}">
-                                        `;
-                                        authorFields.appendChild(newAuthorField);
-                                    });
-                                    break;
-                                case 'keywords':
-                                    const keywords = value.split(',').map(keyword => keyword.trim().replace(/[)"']/g, ''));
-                                    const keywordsFields = document.querySelector('.keywords-fields');
-                                    keywordsFields.innerHTML = '';
-                                    keywords.forEach(keyword => {
-                                        const newKeywordField = document.createElement('div');
-                                        newKeywordField.innerHTML = `
-                                            <input type="text" name="keyword" placeholder="Keyword" value="${keyword}">
-                                        `;
-                                        keywordsFields.appendChild(newKeywordField);
-                                    });
-                                    break;
-                                case 'thought_streams':
-                                    const thoughtStreams = value.split(',').map(thoughtStream => thoughtStream.trim().replace(/[)"']/g, ''));
-                                    const thoughtStreamsFields = document.querySelector('.thought-streams-fields');
-                                    thoughtStreamsFields.innerHTML = '';
-                                    thoughtStreams.forEach(thoughtStream => {
-                                        const newThoughtStreamField = document.createElement('div');
-                                        newThoughtStreamField.innerHTML = `
-                                            <input type="text" name="thoughtStream" placeholder="Thought Stream" value="${thoughtStream}">
-                                        `;
-                                        thoughtStreamsFields.appendChild(newThoughtStreamField);
-                                    });
-                                    break;
-                                case 'study_fields':
-                                    const studyFields = value.split(',').map(studyField => studyField.trim().replace(/[)"']/g, ''));
-                                    const studyFieldsFields = document.querySelector('.study-fields-fields');
-                                    studyFieldsFields.innerHTML = '';
-                                    studyFields.forEach(studyField => {
-                                        const newStudyFieldField = document.createElement('div');
-                                        newStudyFieldField.innerHTML = `
-                                            <input type="text" name="studyField" placeholder="Study Field" value="${studyField}">
-                                        `;
-                                        studyFieldsFields.appendChild(newStudyFieldField);
-                                    });
-                                    break;
-                                case 'related_articles':
-                                    const relatedArticles = value.split(',').map(relatedArticle => {
-                                        const [title, doi] = relatedArticle.split('(').map(str => str.trim().replace(/[)"']/g, ''));
-                                        return { title, doi };
-                                    });
-                                    const relatedArticlesFields = document.querySelector('.related-articles-fields');
-                                    relatedArticlesFields.innerHTML = '';
-                                    relatedArticles.forEach(relatedArticle => {
-                                        const newRelatedArticleField = document.createElement('div');
-                                        newRelatedArticleField.innerHTML = `
-                                            <input type="text" name="relatedArticleTitle" placeholder="Title" value="${relatedArticle.title}">
-                                            <input type="text" name="relatedArticleDOI" placeholder="DOI" value="${relatedArticle.doi}">
-                                        `;
-                                        relatedArticlesFields.appendChild(newRelatedArticleField);
-                                    });
-                                    break;
-                                case 'document_authors':
-                                    const documentAuthors = value.split(',').map(documentAuthor => {
-                                        const [name, affiliation] = documentAuthor.split('(').map(str => str.trim().replace(/[)"']/g, ''));
-                                        return { name, affiliation };
-                                    });
-                                    const documentAuthorFields = document.querySelector('.document-author-fields');
-                                    documentAuthorFields.innerHTML = '';
-                                    documentAuthors.forEach(documentAuthor => {
-                                        const newDocumentAuthorField = document.createElement('div');
-                                        newDocumentAuthorField.innerHTML = `
-                                            <input type="text" name="documentAuthorName" placeholder="Name" value="${documentAuthor.name}">
-                                            <input type="text" name="documentAuthorAffiliation" placeholder="Affiliation" value="${documentAuthor.affiliation}">
-                                        `;
-                                        documentAuthorFields.appendChild(newDocumentAuthorField);
-                                    });
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    });
-                }
-
-                const contentRegex = /---\n([\s\S]*?)\n---([\s\S]*)/;
-                const contentMatch = content.match(contentRegex);
-                if (contentMatch) {
-                    const articleContent = contentMatch[2].trim();
-                    const htmlContent = marked.parse(articleContent);
-                    quill.clipboard.dangerouslyPasteHTML(htmlContent);
-                } else {
-                    // Attempt to parse content even if metadata is missing or malformed
-                    const htmlContent = marked.parse(content);
-                    quill.clipboard.dangerouslyPasteHTML(htmlContent);
-                }
+            function showNotification(type, message) {
+                const notification = document.getElementById(type + 'Notification');
+                notification.textContent = message;
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
             }
-        });
-    </script>
-</body>
-</html>
+        });</script></body></html>
