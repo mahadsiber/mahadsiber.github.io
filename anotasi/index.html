@@ -253,6 +253,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
+    <!-- For PDF parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+    <!-- For DOCX parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.20/mammoth.browser.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('fileInput');
@@ -293,19 +299,42 @@
 
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    contentArea.value = e.target.result;
+                    const fileType = file.name.split('.').pop().toLowerCase();
+                    if (fileType === 'pdf') {
+                        parsePdf(e.target.result);
+                    } else if (fileType === 'docx') {
+                        parseDocx(e.target.result);
+                    } else {
+                        contentArea.value = e.target.result;
+                    }
                 };
-                reader.readAsText(file);
+                reader.readAsArrayBuffer(file);
+            }
+
+            async function parsePdf(data) {
+                const pdf = await pdfjsLib.getDocument({ data }).promise;
+                let text = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const content = await page.getTextContent();
+                    text += content.items.map(item => item.str).join(' ');
+                }
+                contentArea.value = text;
+            }
+
+            async function parseDocx(data) {
+                const result = await mammoth.convertToHtml({ arrayBuffer: data });
+                contentArea.value = result.value;
             }
 
             function exportMarkdown() {
                 const markdown = contentArea.value;
                 const yamlFrontmatter = `---
-${Object.entries(entities).map(([key, values]) => {
+        ${Object.entries(entities).map(([key, values]) => {
                     if (values.length === 0) return '';
                     return `  ${key}: "${values.join(', ')}"`;
                 }).filter(Boolean).join('\n')}
----`;
+        ---`;
 
                 const title = entities.title.length > 0 ? entities.title[0] : 'untitled';
                 const sanitizedTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
