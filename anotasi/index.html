@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Annotation Tool</title>
+    <style>
+        /* Main Content Styles */
+        .content {
+            grid-area: content;
+            padding: 10px;
+            overflow-y: auto;
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Textarea Styles */
+        #contentArea {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            box-sizing: border-box;
+            padding: 10px;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: 1.5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Styles for the Header */
+        h3 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        p {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #555;
+            margin-top: 0;
+            font-size: 14px;
+        }
+
+        /* Styles for file input and export button */
+        #fileButton, #exportButton {
+            padding: 12px 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+
+        #fileButton:hover, #exportButton:hover {
+            background-color: #0056b3;
+        }
+
+        /* Container for entity buttons */
+        .entity-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        /* Base style for entity buttons */
+        .entity-button {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Entity button styles for color blindness accessibility */
+        .entity-button.title { background-color: #0033cc; color: #ffffff; }
+        .entity-button.author { background-color: #ff6600; color: #ffffff; }
+        .entity-button.date_of_publication { background-color: #009900; color: #ffffff; }
+        .entity-button.publisher { background-color: #cc0000; color: #ffffff; }
+        .entity-button.location { background-color: #6600cc; color: #ffffff; }
+        .entity-button.person { background-color: #ffcc00; color: #000000; }
+        .entity-button.organization { background-color: #00cccc; color: #000000; }
+        .entity-button.keyword { background-color: #ff99cc; color: #000000; }
+        .entity-button.key_point { background-color: #ccffcc; color: #000000; }
+        .entity-button.quotation { background-color: #f0f0f0; color: #000000; }
+
+        /* Hover and focus states for accessibility */
+        .entity-button:hover, .entity-button:focus {
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
+        }
+
+        /* Styles for disabled or selected buttons */
+        .entity-button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        .entity-button.selected {
+            border: 2px solid #000000;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Entity list styles */
+        #annotations { margin-top: 20px; }
+        #annotations h3 { margin-top: 0; }
+
+        /* Entity List Styles */
+        #entityList {
+            list-style: none;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        .entity-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .entity-key {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .entity-value {
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* Edit Button Styles */
+        .edit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Container layout */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-areas: "left-sidebar content right-sidebar";
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Left Sidebar Styles */
+        .left-sidebar {
+            grid-area: left-sidebar;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+
+        /* Right Sidebar Styles */
+        .right-sidebar {
+            grid-area: right-sidebar;
+            padding: 10px;
+            border-left: 1px solid #ddd;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+
+        /* Ensure both sidebars and content are responsive */
+        @media (max-width: 800px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-areas: "content" "left-sidebar" "right-sidebar";
+            }
+
+            .left-sidebar, .right-sidebar {
+                border: none;
+            }
+
+            .left-sidebar { border-bottom: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="left-sidebar">
+            <h3>MHS Text Annotator</h3>
+            <p>Versi 0.1</p>
+
+            <!-- File Upload Section -->
+            <input type="file" id="fileInput" style="display: none;">
+            <button id="fileButton">Upload File</button>
+
+            <!-- Entity Buttons -->
+            <div class="entity-buttons">
+                <button class="entity-button title" data-entity="title">Title</button>
+                <button class="entity-button author" data-entity="author">Author</button>
+                <button class="entity-button date_of_publication" data-entity="date_of_publication">Date of Publication</button>
+                <button class="entity-button publisher" data-entity="publisher">Publisher</button>
+                <button class="entity-button location" data-entity="location">Location</button>
+                <button class="entity-button person" data-entity="person">Person</button>
+                <button class="entity-button organization" data-entity="organization">Organization</button>
+                <button class="entity-button keyword" data-entity="keyword">Keyword</button>
+                <button class="entity-button key_point" data-entity="key_point">Key Point</button>
+                <button class="entity-button quotation" data-entity="quotation">Quotation</button>
+            </div>
+
+            <!-- Export Button -->
+            <button id="exportButton">Export to Markdown</button>
+        </aside>
+
+        <main class="content">
+            <textarea id="contentArea" placeholder="Annotate text here..."></textarea>
+        </main>
+
+        <aside class="right-sidebar">
+            <div id="annotations">
+                <h3>Entities</h3>
+                <ul id="entityList"></ul>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const contentArea = document.getElementById('contentArea');
+            const fileButton = document.getElementById('fileButton');
+            const exportButton = document.getElementById('exportButton');
+            const entityButtons = document.querySelectorAll('.entity-button');
+            const entityList = document.getElementById('entityList');
+
+            let selectedEntity = null;
+            const entities = {
+                title: [],
+                author: [],
+                date_of_publication: [],
+                publisher: [],
+                location: [],
+                person: [],
+                organization: [],
+                keyword: [],
+                key_point: [],
+                quotation: []
+            };
+
+            fileButton.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileUpload);
+            exportButton.addEventListener('click', exportMarkdown);
+
+            entityButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    selectedEntity = button.dataset.entity;
+                    setEntityButtonState(button);
+                });
+            });
+
+            function handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    contentArea.value = e.target.result;
+                };
+                reader.readAsText(file);
+            }
+
+            function exportMarkdown() {
+                const markdown = contentArea.value;
+                const yamlFrontmatter = `---
+${Object.entries(entities).map(([key, values]) => {
+                    if (values.length === 0) return '';
+                    return `  ${key}: "${values.join(', ')}"`;
+                }).filter(Boolean).join('\n')}
+---`;
+
+                const title = entities.title.length > 0 ? entities.title[0] : 'untitled';
+                const sanitizedTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                const fileName = `${sanitizedTitle}-annotated.md`;
+
+                const blob = new Blob([yamlFrontmatter + '\n\n' + markdown], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            function setEntityButtonState(button) {
+                entityButtons.forEach(btn => btn.classList.remove('selected'));
+                if (button) button.classList.add('selected');
+            }
+
+            contentArea.addEventListener('mouseup', () => {
+                const selection = window.getSelection().toString();
+                if (selectedEntity && selection) {
+                    entities[selectedEntity].push(selection);
+                    updateEntityList();
+                }
+                selectedEntity = null;
+                setEntityButtonState(null);
+            });
+
+            function updateEntityList() {
+                entityList.innerHTML = Object.entries(entities).map(([key, values]) => {
+                    if (values.length === 0) return '';
+                    return `
+                        <li class="entity-item">
+                            <span class="entity-key">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                            <span class="entity-value">${values.join(', ')}</span>
+                            <button class="edit-button" data-entity="${key}">Edit</button>
+                        </li>
+                    `;
+                }).filter(Boolean).join('');
+                addEditButtonListeners();
+            }
+
+            function addEditButtonListeners() {
+                document.querySelectorAll('.edit-button').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const entityType = event.target.dataset.entity;
+                        const entityValue = prompt('Enter new value (comma-separated):', entities[entityType].join(', '));
+                        if (entityValue !== null) {
+                            entities[entityType] = entityValue.split(',').map(val => val.trim());
+                            updateEntityList();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
