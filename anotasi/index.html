@@ -300,8 +300,15 @@
 
             entityButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    selectedEntity = button.dataset.entity;
-                    setEntityButtonState(button);
+                    const selection = window.getSelection().toString().trim();
+                    if (selection) {
+                        selectedEntity = button.dataset.entity;
+                        entities[selectedEntity].push(selection);
+                        updateEntityList();
+                        setEntityButtonState(null);
+                    } else {
+                        alert('Please select text first.');
+                    }
                 });
             });
 
@@ -312,9 +319,6 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const fileType = file.name.split('.').pop().toLowerCase();
-                    console.log('File type:', fileType);
-                    console.log('File content:', e.target.result);
-
                     if (fileType === 'pdf') {
                         parsePdf(e.target.result);
                     } else if (fileType === 'docx') {
@@ -352,11 +356,11 @@
             function exportMarkdown() {
                 const markdown = contentArea.value;
                 const yamlFrontmatter = `---
-        ${Object.entries(entities).map(([key, values]) => {
-                    if (values.length === 0) return '';
-                    return `  ${key}: "${values.join(', ')}"`;
-                }).filter(Boolean).join('\n')}
-        ---`;
+${Object.entries(entities).map(([key, values]) => {
+    if (values.length === 0) return '';
+    return `${key}: "${values.join(', ')}"`;
+}).filter(Boolean).join('\n')}
+---`;
 
                 const title = entities.title.length > 0 ? entities.title[0] : 'untitled';
                 const sanitizedTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -376,16 +380,6 @@
                 entityButtons.forEach(btn => btn.classList.remove('selected'));
                 if (button) button.classList.add('selected');
             }
-
-            contentArea.addEventListener('mouseup', () => {
-                const selection = window.getSelection().toString();
-                if (selectedEntity && selection) {
-                    entities[selectedEntity].push(selection);
-                    updateEntityList();
-                }
-                selectedEntity = null;
-                setEntityButtonState(null);
-            });
 
             function updateEntityList() {
                 entityList.innerHTML = Object.entries(entities).map(([key, values]) => {
