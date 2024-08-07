@@ -47,7 +47,7 @@
         }
 
         /* Styles for file input and export button */
-        #fileButton, #exportButton {
+        #fileButton, #resetButton, #exportButton {
             padding: 12px 20px;
             border-radius: 6px;
             border: 1px solid #ccc;
@@ -57,6 +57,10 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-bottom: 10px;
+        }
+
+        #resetButton {
+            background-color: #cc6600;
         }
 
         #fileButton:hover, #exportButton:hover {
@@ -264,8 +268,8 @@
             <div>
                 <details>
                     <summary>Lihat Panduan Penggunaan</summary>
-                    <p>1. Klik **Unggah File** untuk memilih file teks, PDF, atau DOCX yang ingin Anda anotasi. Setelah file dipilih, isi teks akan muncul di area anotasi.</p>
-                    <p>2. Seleksi bagian teks, kemudian klik salah satu tombol Entity (misalnya, "Title", "Author", "URL", dll.). Maka teks tersebut akan ditambahkan ke entitas yang Anda pilih.</p>
+                    <p>1. Unggah File atau drag and drop untuk menampilkan file teks, PDF, atau DOCX yang ingin Anda anotasi. Reset untuk mengganti file.</p>
+                    <p>2. Seleksi bagian dari teks yang ingin diset sebagai entitas, kemudian klik salah satu tombol Entity (misalnya, "Title", "Author", "URL", dll.). Maka teks tersebut akan ditambahkan ke entitas yang Anda pilih.</p>
                     <p>3. Entitas yang telah Anda anotasi akan muncul di sidebar kanan. Klik tombol "Edit" untuk mengubah value entitas. Anda dapat mengedit nilai entitas dengan memasukkan nilai baru dan menekan OK.</p>
                     <p>4. Ekspor ke Markdown: Setelah selesai anotasi, klik tombol "Ekspor Markdown" untuk mengekspor hasil anotasi ke format Markdown. File Markdown akan otomatis diunduh ke komputer Anda.</p>
                 </details>
@@ -274,6 +278,7 @@
             <!-- File Upload Section -->
             <input type="file" id="fileInput" style="display: none;">
             <button style="float: left;" id="fileButton">Unggah File</button>
+            <button style="float: left;" id="resetButton">Reset</button>
             <!-- Export Button -->
             <button style="float: right;" id="exportButton">Ekspor Markdown</button>
 
@@ -348,7 +353,7 @@
         </aside>
 
         <main class="content">
-            <div id="contentArea" contenteditable="true" placeholder="Klik Unggah File atau drag and drop..." style="width: 100%; height: 100%; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-sizing: border-box;"></div>
+            <div id="contentArea" contenteditable="true" data-placeholder="Klik Unggah File atau drag and drop..." style="width: 100%; height: 100%; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-sizing: border-box;"></div>
         </main>
 
         <aside class="right-sidebar">
@@ -376,6 +381,23 @@
             const exportButton = document.getElementById('exportButton');
             const entityButtons = document.querySelectorAll('.entity-button');
             const entityList = document.getElementById('entityList');
+
+            const resetButton = document.getElementById('resetButton');
+
+            resetButton.addEventListener('click', () => {
+                // Clear the content area
+                contentArea.innerHTML = contentArea.dataset.placeholder;
+                contentArea.style.color = '#aaa';
+
+                // Clear the entities
+                for (const key in entities) {
+                    entities[key] = [];
+                }
+                updateEntityList();
+
+                // Optionally, reload the page to fully reset the state
+                // location.reload();
+            });
 
             let selectedEntity = null;
             const entities = {
@@ -573,6 +595,27 @@ ${Object.entries(entities).map(([key, values]) => {
                         }
                     });
                 });
+            }
+
+            // Placeholder functionality
+            contentArea.addEventListener('focus', () => {
+                if (contentArea.innerText === contentArea.dataset.placeholder) {
+                    contentArea.innerText = '';
+                    contentArea.style.color = '#000';
+                }
+            });
+
+            contentArea.addEventListener('blur', () => {
+                if (contentArea.innerText === '') {
+                    contentArea.innerText = contentArea.dataset.placeholder;
+                    contentArea.style.color = '#aaa';
+                }
+            });
+
+            // Initialize placeholder
+            if (contentArea.innerText === '') {
+                contentArea.innerText = contentArea.dataset.placeholder;
+                contentArea.style.color = '#aaa';
             }
         });
     </script>
