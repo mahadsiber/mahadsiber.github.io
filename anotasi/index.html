@@ -252,7 +252,7 @@
         </aside>
 
         <main class="content">
-            <textarea id="contentArea" placeholder="Annotate text here..."></textarea>
+            <div id="contentArea" contenteditable="true" placeholder="Annotate text here..." style="width: 100%; height: 100%; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-sizing: border-box;"></div>
         </main>
 
         <aside class="right-sidebar">
@@ -324,7 +324,7 @@
                     } else if (fileType === 'docx') {
                         parseDocx(e.target.result);
                     } else if (fileType === 'md' || fileType === 'txt') {
-                        contentArea.value = e.target.result;
+                        contentArea.innerHTML = e.target.result;
                     } else {
                         alert('Unsupported file type');
                     }
@@ -345,22 +345,22 @@
                     const content = await page.getTextContent();
                     text += content.items.map(item => item.str).join(' ');
                 }
-                contentArea.value = text;
+                contentArea.innerHTML = text;
             }
 
             async function parseDocx(data) {
                 const result = await mammoth.convertToHtml({ arrayBuffer: data });
-                contentArea.value = result.value;
+                contentArea.innerHTML = result.value;
             }
 
             function exportMarkdown() {
-                const markdown = contentArea.value;
+                const markdown = contentArea.innerText;
                 const yamlFrontmatter = `---
 ${Object.entries(entities).map(([key, values]) => {
     if (values.length === 0) return '';
     return `${key}: "${values.join(', ')}"`;
 }).filter(Boolean).join('\n')}
----`;
+        ---`;
 
                 const title = entities.title.length > 0 ? entities.title[0] : 'untitled';
                 const sanitizedTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
