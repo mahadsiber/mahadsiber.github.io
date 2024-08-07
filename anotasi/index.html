@@ -264,6 +264,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- For PDF parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
@@ -323,7 +324,10 @@
                         parsePdf(e.target.result);
                     } else if (fileType === 'docx') {
                         parseDocx(e.target.result);
-                    } else if (fileType === 'md' || fileType === 'txt') {
+                    } else if (fileType === 'md') {
+                        const markdownContent = e.target.result;
+                        contentArea.innerHTML = marked.parse(markdownContent);
+                    } else if (fileType === 'txt') {
                         contentArea.innerHTML = e.target.result;
                     } else {
                         alert('Unsupported file type');
@@ -360,7 +364,7 @@ ${Object.entries(entities).map(([key, values]) => {
     if (values.length === 0) return '';
     return `${key}: "${values.join(', ')}"`;
 }).filter(Boolean).join('\n')}
-        ---`;
+---`;
 
                 const title = entities.title.length > 0 ? entities.title[0] : 'untitled';
                 const sanitizedTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
