@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Annotation Tool</title>
+    <title>MHS Text Annotation Tool</title>
     <style>
         /* Main Content Styles */
         .content {
@@ -39,11 +39,11 @@
             font-size: 24px;
         }
 
-        p {
+        p, details, summary {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #555;
-            margin-top: 0;
-            font-size: 14px;
+            margin: 0 0 10px 0;
+            font-size: 16px;
         }
 
         /* Styles for file input and export button */
@@ -86,16 +86,59 @@
         }
 
         /* Entity button styles for color blindness accessibility */
-        .entity-button.title { background-color: #0033cc; color: #ffffff; }
-        .entity-button.author { background-color: #ff6600; color: #ffffff; }
-        .entity-button.date_of_publication { background-color: #009900; color: #ffffff; }
-        .entity-button.publisher { background-color: #cc0000; color: #ffffff; }
-        .entity-button.location { background-color: #6600cc; color: #ffffff; }
-        .entity-button.person { background-color: #ffcc00; color: #000000; }
-        .entity-button.organization { background-color: #00cccc; color: #000000; }
-        .entity-button.keyword { background-color: #ff99cc; color: #000000; }
-        .entity-button.key_point { background-color: #ccffcc; color: #000000; }
-        .entity-button.quotation { background-color: #f0f0f0; color: #000000; }
+        .entity-button.abstract { background-color: #0033cc; color: #ffffff; }
+        .entity-button.academic_discipline { background-color: #ff6600; color: #ffffff; }
+        .entity-button.algorithm { background-color: #009900; color: #ffffff; }
+        .entity-button.authors { background-color: #cc0000; color: #ffffff; }
+        .entity-button.cardinal_number { background-color: #6600cc; color: #ffffff; }
+        .entity-button.citation { background-color: #ffcc00; color: #000000; }
+        .entity-button.conference { background-color: #00cccc; color: #000000; }
+        .entity-button.dataset { background-color: #ff99cc; color: #000000; }
+        .entity-button.date { background-color: #ccffcc; color: #000000; }
+        .entity-button.document_type { background-color: #f0f0f0; color: #000000; }
+        .entity-button.doi { background-color: #9900cc; color: #ffffff; }
+        .entity-button.email_address { background-color: #00cc99; color: #000000; }
+        .entity-button.event { background-color: #cc6600; color: #ffffff; }
+        .entity-button.experiment { background-color: #66cc00; color: #000000; }
+        .entity-button.facility { background-color: #cc0066; color: #ffffff; }
+        .entity-button.grant { background-color: #0066cc; color: #ffffff; }
+        .entity-button.hypothesis { background-color: #cc9900; color: #000000; }
+        .entity-button.ideology { background-color: #99cc00; color: #000000; }
+        .entity-button.issue { background-color: #cc0099; color: #ffffff; }
+        .entity-button.job_title { background-color: #0099cc; color: #ffffff; }
+        .entity-button.journal { background-color: #cc3300; color: #ffffff; }
+        .entity-button.keywords { background-color: #660099; color: #ffffff; }
+        .entity-button.laboratory { background-color: #ffcc99; color: #000000; }
+        .entity-button.language { background-color: #00cc66; color: #000000; }
+        .entity-button.law { background-color: #cc99cc; color: #000000; }
+        .entity-button.location { background-color: #99cc99; color: #000000; }
+        .entity-button.methodology { background-color: #cc6699; color: #000000; }
+        .entity-button.money { background-color: #009999; color: #ffffff; }
+        .entity-button.nationality { background-color: #cc0033; color: #ffffff; }
+        .entity-button.ordinal_number { background-color: #6699cc; color: #000000; }
+        .entity-button.organization { background-color: #cc9966; color: #000000; }
+        .entity-button.pages { background-color: #9966cc; color: #000000; }
+        .entity-button.patent { background-color: #cc3366; color: #ffffff; }
+        .entity-button.percentage { background-color: #66cc99; color: #000000; }
+        .entity-button.person { background-color: #cc66cc; color: #000000; }
+        .entity-button.philosophical_views { background-color: #99cc66; color: #000000; }
+        .entity-button.product { background-color: #cc9933; color: #000000; }
+        .entity-button.quantity { background-color: #66cc66; color: #000000; }
+        .entity-button.related_articles { background-color: #cc3399; color: #ffffff; }
+        .entity-button.research_institution { background-color: #996699; color: #000000; }
+        .entity-button.research_method { background-color: #cc6633; color: #000000; }
+        .entity-button.scientific_concept { background-color: #669966; color: #000000; }
+        .entity-button.sentiment { background-color: #cc9999; color: #000000; }
+        .entity-button.study_fields { background-color: #99cc33; color: #000000; }
+        .entity-button.technology { background-color: #cc6666; color: #000000; }
+        .entity-button.theoretical_framework { background-color: #669999; color: #000000; }
+        .entity-button.thought_streams { background-color: #cc3333; color: #ffffff; }
+        .entity-button.time { background-color: #996666; color: #000000; }
+        .entity-button.title { background-color: #cc99cc; color: #000000; }
+        .entity-button.url { background-color: #66cc99; color: #000000; }
+        .entity-button.volume { background-color: #cc66cc; color: #000000; }
+        .entity-button.work_of_art { background-color: #99cc66; color: #000000; }
+        .entity-button.year { background-color: #cc9933; color: #000000; }
 
         /* Hover and focus states for accessibility */
         .entity-button:hover, .entity-button:focus {
@@ -173,7 +216,7 @@
         /* Container layout */
         .container {
             display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-columns: 2fr 3fr 1fr;
             grid-template-areas: "left-sidebar content right-sidebar";
             height: 100vh;
             overflow: hidden;
@@ -215,39 +258,92 @@
 <body>
     <div class="container">
         <aside class="left-sidebar">
-            <h3>MHS Text Annotator</h3>
-            <p>Versi 0.1</p>
+            <h3>Anotasi Teks MHS</h3>
+            <p>Versi 0.2</p>
+            
+            <div>
+                <details>
+                    <summary>Lihat Panduan Penggunaan</summary>
+                    <p>1. Klik **Unggah File** untuk memilih file teks, PDF, atau DOCX yang ingin Anda anotasi. Setelah file dipilih, isi teks akan muncul di area anotasi.</p>
+                    <p>2. Seleksi bagian teks, kemudian klik salah satu tombol Entity (misalnya, "Title", "Author", "URL", dll.). Maka teks tersebut akan ditambahkan ke entitas yang Anda pilih.</p>
+                    <p>3. Entitas yang telah Anda anotasi akan muncul di sidebar kanan. Klik tombol "Edit" untuk mengubah value entitas. Anda dapat mengedit nilai entitas dengan memasukkan nilai baru dan menekan OK.</p>
+                    <p>4. Ekspor ke Markdown: Setelah selesai anotasi, klik tombol "Ekspor Markdown" untuk mengekspor hasil anotasi ke format Markdown. File Markdown akan otomatis diunduh ke komputer Anda.</p>
+                </details>
+            </div>
 
             <!-- File Upload Section -->
             <input type="file" id="fileInput" style="display: none;">
-            <button id="fileButton">Upload File</button>
+            <button style="float: left;" id="fileButton">Unggah File</button>
+            <!-- Export Button -->
+            <button style="float: right;" id="exportButton">Ekspor Markdown</button>
 
             <!-- Entity Buttons -->
             <div class="entity-buttons">
                 <button class="entity-button title" data-entity="title">Title</button>
-                <button class="entity-button author" data-entity="author">Author</button>
-                <button class="entity-button date_of_publication" data-entity="date_of_publication">Date of Publication</button>
-                <button class="entity-button publisher" data-entity="publisher">Publisher</button>
+                <button class="entity-button authors" data-entity="authors">Authors</button>
+                <button class="entity-button url" data-entity="url">URL</button>
+                <button class="entity-button abstract" data-entity="abstract">Abstract</button>
+                <!-- 
+                <button class="entity-button academic_discipline" data-entity="academic_discipline">Academic Discipline</button>
+                <button class="entity-button algorithm" data-entity="algorithm">Algorithm</button>
+                -->
+                <button class="entity-button cardinal_number" data-entity="cardinal_number">Cardinal Number</button>
+                <button class="entity-button citation" data-entity="citation">Citation</button>
+                <button class="entity-button conference" data-entity="conference">Conference</button>
+                <!-- 
+                <button class="entity-button dataset" data-entity="dataset">Dataset</button>
+                -->
+                <button class="entity-button date" data-entity="date">Date</button>
+                <button class="entity-button document_type" data-entity="document_type">Document Type</button>
+                <button class="entity-button doi" data-entity="doi">DOI</button>
+                <button class="entity-button email_address" data-entity="email_address">Email</button>
+                <button class="entity-button event" data-entity="event">Event</button>
+                <!-- 
+                <button class="entity-button experiment" data-entity="experiment">Experiment</button>
+                <button class="entity-button facility" data-entity="facility">Facility</button>
+                <button class="entity-button grant" data-entity="grant">Grant</button>
+                -->
+                <button class="entity-button hypothesis" data-entity="hypothesis">Hypothesis</button>
+                <button class="entity-button ideology" data-entity="ideology">Ideology</button>
+                <button class="entity-button issue" data-entity="issue">Issue</button>
+                <button class="entity-button job_title" data-entity="job_title">Job Title</button>
+                <button class="entity-button journal" data-entity="journal">Journal</button>
+                <button class="entity-button keywords" data-entity="keywords">Keywords</button>
+                <!-- 
+                <button class="entity-button laboratory" data-entity="laboratory">Laboratory</button>
+                -->
+                <button class="entity-button language" data-entity="language">Language</button>
+                <button class="entity-button law" data-entity="law">Law</button>
                 <button class="entity-button location" data-entity="location">Location</button>
-                <button class="entity-button person" data-entity="person">Person</button>
+                <button class="entity-button methodology" data-entity="methodology">Methodology</button>
+                <button class="entity-button money" data-entity="money">Money</button>
+                <button class="entity-button nationality" data-entity="nationality">Nationality</button>
+                <button class="entity-button ordinal_number" data-entity="ordinal_number">Ordinal Number</button>
                 <button class="entity-button organization" data-entity="organization">Organization</button>
-                <button class="entity-button keyword" data-entity="keyword">Keyword</button>
-                <button class="entity-button key_point" data-entity="key_point">Key Point</button>
-                <button class="entity-button quotation" data-entity="quotation">Quotation</button>
-            </div>
-
-            <!-- Export Button -->
-            <button id="exportButton">Export to Markdown</button>
-            <div>
-                <details>
-                    <summary>Panduan Penggunaan</summary>
-                    <p>1. Memulai Anotasi<br><br>Upload File: Klik tombol "Upload File" untuk memilih file teks, PDF, atau DOCX yang ingin Anda anotasi. Setelah file dipilih, isi teks akan muncul di area anotasi.</p>
-                    <p>2. Anotasi Teks<br><br>Pilih Entitas: Di sidebar kiri, pilih jenis entitas yang ingin Anda anotasi (misalnya, "Title", "Author", "Date of Publication", dll.). Tombol entitas akan berubah menjadi aktif saat Anda memilihnya.<br><br>Anotasi Teks: Pilih teks yang ingin Anda anotasi di area anotasi. Setelah memilih, teks tersebut akan ditambahkan ke entitas yang Anda pilih.</p>
-                    <p>3. Mengelola Entitas<br><br>Lihat Entitas: Entitas yang telah Anda anotasi akan muncul di sidebar kanan dengan label dan nilai entitas.<br><br>Edit Entitas: Klik tombol "Edit" di samping entitas untuk mengubah nilai entitas. Anda dapat mengedit nilai entitas dengan memasukkan nilai baru dan menekan OK.</p>
-                    <p>4. Mengekspor Anotasi<br><br>Ekspor ke Markdown: Setelah selesai anotasi, klik tombol "Export to Markdown" untuk mengekspor hasil anotasi ke format Markdown. File Markdown akan otomatis diunduh ke komputer Anda.</p>
-                    <p>5. Navigasi dan Penggunaan<br><br>Area Anotasi: Gunakan area anotasi di tengah layar untuk melihat dan anotasi teks.<br><br>Sidebar Kiri: Gunakan sidebar kiri untuk memilih jenis entitas dan mengunggah file.<br><br>Sidebar Kanan: Gunakan sidebar kanan untuk melihat dan mengelola entitas yang telah Anda anotasi.</p>
-                    <p>6. Tips<br><br>Seleksi Teks: Pastikan Anda memilih teks dengan benar sebelum memilih jenis entitas.<br><br>Konsistensi: Pastikan Anda menggunakan jenis entitas yang konsisten untuk memudahkan pengelolaan data.<br><br>Periksa Sebelum Ekspor: Periksa kembali entitas yang telah Anda anotasi sebelum mengekspor hasilnya.</p>
-                </details>
+                <button class="entity-button pages" data-entity="pages">Pages</button>
+                <!-- 
+                <button class="entity-button patent" data-entity="patent">Patent</button>
+            -->
+                <button class="entity-button percentage" data-entity="percentage">Percentage</button>
+                <button class="entity-button person" data-entity="person">Person</button>
+                <button class="entity-button philosophical_views" data-entity="philosophical_views">Philosophical Views</button>
+                <button class="entity-button product" data-entity="product">Product</button>
+                <button class="entity-button quantity" data-entity="quantity">Quantity</button>
+                <button class="entity-button related_articles" data-entity="related_articles">Related Articles</button>
+                <button class="entity-button research_institution" data-entity="research_institution">Research Institution</button>
+                <button class="entity-button research_method" data-entity="research_method">Research Method</button>
+                <button class="entity-button scientific_concept" data-entity="scientific_concept">Scientific Concept</button>
+                <button class="entity-button sentiment" data-entity="sentiment">Sentiment</button>
+                <button class="entity-button study_fields" data-entity="study_fields">Study Fields</button>
+                <button class="entity-button technology" data-entity="technology">Technology</button>
+                <button class="entity-button theoretical_framework" data-entity="theoretical_framework">Theoretical Framework</button>
+                <button class="entity-button thought_streams" data-entity="thought_streams">Thought Streams</button>
+                <button class="entity-button time" data-entity="time">Time</button>
+                <button class="entity-button volume" data-entity="volume">Volume</button>
+                <!-- 
+                <button class="entity-button work_of_art" data-entity="work_of_art">Work of Art</button>
+                -->
+                <button class="entity-button year" data-entity="year">Year</button>
             </div>
         </aside>
 
@@ -283,16 +379,59 @@
 
             let selectedEntity = null;
             const entities = {
-                title: [],
-                author: [],
-                date_of_publication: [],
-                publisher: [],
+                abstract: [],
+                academic_discipline: [],
+                algorithm: [],
+                authors: [],
+                cardinal_number: [],
+                citation: [],
+                conference: [],
+                dataset: [],
+                date: [],
+                document_type: [],
+                doi: [],
+                email_address: [],
+                event: [],
+                experiment: [],
+                facility: [],
+                grant: [],
+                hypothesis: [],
+                ideology: [],
+                issue: [],
+                job_title: [],
+                journal: [],
+                keywords: [],
+                laboratory: [],
+                language: [],
+                law: [],
                 location: [],
-                person: [],
+                methodology: [],
+                money: [],
+                nationality: [],
+                ordinal_number: [],
                 organization: [],
-                keyword: [],
-                key_point: [],
-                quotation: []
+                pages: [],
+                patent: [],
+                percentage: [],
+                person: [],
+                philosophical_views: [],
+                product: [],
+                quantity: [],
+                related_articles: [],
+                research_institution: [],
+                research_method: [],
+                scientific_concept: [],
+                sentiment: [],
+                study_fields: [],
+                technology: [],
+                theoretical_framework: [],
+                thought_streams: [],
+                time: [],
+                title: [],
+                url: [],
+                volume: [],
+                work_of_art: [],
+                year: []
             };
 
             fileButton.addEventListener('click', () => fileInput.click());
