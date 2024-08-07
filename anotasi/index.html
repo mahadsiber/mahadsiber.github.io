@@ -348,7 +348,7 @@
         </aside>
 
         <main class="content">
-            <div id="contentArea" contenteditable="true" placeholder="Annotate text here..." style="width: 100%; height: 100%; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-sizing: border-box;"></div>
+            <div id="contentArea" contenteditable="true" placeholder="Klik Unggah File atau drag and drop..." style="width: 100%; height: 100%; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-sizing: border-box;"></div>
         </main>
 
         <aside class="right-sidebar">
@@ -450,6 +450,30 @@
                         alert('Please select text first.');
                     }
                 });
+            });
+
+            // Drag-and-drop functionality
+            document.body.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                document.body.style.border = '2px dashed #000';
+            });
+
+            document.body.addEventListener('dragenter', (event) => {
+                event.preventDefault();
+            });
+
+            document.body.addEventListener('dragleave', (event) => {
+                event.preventDefault();
+                document.body.style.border = '';
+            });
+
+            document.body.addEventListener('drop', (event) => {
+                event.preventDefault();
+                document.body.style.border = '';
+                const file = event.dataTransfer.files[0];
+                if (!file) return;
+
+                handleFileUpload({ target: { files: [file] } });
             });
 
             function handleFileUpload(event) {
