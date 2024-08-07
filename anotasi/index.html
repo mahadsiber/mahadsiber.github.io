@@ -264,11 +264,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.0.0/dist/js-yaml.min.js"></script>
+
     <!-- For PDF parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
     <!-- For DOCX parsing -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.20/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" integrity="sha512-wuWo/cLB9W5BsZeyTYLuiTwr+FDlvjQC7C6atr+To7Jk92XHWI7WsImJZiruw7C9bnc8Zg7N0ncQI2Q/B4PQYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -311,15 +312,25 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const fileType = file.name.split('.').pop().toLowerCase();
+                    console.log('File type:', fileType);
+                    console.log('File content:', e.target.result);
+
                     if (fileType === 'pdf') {
                         parsePdf(e.target.result);
                     } else if (fileType === 'docx') {
                         parseDocx(e.target.result);
-                    } else {
+                    } else if (fileType === 'md' || fileType === 'txt') {
                         contentArea.value = e.target.result;
+                    } else {
+                        alert('Unsupported file type');
                     }
                 };
-                reader.readAsArrayBuffer(file);
+
+                if (file.type === 'text/plain' || file.type === 'text/markdown' || file.name.split('.').pop().toLowerCase() === 'md') {
+                    reader.readAsText(file); // For plain text and Markdown files
+                } else {
+                    reader.readAsArrayBuffer(file); // For PDF and DOCX files
+                }
             }
 
             async function parsePdf(data) {
