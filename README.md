@@ -29,6 +29,8 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 1. [MHS Document Creator](https://mahadsiber.github.io/mhsdc/) - membuat dokumen standar secara manual
 
 2. [MHS Text Annotation](https://mahadsiber.github.io/anotasi/) - membuat dokumen standar dengan bantuan anotator
+
+3. [Mahad Siber AI](http://mahadsiber.my.id:8051/) - chatbot dokumen MHS
    
 
 #### Referensi Eksternal:
@@ -38,4 +40,4 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 2. [Panduan Komprehensif Kerangka Diskusi Objektif](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Panduan-Komprehensif-Kerangka-Diskusi-Objektif)
 
 ---
-Dokumen ini diperbarui 8 Agustus 2024 / 3 Safar 1446.
+Dokumen ini diperbarui 13 Agustus 2024
