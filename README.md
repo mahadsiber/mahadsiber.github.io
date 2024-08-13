@@ -31,6 +31,8 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 2. [MHS Text Annotation](https://mahadsiber.github.io/anotasi/) - membuat dokumen standar dengan bantuan anotator
 
 3. [Mahad Siber AI](http://mahadsiber.my.id:8051/) - chatbot dokumen MHS
+
+4. [HSI Platform](http://mahadsiber.my.id:8053/) - platform diskusi objektif tertulis 
    
 
 #### Referensi Eksternal:
