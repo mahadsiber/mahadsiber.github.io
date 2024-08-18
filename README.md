@@ -25,6 +25,8 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 
 9. [Belajar Prompting Tingkat Mahir](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Belajar-Prompting)
 
+10. [Prompting AI utk Riset Level Doktoral](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Prompting-AI-utk-Riset-Level-Doktoral) 
+
 
 #### Tools:
 
@@ -34,7 +36,9 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 
 3. [Mahad Siber AI](http://mahadsiber.my.id:8051/) - chatbot dokumen MHS
 
-4. [HSI Platform](http://mahadsiber.my.id:8053/) - platform diskusi objektif tertulis 
+4. [HSI Platform](http://mahadsiber.my.id:8053/) - platform diskusi objektif tertulis
+
+5. [MHS Research Assistant](http://mahadsiber.my.id:7777/) - chatbot riset
    
 
 #### Referensi Eksternal:
