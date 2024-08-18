@@ -48,4 +48,4 @@ Publikasi: [Medium MHS](https://medium.com/mahad-al-hadlarah-as-siberniyah)
 2. [Panduan Komprehensif Kerangka Diskusi Objektif](https://github.com/mahadsiber/mahadsiber.github.io/wiki/Panduan-Komprehensif-Kerangka-Diskusi-Objektif)
 
 ---
-Dokumen ini diperbarui 15 Agustus 2024
+Dokumen ini diperbarui 18 Agustus 2024
