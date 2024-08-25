@@ -1,0 +1,22 @@
+/* style.css */
+iframe {
+    width: 100%;
+    height: calc(100vh - 64px);
+    border: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .brand-logo {
+        font-size: 1.5rem !important;
+    }
+    .brand-logo.full-name {
+        display: none;
+    }
+    .brand-logo.short-name {
+        display: block !important;
+    }
+}
+
+.brand-logo.short-name {
+    display: none;
+}
