@@ -23,5 +23,6 @@ iframe {
 }
 
 .brand-logo.short-name {
+    margin-left: 20px;
     display: block!important;
 }
