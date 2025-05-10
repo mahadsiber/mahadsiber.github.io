@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syekh Nawawi Al-Bantani - Profil Ulama Nusantara</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Vis.js -->
+    <link href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.css" rel="stylesheet">
+    <style>
+        .entity-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .entity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .attribute-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .attribute-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .relation-badge {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .link-entity {
+            color: #B17F59;
+        }
+        .link-entity:hover {
+            color: #9e6f4c;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-bottom: 30px;
+            }
+        }
+        .timeline-event {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 3px solid #0d6efd;
+            background: #f8f9fa;
+        }
+        .network-node {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .network-node:hover {
+            transform: scale(1.1);
+        }
+        .tooltip-inner {
+            max-width: 300px;
+        }
+        
+        /* RTL Support */
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .rtl .accordion-button::after {
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+        .rtl .nav {
+            padding-right: 0;
+        }
+        
+        /* Language switcher styles */
+        .language-switcher .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Improved accordion styles */
+        .accordion-button:not(.collapsed) {
+            background-color: #e7f1ff;
+            color: #0d6efd;
+        }
+        
+        .nav-link {
+            padding: 0.25rem 1rem;
+            color: #495057;
+        }
+        
+        .nav-link:hover {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+        }
+        
+        /* Update color scheme */
+        .bg-primary {
+            background-color: #B17F59 !important;
+        }
+        
+        .btn-primary {
+            background-color: #B17F59;
+            border-color: #B17F59;
+        }
+        
+        .btn-primary:hover {
+            background-color: #9e6f4c;
+            border-color: #9e6f4c;
+        }
+        
+        .btn-outline-primary {
+            color: #B17F59;
+            border-color: #B17F59;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #B17F59;
+            border-color: #B17F59;
+            color: #fff;
+        }
+        
+        .text-primary {
+            color: #B17F59 !important;
+        }
+        
+        .badge.bg-primary {
+            background-color: #A5B68D !important;
+        }
+        
+        .badge.bg-secondary {
+            background-color: #C1CFA1 !important;
+        }
+        
+        .badge.bg-info {
+            background-color: #EDE8DC !important;
+            color: #000 !important;
+        }
+        
+        .card-header.bg-info {
+            background-color: #EDE8DC !important;
+            color: #000 !important;
+        }
+        
+        .card-header.bg-success {
+            background-color: #A5B68D !important;
+        }
+        
+        .card-header.bg-warning {
+            background-color: #C1CFA1 !important;
+            color: #000 !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #EDE8DC;
+            color: #B17F59;
+        }
+        
+        .nav-link:hover {
+            background-color: #EDE8DC;
+            color: #B17F59;
+        }
+        
+        /* Update badge styles */
+        .badge {
+            font-size: 0.95rem;
+            padding: 0.5rem 0.8rem;
+            margin: 0.2rem;
+        }
+        
+        /* Specific badge styles */
+        .badge.bg-primary,
+        .badge.bg-secondary,
+        .badge.bg-info,
+        .badge.bg-success,
+        .badge.bg-warning {
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Ensure text is readable on all badge colors */
+        .badge.bg-primary,
+        .badge.bg-success {
+            color: #000 !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Knowledge Graph Ulama Nusantara</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <form class="d-flex mx-auto">
+                    <div class="input-group" style="min-width: 300px;">
+                        <input class="form-control" type="search" placeholder="Cari ulama, karya, atau lokasi..." aria-label="Search">
+                        <button class="btn btn-light" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="ulamaDropdown" role="button" data-bs-toggle="dropdown">
+                            Ulama & Tokoh
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Berdasarkan Periode</a></li>
+                            <li><a class="dropdown-item" href="#">Berdasarkan Wilayah</a></li>
+                            <li><a class="dropdown-item" href="#">Berdasarkan Spesialisasi</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Jaringan Keilmuan</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="karyaDropdown" role="button" data-bs-toggle="dropdown">
+                            Karya
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Kitab & Manuskrip</a></li>
+                            <li><a class="dropdown-item" href="#">Artikel & Risalah</a></li>
+                            <li><a class="dropdown-item" href="#">Fatwa</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Arsip Digital</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="lokasiDropdown" role="button" data-bs-toggle="dropdown">
+                            Lokasi
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Peta Pesantren</a></li>
+                            <li><a class="dropdown-item" href="#">Pusat Keilmuan</a></li>
+                            <li><a class="dropdown-item" href="#">Rute Rihlah</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#advancedSearchModal">
+                            <i class="bi bi-funnel"></i> Filter
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Advanced Search Modal -->
+    <div class="modal fade" id="advancedSearchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pencarian Lanjutan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Periode</label>
+                                <select class="form-select" multiple>
+                                    <option>Abad XIII-XV</option>
+                                    <option>Abad XVI-XVII</option>
+                                    <option>Abad XVIII-XIX</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Wilayah</label>
+                                <select class="form-select" multiple>
+                                    <option>Aceh</option>
+                                    <option>Jawa Barat</option>
+                                    <option>Jawa Timur</option>
+                                    <option>Sulawesi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Spesialisasi</label>
+                                <select class="form-select" multiple>
+                                    <option>Fiqih</option>
+                                    <option>Tafsir</option>
+                                    <option>Tasawuf</option>
+                                    <option>Hadits</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Bahasa Karya</label>
+                                <select class="form-select" multiple>
+                                    <option>Arab</option>
+                                    <option>Melayu</option>
+                                    <option>Jawa</option>
+                                    <option>Sunda</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary">Cari</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-3 sidebar">
+                <div class="card">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Skema Basis Data</h5>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('id')">ID</button>
+                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('en')">EN</button>
+                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('ar')">ع</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="schemaAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                        <span data-translate="ulama">1. Ulama dan Tokoh</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="biodata">Biodata</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="pendidikan">Riwayat Pendidikan</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="karya">Karya</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="jaringan">Jaringan Keilmuan</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add more schema sections -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                        <span data-translate="karya_kontribusi">2. Karya dan Kontribusi</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="kitab">Kitab</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="manuskrip">Manuskrip</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="fatwa">Fatwa</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Continue with other schema sections -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4>Profil Ulama: Syekh Nawawi Al-Bantani</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tambahkan tombol di bawah judul profil -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <div class="btn-group me-2">
+                                <button class="btn btn-outline-primary" onclick="toggleLanguage()">
+                                    <i class="bi bi-translate"></i> EN/ID
+                                </button>
+                            </div>
+                            <div class="btn-group me-2">
+                                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="bi bi-download"></i> Ekspor
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="exportData('json')">JSON</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="exportData('rdf')">RDF</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="exportData('pdf')">PDF</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="bi bi-share"></i> Bagikan
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-whatsapp"></i> WhatsApp</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-link-45deg"></i> Salin Link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header bg-info text-white">
+                                        <h5>Biodata</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center mb-3">
+                                            <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Syekh Nawawi">
+                                        </div>
+                                        <ul class="attribute-list">
+                                            <li><strong>Nama Lengkap:</strong> Muhammad Nawawi bin Umar Al-Bantani</li>
+                                            <li><strong>Lahir:</strong> 1815 M, <a href="#" class="link-entity">Tanara</a>, <a href="#" class="link-entity">Banten</a></li>
+                                            <li><strong>Wafat:</strong> 1897 M, <a href="#" class="link-entity">Mekah</a></li>
+                                            <li><strong>Gelar:</strong> Sayyid Ulama Hijaz</li>
+                                            <li><strong>Mazhab:</strong> <a href="#" class="link-entity">Syafi'i</a></li>
+                                        </ul>
+                                        <h6 class="mt-3">Sub-Entitas:</h6>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Periode: Abad XIX</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Wilayah: Banten</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Spesialisasi: Fiqih</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Spesialisasi: Tafsir</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Spesialisasi: Tasawuf</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="card mb-4">
+                                    <div class="card-header bg-success text-white">
+                                        <h5>Riwayat Pendidikan & Silsilah Keilmuan</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#" class="link-entity">Pesantren Tanara</a>, <a href="#" class="link-entity">Banten</a> (pendidikan awal)</li>
+                                            <li><a href="#" class="link-entity">Masjid Al-Haram</a>, <a href="#" class="link-entity">Mekah</a></li>
+                                            <li>Mendirikan halaqah di <a href="#" class="link-entity">Masjidil Haram</a></li>
+                                        </ul>
+                                        <h6 class="mt-3">Bahasa yang Dikuasai:</h6>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-primary">Arab</span>
+                                            <span class="badge bg-primary">Jawa</span>
+                                            <span class="badge bg-primary">Sunda</span>
+                                            <span class="badge bg-primary">Melayu</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-4">
+                                    <div class="card-header bg-info text-white">
+                                        <h5>Aliran Pemikiran & Pengaruh</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6>Ideologi & Mazhab:</h6>
+                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                            <span class="badge bg-primary">Ahlus Sunnah wal Jamaah</span>
+                                            <span class="badge bg-primary">Syafi'iyah</span>
+                                            <span class="badge bg-primary">Asy'ariyah</span>
+                                        </div>
+                                        
+                                        <h6>Dipengaruhi oleh:</h6>
+                                        <ul>
+                                            <li><a href="#" class="link-entity">Imam Syafi'i</a></li>
+                                            <li><a href="#" class="link-entity">Imam Al-Ghazali</a></li>
+                                        </ul>
+                                        
+                                        <h6>Polemik & Perdebatan:</h6>
+                                        <ul>
+                                            <li>Debat dengan <a href="#" class="link-entity">Snouck Hurgronje</a> tentang Islam di Nusantara</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h5>Karya Utama</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <ul>
+                                                    <li><a href="#" class="link-entity">Tafsir Marah Labid</a></li>
+                                                    <li><a href="#" class="link-entity">Nihayat al-Zain</a></li>
+                                                    <li><a href="#" class="link-entity">Fath al-Mujib</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <ul>
+                                                    <li><a href="#" class="link-entity">Uqud al-Lujain</a></li>
+                                                    <li><a href="#" class="link-entity">Kasyifah al-Saja</a></li>
+                                                    <li><a href="#" class="link-entity">Al-Futuhat al-Madaniyah</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5>Jaringan Keilmuan</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Guru-guru:</h6>
+                                        <ul>
+                                            <li><a href="#" class="link-entity">Syekh Ahmad Khatib Sambas</a></li>
+                                            <li><a href="#" class="link-entity">Syekh Yusuf Sumbulaweni</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Murid-murid:</h6>
+                                        <ul>
+                                            <li><a href="#" class="link-entity">KH. Hasyim Asy'ari</a> (Pendiri NU)</li>
+                                            <li><a href="#" class="link-entity">Syekh Mahfudz Termas</a></li>
+                                            <li><a href="#" class="link-entity">KH. Asy'ari</a> (Jombang)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Kontribusi dan Pengaruh</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Syekh Nawawi Al-Bantani merupakan salah satu ulama Nusantara paling berpengaruh di Haramain (Mekah dan Madinah) pada abad ke-19. Beliau menjabat sebagai Imam Masjidil Haram dan mengajar ribuan murid dari berbagai penjuru dunia.</p>
+                        <p>Karya-karyanya menjadi rujukan utama di pesantren-pesantren Nusantara dan Timur Tengah. Pemikirannya banyak mempengaruhi perkembangan Islam Ahlussunnah wal Jamaah di Asia Tenggara.</p>
+                        
+                        <div class="mt-4">
+                            <h6>Status Verifikasi Data:</h6>
+                            <span class="badge bg-success">Data Terverifikasi</span>
+                            
+                            <h6 class="mt-3">Sumber Referensi:</h6>
+                            <ul>
+                                <li>Siyar A'lam al-Nubala</li>
+                                <li>Tarikh Ulama Jawa</li>
+                                <li>Biografi Syekh Nawawi Al-Bantani oleh Samsul Munir Amin</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualisasi Network -->
+    <div class="modal fade" id="networkModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Jaringan Keilmuan Interaktif</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div id="network-visualization" style="height: 500px; border: 1px solid #ddd;"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>Filter Visualisasi</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tipe Relasi</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Guru-Murid</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Pengaruh Pemikiran</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Kolaborasi</label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Jarak Generasi</label>
+                                        <input type="range" class="form-range" min="1" max="5" value="2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Modal -->
+    <div class="modal fade" id="timelineModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Timeline Kehidupan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="timeline-visualization" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Knowledge Graph Sejarah Intelektual Islam</h5>
+                    <p>Memetakan Warisan Intelektual Ulama Nusantara Ahlussunnah wal Jamaah Abad XIII-XIX</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Mahad Al-Hadlarah As-Siberniyah, 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-data@7.1.6/dist/vis-data.min.js"></script>
+    
+    <!-- Custom JavaScript for interactive features -->
+    <script>
+        // Add buttons to card headers
+        window.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.card-header').forEach(header => {
+                if (header.textContent.includes('Jaringan Keilmuan')) {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn btn-sm btn-light float-end';
+                    btn.innerHTML = '<i class="bi bi-graph-up"></i> Lihat Visualisasi';
+                    btn.setAttribute('data-bs-toggle', 'modal');
+                    btn.setAttribute('data-bs-target', '#networkModal');
+                    header.appendChild(btn);
+                }
+                if (header.textContent.includes('Biodata')) {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn btn-sm btn-light float-end';
+                    btn.innerHTML = '<i class="bi bi-clock-history"></i> Timeline';
+                    btn.setAttribute('data-bs-toggle', 'modal');
+                    btn.setAttribute('data-bs-target', '#timelineModal');
+                    header.appendChild(btn);
+                }
+            });
+        });
+
+        // Initialize network visualization
+        function initNetwork() {
+            const container = document.getElementById('network-visualization');
+            
+            // Data untuk visualisasi jaringan
+            const nodes = new vis.DataSet([
+                { id: 1, label: 'Syekh Nawawi\nAl-Bantani', shape: 'circularImage', image: 'https://via.placeholder.com/150', size: 30, group: 'central' },
+                { id: 2, label: 'Syekh Ahmad\nKhatib Sambas', shape: 'dot', size: 20, group: 'guru' },
+                { id: 3, label: 'Syekh Yusuf\nSumbulaweni', shape: 'dot', size: 20, group: 'guru' },
+                { id: 4, label: 'KH. Hasyim\nAsy\'ari', shape: 'dot', size: 20, group: 'murid' },
+                { id: 5, label: 'Syekh Mahfudz\nTermas', shape: 'dot', size: 20, group: 'murid' },
+                { id: 6, label: 'KH. Asy\'ari', shape: 'dot', size: 20, group: 'murid' },
+                { id: 7, label: 'Imam Syafi\'i', shape: 'dot', size: 20, group: 'pengaruh' },
+                { id: 8, label: 'Imam Al-Ghazali', shape: 'dot', size: 20, group: 'pengaruh' }
+            ]);
+
+            const edges = new vis.DataSet([
+                { from: 2, to: 1, arrows: 'to', label: 'Guru', color: '#A5B68D' },
+                { from: 3, to: 1, arrows: 'to', label: 'Guru', color: '#A5B68D' },
+                { from: 1, to: 4, arrows: 'to', label: 'Guru', color: '#C1CFA1' },
+                { from: 1, to: 5, arrows: 'to', label: 'Guru', color: '#C1CFA1' },
+                { from: 1, to: 6, arrows: 'to', label: 'Guru', color: '#C1CFA1' },
+                { from: 7, to: 1, arrows: 'to', dashes: true, label: 'Pengaruh', color: '#B17F59' },
+                { from: 8, to: 1, arrows: 'to', dashes: true, label: 'Pengaruh', color: '#B17F59' }
+            ]);
+
+            const data = {
+                nodes: nodes,
+                edges: edges
+            };
+
+            const options = {
+                groups: {
+                    central: { 
+                        color: { background: '#EDE8DC', border: '#B17F59' },
+                        font: { size: 16 }
+                    },
+                    guru: { 
+                        color: { background: '#A5B68D', border: '#A5B68D' },
+                        font: { size: 14 }
+                    },
+                    murid: { 
+                        color: { background: '#C1CFA1', border: '#C1CFA1' },
+                        font: { size: 14 }
+                    },
+                    pengaruh: { 
+                        color: { background: '#EDE8DC', border: '#B17F59' },
+                        font: { size: 14 }
+                    }
+                },
+                edges: {
+                    font: {
+                        size: 14
+                    }
+                },
+                physics: {
+                    barnesHut: {
+                        gravitationalConstant: -2000,
+                        springLength: 200
+                    }
+                },
+                interaction: {
+                    hover: true,
+                    tooltipDelay: 200
+                }
+            };
+
+            const network = new vis.Network(container, data, options);
+
+            // Event handlers
+            network.on('click', function(params) {
+                if (params.nodes.length > 0) {
+                    const nodeId = params.nodes[0];
+                    const node = nodes.get(nodeId);
+                    alert(`Klik pada: ${node.label}`);
+                    // Implementasi: Navigate to ulama page
+                }
+            });
+
+            // Filter handlers
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const relationType = this.nextElementSibling.textContent.trim();
+                    const edgesToUpdate = edges.get().filter(edge => edge.label === relationType);
+                    
+                    edgesToUpdate.forEach(edge => {
+                        edges.update({ id: edge.id, hidden: !this.checked });
+                    });
+                });
+            });
+
+            // Generation distance handler
+            document.querySelector('input[type="range"]').addEventListener('input', function() {
+                const distance = parseInt(this.value);
+                const centralNode = 1; // Syekh Nawawi's ID
+                
+                edges.forEach(edge => {
+                    const pathLength = network.getConnectedNodes(edge.from).length;
+                    edge.hidden = pathLength > distance;
+                    edges.update(edge);
+                });
+            });
+        }
+
+        // Initialize timeline
+        function initTimeline() {
+            const container = document.getElementById('timeline-visualization');
+            
+            const items = new vis.DataSet([
+                { id: 1, content: 'Lahir di Tanara, Banten', start: '1815' },
+                { id: 2, content: 'Belajar di Pesantren Tanara', start: '1821', end: '1828' },
+                { id: 3, content: 'Pertama kali ke Mekah', start: '1828' },
+                { id: 4, content: 'Belajar di Masjidil Haram', start: '1830', end: '1833' },
+                { id: 5, content: 'Kembali ke Tanara', start: '1833' },
+                { id: 6, content: 'Menetap di Mekah', start: '1855' },
+                { id: 7, content: 'Menulis Tafsir Marah Labid', start: '1870', end: '1875' },
+                { id: 8, content: 'Wafat di Mekah', start: '1897' }
+            ]);
+
+            const options = {
+                height: '350px',
+                locale: 'id',
+                // Kustomisasi tampilan
+                template: function (item) {
+                    return `
+                        <div class="timeline-event">
+                            <strong>${item.content}</strong>
+                            <div>${item.start}</div>
+                        </div>
+                    `;
+                }
+            };
+
+            const timeline = new vis.Timeline(container, items, options);
+
+            // Zoom ke rentang waktu yang relevan
+            timeline.setWindow('1810', '1900');
+        }
+
+        // Initialize visualizations when modals are shown
+        document.getElementById('networkModal').addEventListener('shown.bs.modal', function () {
+            initNetwork();
+        });
+
+        document.getElementById('timelineModal').addEventListener('shown.bs.modal', function () {
+            initTimeline();
+        });
+
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // Add export functionality
+        function exportData(format) {
+            // Export functionality code would go here
+        }
+
+        // Tambahkan script untuk fitur bilingual
+        const translations = {
+            id: {
+                "ulama": "1. Ulama dan Tokoh",
+                "biodata": "Biodata",
+                "pendidikan": "Riwayat Pendidikan",
+                "karya": "Karya",
+                "jaringan": "Jaringan Keilmuan",
+                "karya_kontribusi": "2. Karya dan Kontribusi",
+                "kitab": "Kitab",
+                "manuskrip": "Manuskrip",
+                "fatwa": "Fatwa"
+                // ... more Indonesian translations
+            },
+            en: {
+                "ulama": "1. Scholars and Figures",
+                "biodata": "Biography",
+                "pendidikan": "Educational Background",
+                "karya": "Works",
+                "jaringan": "Knowledge Network",
+                "karya_kontribusi": "2. Works and Contributions",
+                "kitab": "Books",
+                "manuskrip": "Manuscripts",
+                "fatwa": "Religious Edicts"
+                // ... more English translations
+            },
+            ar: {
+                "ulama": "١. العلماء والشخصيات",
+                "biodata": "السيرة الذاتية",
+                "pendidikan": "المسيرة التعليمية",
+                "karya": "المؤلفات",
+                "jaringan": "شبكة العلم",
+                "karya_kontribusi": "٢. المؤلفات والمساهمات",
+                "kitab": "الكتب",
+                "manuskrip": "المخطوطات",
+                "fatwa": "الفتاوى"
+                // ... more Arabic translations
+            }
+        };
+
+        let currentLang = 'id';
+
+        function toggleLanguage(lang) {
+            currentLang = lang;
+            updateLanguage();
+            // Update document direction for Arabic
+            document.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            // Update Bootstrap classes for RTL if needed
+            document.body.classList.remove('rtl', 'ltr');
+            document.body.classList.add(lang === 'ar' ? 'rtl' : 'ltr');
+        }
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[currentLang][key]) {
+                    element.textContent = translations[currentLang][key];
+                }
+            });
+        }
+
+        // Add structured data for SEO
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Muhammad Nawawi bin Umar Al-Bantani",
+            "birthDate": "1815",
+            "deathDate": "1897",
+            "birthPlace": {
+                "@type": "Place",
+                "name": "Tanara, Banten"
+            },
+            "deathPlace": {
+                "@type": "Place",
+                "name": "Mekah"
+            },
+            "description": "Ulama Nusantara yang berpengaruh di Haramain pada abad ke-19"
+        };
+
+        // Add the structured data to the page
+        const script = document.createElement('script');
+        script.type = "application/ld+json";
+        script.text = JSON.stringify(structuredData);
+        document.head.appendChild(script);
+    </script>
+
+    <!-- Tombol floating untuk navigasi cepat -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1030;">
+        <div class="btn-group-vertical">
+            <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#networkModal" title="Lihat Jaringan">
+                <i class="bi bi-graph-up"></i>
+            </button>
+            <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#timelineModal" title="Lihat Timeline">
+                <i class="bi bi-clock-history"></i>
+            </button>
+            <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Kembali ke Atas">
+                <i class="bi bi-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
