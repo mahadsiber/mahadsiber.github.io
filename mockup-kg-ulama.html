@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syekh Nawawi Al-Bantani - Profil Ulama Nusantara</title>
+    <title>Knowledge Graph Ulama Nusantara - Mockup</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -238,7 +238,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#advancedSearchModal">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#advancedSearchModal" title="Filter Pencarian Lanjutan">
                             <i class="bi bi-funnel"></i> Filter
                         </a>
                     </li>
@@ -313,9 +313,9 @@
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Skema Basis Data</h5>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('id')">ID</button>
-                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('en')">EN</button>
-                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('ar')">ع</button>
+                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('id')" data-bs-toggle="tooltip" title="Ganti Bahasa ke Indonesia">ID</button>
+                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('en')" data-bs-toggle="tooltip" title="Switch Language to English">EN</button>
+                            <button class="btn btn-sm btn-light" onclick="toggleLanguage('ar')" data-bs-toggle="tooltip" title="تغيير اللغة إلى العربية">ع</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -363,18 +363,18 @@
             <div class="col-lg-9">
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h4>Profil Ulama: Syekh Nawawi Al-Bantani</h4>
+                        <h4>Profil Ulama: Syekh Fulan Al-Jawi</h4>
                     </div>
                     <div class="card-body">
                         <!-- Tambahkan tombol di bawah judul profil -->
                         <div class="d-flex justify-content-end mb-3">
                             <div class="btn-group me-2">
-                                <button class="btn btn-outline-primary" onclick="toggleLanguage()">
+                                <button class="btn btn-outline-primary" onclick="toggleLanguage()" data-bs-toggle="tooltip" title="Ganti Bahasa (EN/ID)">
                                     <i class="bi bi-translate"></i> EN/ID
                                 </button>
                             </div>
                             <div class="btn-group me-2">
-                                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" title="Ekspor Data Profil">
                                     <i class="bi bi-download"></i> Ekspor
                                 </button>
                                 <ul class="dropdown-menu">
@@ -384,7 +384,7 @@
                                 </ul>
                             </div>
                             <div class="btn-group">
-                                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" title="Bagikan Profil Ini">
                                     <i class="bi bi-share"></i> Bagikan
                                 </button>
                                 <ul class="dropdown-menu">
@@ -405,22 +405,26 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="text-center mb-3">
-                                            <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Syekh Nawawi">
+                                            <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Syekh Fulan">
                                         </div>
                                         <ul class="attribute-list">
-                                            <li><strong>Nama Lengkap:</strong> Muhammad Nawawi bin Umar Al-Bantani</li>
-                                            <li><strong>Lahir:</strong> 1815 M, <a href="#" class="link-entity">Tanara</a>, <a href="#" class="link-entity">Banten</a></li>
-                                            <li><strong>Wafat:</strong> 1897 M, <a href="#" class="link-entity">Mekah</a></li>
-                                            <li><strong>Gelar:</strong> Sayyid Ulama Hijaz</li>
-                                            <li><strong>Mazhab:</strong> <a href="#" class="link-entity">Syafi'i</a></li>
+                                            <li><strong>Nama Lengkap:</strong> Fulan bin Alan Al-Jawi</li>
+                                            <li><strong>Nama Populer:</strong> Syekh Fulan</li>
+                                            <li><strong>Tanggal Lahir:</strong> Sekitar 1750 M, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Desa Fiktif: Tempat lahir Syekh Fulan">Desa Fiktif</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah utama aktivitas Syekh Fulan">Jawa</a></li>
+                                            <li><strong>Tanggal Wafat:</strong> Sekitar 1830 M, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kota Fiktif: Tempat wafat Syekh Fulan">Kota Fiktif</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah utama aktivitas Syekh Fulan">Jawa</a></li>
+                                            <li><strong>Posisi Sosial:</strong> Pengasuh Pesantren, Penasihat Kesultanan</li>
+                                            <li><strong>Gelar:</strong> Mujaddid Lokal</li>
+                                            <li><strong>Mazhab:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Mazhab Syafi'i: Mazhab fiqih yang dianut dan diajarkan">Syafi'i</a> (dengan adaptasi lokal)</li>
+                                            <li><strong>Status Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                                            <li><strong>Sumber Referensi:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Manuskrip Fiktif: Sumber primer tentang kehidupan Syekh Fulan">Manuskrip Fiktif</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Babad Fiktif: Kronik sejarah lokal yang menyebut Syekh Fulan">Babad Fiktif</a></li>
                                         </ul>
                                         <h6 class="mt-3">Sub-Entitas:</h6>
                                         <div class="d-flex flex-wrap gap-2">
-                                            <a href="#" class="btn btn-sm btn-outline-primary">Periode: Abad XIX</a>
-                                            <a href="#" class="btn btn-sm btn-outline-primary">Wilayah: Banten</a>
-                                            <a href="#" class="btn btn-sm btn-outline-primary">Spesialisasi: Fiqih</a>
-                                            <a href="#" class="btn btn-sm btn-outline-primary">Spesialisasi: Tafsir</a>
-                                            <a href="#" class="btn btn-sm btn-outline-primary">Spesialisasi: Tasawuf</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Ulama dari Periode Abad XVIII-XIX">Periode: Abad XVIII-XIX</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Ulama dari Wilayah Jawa">Wilayah: Jawa</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Fiqih">Spesialisasi: Fiqih</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Tasawuf">Spesialisasi: Tasawuf</a>
+                                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Hukum Adat">Spesialisasi: Hukum Adat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -432,18 +436,29 @@
                                         <h5>Riwayat Pendidikan & Silsilah Keilmuan</h5>
                                     </div>
                                     <div class="card-body">
+                                        <h6>Pendidikan:</h6>
                                         <ul>
-                                            <li><a href="#" class="link-entity">Pesantren Tanara</a>, <a href="#" class="link-entity">Banten</a> (pendidikan awal)</li>
-                                            <li><a href="#" class="link-entity">Masjid Al-Haram</a>, <a href="#" class="link-entity">Mekah</a></li>
-                                            <li>Mendirikan halaqah di <a href="#" class="link-entity">Masjidil Haram</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 1: Tempat Syekh Fulan menimba ilmu awal">Pesantren Fiktif 1</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah pesantren">Jawa</a> (pendidikan awal)</li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Pesantren yang didirikan oleh Syekh Fulan">Pesantren Fiktif 2</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah pesantren">Jawa</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pusat Studi Fiktif: Lokasi Syekh Fulan belajar di Timur Tengah">Pusat Studi Fiktif</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Timur Tengah: Wilayah pusat studi">Timur Tengah</a></li>
                                         </ul>
                                         <h6 class="mt-3">Bahasa yang Dikuasai:</h6>
                                         <div class="d-flex flex-wrap gap-2">
-                                            <span class="badge bg-primary">Arab</span>
-                                            <span class="badge bg-primary">Jawa</span>
-                                            <span class="badge bg-primary">Sunda</span>
-                                            <span class="badge bg-primary">Melayu</span>
+                                            <span class="badge bg-primary" data-bs-toggle="tooltip" title="Bahasa Arab: Bahasa utama kitab kuning">Arab</span>
+                                            <span class="badge bg-primary" data-bs-toggle="tooltip" title="Bahasa Jawa: Bahasa lokal yang digunakan dalam pengajaran">Jawa</span>
+                                            <span class="badge bg-primary" data-bs-toggle="tooltip" title="Bahasa Melayu: Lingua franca perdagangan dan keilmuan di Nusantara">Melayu</span>
                                         </div>
+                                        <h6 class="mt-3">Guru-guru:</h6>
+                                        <ul>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fiktif 1: Salah satu guru Syekh Fulan">Syekh Fiktif 1</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 2: Guru Syekh Fulan di pesantren lokal">Kyai Fiktif 2</a></li>
+                                        </ul>
+                                        <h6 class="mt-3">Murid-murid:</h6>
+                                        <ul>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 3: Murid utama Syekh Fulan yang meneruskan ajarannya">Kyai Fiktif 3</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif 4: Murid dari kalangan bangsawan">Raden Fiktif 4</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tokoh Fiktif Lain: Murid lain yang berpengaruh">Tokoh Fiktif Lain</a></li>
+                                        </ul>
                                     </div>
                                 </div>
 
@@ -454,20 +469,23 @@
                                     <div class="card-body">
                                         <h6>Ideologi & Mazhab:</h6>
                                         <div class="d-flex flex-wrap gap-2 mb-3">
-                                            <span class="badge bg-primary">Ahlus Sunnah wal Jamaah</span>
-                                            <span class="badge bg-primary">Syafi'iyah</span>
-                                            <span class="badge bg-primary">Asy'ariyah</span>
+                                            <span class="badge bg-primary" data-bs-toggle="tooltip" title="Ahlus Sunnah wal Jamaah: Orientasi teologis utama">Ahlus Sunnah wal Jamaah</span>
+                                            <span class="badge bg-primary" data-bs-toggle="tooltip" title="Syafi'iyah: Mazhab fiqih yang diikuti">Syafi'iyah</span>
+                                            <span class="badge bg-primary" data-bs-toggle="tooltip" title="Asy'ariyah: Aliran teologi yang dianut">Asy'ariyah</span>
+                                            <span class="badge bg-secondary" data-bs-toggle="tooltip" title="Tradisionalis: Pendekatan dalam memahami ajaran Islam">Tradisionalis</span>
                                         </div>
                                         
                                         <h6>Dipengaruhi oleh:</h6>
                                         <ul>
-                                            <li><a href="#" class="link-entity">Imam Syafi'i</a></li>
-                                            <li><a href="#" class="link-entity">Imam Al-Ghazali</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Imam Syafi'i: Pendiri mazhab Syafi'i">Imam Syafi'i</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Abdul Qadir Al-Jailani: Tokoh sufi pendiri Tarekat Qadiriyah">Syekh Abdul Qadir Al-Jailani</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tradisi Lokal Jawa: Pengaruh budaya dan adat lokal">Tradisi Lokal Jawa</a></li>
                                         </ul>
                                         
                                         <h6>Polemik & Perdebatan:</h6>
                                         <ul>
-                                            <li>Debat dengan <a href="#" class="link-entity">Snouck Hurgronje</a> tentang Islam di Nusantara</li>
+                                            <li>Debat dengan <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tokoh Fiktif Modernis: Berbeda pandangan tentang adaptasi hukum Islam">Tokoh Fiktif Modernis</a> tentang adaptasi hukum Islam.</li>
+                                            <li>Respon terhadap <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kebijakan Kolonial Fiktif: Sikap ulama terhadap kebijakan penguasa kolonial">Kebijakan Kolonial Fiktif</a>.</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -480,16 +498,16 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <ul>
-                                                    <li><a href="#" class="link-entity">Tafsir Marah Labid</a></li>
-                                                    <li><a href="#" class="link-entity">Nihayat al-Zain</a></li>
-                                                    <li><a href="#" class="link-entity">Fath al-Mujib</a></li>
+                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kitab Fiqh Fiktif: Karya utama Syekh Fulan di bidang fiqih">Kitab Fiqh Fiktif</a></li>
+                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Manuskrip Tasawuf Fiktif: Karya Syekh Fulan di bidang tasawuf">Manuskrip Tasawuf Fiktif</a></li>
+                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kumpulan Fatwa Fiktif: Fatwa-fatwa Syekh Fulan">Kumpulan Fatwa Fiktif</a></li>
                                                 </ul>
                                             </div>
                                             <div class="col-md-6">
                                                 <ul>
-                                                    <li><a href="#" class="link-entity">Uqud al-Lujain</a></li>
-                                                    <li><a href="#" class="link-entity">Kasyifah al-Saja</a></li>
-                                                    <li><a href="#" class="link-entity">Al-Futuhat al-Madaniyah</a></li>
+                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syarah Kitab Fiktif: Penjelasan atas kitab lain">Syarah Kitab Fiktif</a></li>
+                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Risalah Fiktif: Tulisan singkat Syekh Fulan">Risalah Fiktif</a></li>
+                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syair Nasihat Fiktif: Karya sastra Syekh Fulan">Syair Nasihat Fiktif</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -507,16 +525,16 @@
                                     <div class="col-md-6">
                                         <h6>Guru-guru:</h6>
                                         <ul>
-                                            <li><a href="#" class="link-entity">Syekh Ahmad Khatib Sambas</a></li>
-                                            <li><a href="#" class="link-entity">Syekh Yusuf Sumbulaweni</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fiktif 1: Salah satu guru Syekh Fulan">Syekh Fiktif 1</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 2: Guru Syekh Fulan di pesantren lokal">Kyai Fiktif 2</a></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
                                         <h6>Murid-murid:</h6>
                                         <ul>
-                                            <li><a href="#" class="link-entity">KH. Hasyim Asy'ari</a> (Pendiri NU)</li>
-                                            <li><a href="#" class="link-entity">Syekh Mahfudz Termas</a></li>
-                                            <li><a href="#" class="link-entity">KH. Asy'ari</a> (Jombang)</li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 3: Murid utama Syekh Fulan">Kyai Fiktif 3</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif 4: Murid dari kalangan bangsawan">Raden Fiktif 4</a></li>
+                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tokoh Fiktif Lain: Murid lain yang berpengaruh">Tokoh Fiktif Lain</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -525,13 +543,209 @@
                     </div>
                 </div>
 
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Karya: Tafsir Fiktif</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="attribute-list">
+                            <li><strong>Penulis:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Penulis kitab tafsir ini">Syekh Fulan Al-Jawi</a></li>
+                            <li><strong>Judul Lengkap:</strong> Tafsir Nur al-Huda fi Bayan Ahkam al-Duha</li>
+                            <li><strong>Kategori:</strong> Tafsir</li>
+                            <li><strong>Bahasa:</strong> Arab, dengan anotasi dalam Bahasa Jawa Pegon</li>
+                            <li><strong>Tahun Pembuatan:</strong> Sekitar 1800-1810 M</li>
+                            <li><strong>Deskripsi:</strong> Kitab tafsir juz 'Amma yang fokus pada hukum-hukum terkait waktu Duha, menggabungkan pendekatan tekstual dan kontekstual lokal.</li>
+                            <li><strong>Status:</strong> Manuskrip asli tersimpan, sudah dicetak ulang beberapa kali.</li>
+                            <li><strong>Lokasi Fisik Manuskrip:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Perpustakaan Pesantren Fiktif 1: Tempat penyimpanan manuskrip asli">Perpustakaan Pesantren Fiktif 1</a></li>
+                            <li><strong>Fungsi Sosial:</strong> Menjadi materi pengajian rutin di pesantren dan majelis taklim.</li>
+                            <li><strong>Nilai Filosofis:</strong> Menekankan pentingnya integrasi ibadah dan kehidupan sehari-hari.</li>
+                            <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                        </ul>
+                        <h6 class="mt-3">Sub-Entitas:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Kitab">Jenis: Kitab</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XIX">Periode: Abad XIX</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya Berpengaruh di Wilayah Nusantara">Wilayah Pengaruh: Nusantara</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya Berpengaruh di Wilayah Timur Tengah">Wilayah Pengaruh: Timur Tengah</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Karya: Tafsir">Spesialisasi: Tafsir</a>
+                        </div>
+                        <h6 class="mt-3">Atribut Relasional:</h6>
+                        <ul class="attribute-list">
+                            <li><strong>Tempat Penulisan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 1: Tempat penulisan kitab">Pesantren Fiktif 1</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah penulisan kitab">Jawa</a></li>
+                            <li><strong>Pendanaan:</strong> Mandiri, didukung oleh komunitas pesantren.</li>
+                            <li><strong>Penggunaan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Pesantren Fiktif 1">Pesantren Fiktif 1</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Pesantren Fiktif 2">Pesantren Fiktif 2</a>, Majelis Taklim di berbagai daerah Jawa.</li>
+                            <li><strong>Pengaruh:</strong> Mempengaruhi penafsiran ayat-ayat hukum terkait waktu di kalangan ulama Jawa.</li>
+                            <li><strong>Transmisi:</strong> Diajarkan langsung oleh penulis kepada murid-muridnya, disalin dan disebarkan secara luas.</li>
+                            <li><strong>Konteks:</strong> Ditulis pada masa awal pengaruh kolonial, merespon kebutuhan pemahaman agama dalam konteks sosial yang berubah.</li>
+                            <li><strong>Pengembangan:</strong> Memiliki beberapa syarah dan hasyiyah yang ditulis oleh murid-murid Syekh Fulan.</li>
+                            <li><strong>Polemik:</strong> Menjadi bahan diskusi dalam beberapa bahtsul masail terkait hukum waktu salat Duha.</li>
+                            <li><strong>Ritual Terkait:</strong> Used in Duha prayer practice and morning study sessions.</li>
+                            <li><strong>Adaptasi Lokal:</strong> Menggunakan Bahasa Jawa Pegon dalam anotasi untuk memudahkan pemahaman santri lokal.</li>
+                            <li><strong>Legitimasi:</strong> Diakui oleh beberapa kesultanan lokal sebagai rujukan hukum.</li>
+                            <li><strong>Resistensi:</strong> Digunakan sebagai dasar argumentasi dalam merespon beberapa kebijakan kolonial yang dianggap bertentangan dengan syariah.</li>
+                            <li><strong>Modernisasi:</strong> Dicetak ulang dengan huruf Latin pada masa pergerakan nasional.</li>
+                            <li><strong>Ekonomi Terkait:</strong> Menjadi komoditas penting dalam industri percetakan kitab di Jawa.</li>
+                            <li><strong>Jaringan Terkait:</strong> Tersebar melalui jaringan pesantren dan tarekat di Jawa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h4>Tokoh Berpengaruh Lokal: Raden Fiktif</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="attribute-list">
+                            <li><strong>Nama Lengkap:</strong> Raden Fiktif bin Pangeran Fiktif</li>
+                            <li><strong>Nama Populer:</strong> Raden Fiktif</li>
+                            <li><strong>Periode:</strong> Abad XVIII-XIX</li>
+                            <li><strong>Wilayah:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Wilayah kekuasaan Raden Fiktif">Kesultanan Fiktif</a>, Jawa</li>
+                            <li><strong>Posisi Sosial:</strong> Bangsawan, Penasihat Agama Kesultanan</li>
+                            <li><strong>Kontribusi:</strong> Mendukung pendirian pesantren, mendanai pencetakan kitab, menjadi murid Syekh Fulan Al-Jawi.</li>
+                            <li><strong>Status Verifikasi:</strong> <span class="badge bg-warning">Data Parsial</span></li>
+                        </ul>
+                        <h6 class="mt-3">Sub-Entitas:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Tokoh: Bangsawan">Jenis: Bangsawan</a>
+                        </div>
+                        <h6 class="mt-3">Atribut Relasional:</h6>
+                        <ul class="attribute-list">
+                            <li><strong>Hubungan dengan Ulama:</strong> Murid dari <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Guru Raden Fiktif">Syekh Fulan Al-Jawi</a></li>
+                            <li><strong>Dukungan terhadap Institusi:</strong> Mendanai <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Pesantren yang didukung oleh Raden Fiktif">Pesantren Fiktif 2</a></li>
+                            <li><strong>Konteks Politik:</strong> Berperan dalam pemerintahan <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Kesultanan tempat Raden Fiktif bertahta">Kesultanan Fiktif</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h4>Tokoh Berpengaruh Internasional: Syekh Fiktif Timur Tengah</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="attribute-list">
+                            <li><strong>Nama Lengkap:</strong> Syekh Fiktif bin Syekh Fiktif</li>
+                            <li><strong>Nama Populer:</strong> Syekh Fiktif Timur Tengah</li>
+                            <li><strong>Periode:</strong> Abad XVIII</li>
+                            <li><strong>Wilayah Asal:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pusat Studi Fiktif: Lokasi pusat keilmuan di Timur Tengah">Pusat Studi Fiktif</a>, Timur Tengah</li>
+                            <li><strong>Spesialisasi:</strong> Fiqih, Hadits</li>
+                            <li><strong>Kontribusi:</strong> Mengajar ulama Nusantara di Haramain, menulis kitab yang menjadi rujukan di Nusantara.</li>
+                            <li><strong>Status Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                        </ul>
+                        <h6 class="mt-3">Sub-Entitas:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Tokoh: Ulama Timur Tengah">Jenis: Ulama Timur Tengah</a>
+                        </div>
+                        <h6 class="mt-3">Atribut Relasional:</h6>
+                        <ul class="attribute-list">
+                            <li><strong>Hubungan with Ulama Nusantara:</strong> Guru dari <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Murid dari Syekh Fiktif Timur Tengah">Syekh Fulan Al-Jawi</a></li>
+                            <li><strong>Karya yang Berpengaruh di Nusantara:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kitab Hadits Fiktif: Karya Syekh Fiktif Timur Tengah yang tersebar di Nusantara">Kitab Hadits Fiktif</a></li>
+                            <li><strong>Pusat Aktivitas:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pusat Studi Fiktif: Lokasi utama aktivitas Syekh Fiktif Timur Tengah">Pusat Studi Fiktif</a>, Timur Tengah</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Karya Arsitektur dan Tata Ruang: Masjid Agung Fiktif</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="attribute-list">
+                            <li><strong>Nama:</strong> Masjid Agung Fiktif</li>
+                            <li><strong>Tahun Pembangunan:</strong> Sekitar 1780 M</li>
+                            <li><strong>Lokasi:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kota Fiktif: Lokasi Masjid Agung Fiktif">Kota Fiktif</a>, Jawa</li>
+                            <li><strong>Arsitek/Kontributor Utama:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Memberikan masukan desain arsitektur">Syekh Fulan Al-Jawi</a> (memberikan masukan desain berbasis filosofi Islam-Jawa), <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif: Mendanai pembangunan masjid">Raden Fiktif</a> (pendanaan dan pengawasan).</li>
+                            <li><strong>Deskripsi:</strong> Masjid utama di Kesultanan Fiktif, menggabungkan arsitektur tradisional Jawa dengan elemen Islam. Memiliki atap tumpang tiga dan mustaka dengan ornamen kaligrafi.</li>
+                            <li><strong>Fungsi Sosial:</strong> Pusat ibadah, pendidikan, musyawarah, dan upacara kesultanan.</li>
+                            <li><strong>Nilai Filosofis:</strong> Melambangkan harmonisasi Islam dan budaya lokal, serta hirarki kosmik.</li>
+                            <li><strong>Status:</strong> Terpelihara dengan baik, menjadi situs sejarah dan religi.</li>
+                            <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                        </ul>
+                         <h6 class="mt-3">Sub-Entitas:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Masjid">Jenis: Masjid</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XVIII">Periode: Abad XVIII</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya di Wilayah Jawa">Wilayah: Jawa</a>
+                        </div>
+                         <h6 class="mt-3">Atribut Relasional:</h6>
+                        <ul class="attribute-list">
+                            <li><strong>Kontributor:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Kontributor desain">Syekh Fulan Al-Jawi</a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif: Kontributor pendanaan">Raden Fiktif</a></li>
+                            <li><strong>Lokasi Terkait:</strong> Berada dalam kompleks <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Kesultanan tempat masjid berada">Kesultanan Fiktif</a></li>
+                            <li><strong>Penggunaan dalam Ritual:</strong> Tempat pelaksanaan salat Jumat, salat Id, dan upacara Grebeg Fiktif.</li>
+                            <li><strong>Pengaruh:</strong> Menjadi model arsitektur masjid di wilayah sekitar.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h4>Karya Seni dan Tradisi: Seni Kaligrafi Gaya Fiktif</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="attribute-list">
+                            <li><strong>Nama:</strong> Seni Kaligrafi Gaya Fiktif</li>
+                            <li><strong>Periode Pengembangan:</strong> Abad XIX</li>
+                            <li><strong>Pencipta/Kontributor Utama:</strong> Dikembangkan di lingkungan <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Tempat pengembangan gaya kaligrafi">Pesantren Fiktif 2</a>, dipopulerkan oleh murid-murid <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Ulama yang muridnya mempopulerkan gaya ini">Syekh Fulan Al-Jawi</a>.</li>
+                            <li><strong>Deskripsi:</strong> Gaya kaligrafi Arab yang menggabungkan khat Naskhi atau Tsuluts dengan ornamen flora dan fauna lokal yang disederhanakan, menghindari penggambaran makhluk bernyawa secara utuh. Sering digunakan untuk menghias mushaf, dinding masjid, dan batu nisan.</li>
+                            <li><strong>Fungsi Sosial:</strong> Media dakwah visual, ekspresi estetika Islam, penanda identitas komunitas pesantren.</li>
+                            <li><strong>Nilai Filosofis:</strong> Menggambarkan keindahan asma Allah dan ayat Al-Qur'an dalam bingkai budaya lokal.</li>
+                            <li><strong>Status:</strong> Masih dipraktikkan di beberapa pesantren tradisional.</li>
+                            <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                        </ul>
+                         <h6 class="mt-3">Sub-Entitas:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Seni Rupa">Jenis: Seni Rupa</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XIX">Periode: Abad XIX</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya di Wilayah Jawa">Wilayah: Jawa</a>
+                        </div>
+                         <h6 class="mt-3">Atribut Relasional:</h6>
+                        <ul class="attribute-list">
+                            <li><strong>Terkait dengan Tokoh:</strong> Dipopulerkan oleh murid-murid <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Ulama terkait pengembangan gaya kaligrafi">Syekh Fulan Al-Jawi</a></li>
+                            <li><strong>Tempat Pengembangan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Dikembangkan di Pesantren Fiktif 2">Pesantren Fiktif 2</a></li>
+                            <li><strong>Penggunaan:</strong> Menghias <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Masjid Agung Fiktif">Masjid Agung Fiktif</a>, mushaf Al-Qur'an, batu nisan.</li>
+                            <li><strong>Pengaruh:</strong> Mempengaruhi gaya kaligrafi di pesantren-pesantren lain di Jawa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h4>Karya Non-Fisik: Metode Pengajaran Bandongan Adaptif</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="attribute-list">
+                            <li><strong>Nama:</strong> Metode Pengajaran Bandongan Adaptif</li>
+                            <li><strong>Periode Pengembangan:</strong> Abad XVIII akhir - XIX awal</li>
+                            <li><strong>Pencipta/Kontributor Utama:</strong> Dikembangkan oleh <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Pengembang metode pengajaran ini">Syekh Fulan Al-Jawi</a> di pesantrennya.</li>
+                            <li><strong>Deskripsi:</strong> Modifikasi dari metode bandongan tradisional (kyai membaca dan santri menyimak), di mana Syekh Fulan menambahkan sesi diskusi interaktif dan penggunaan anotasi dalam Bahasa Jawa Pegon untuk memudahkan pemahaman santri yang beragam latar belakang.</li>
+                            <li><strong>Fungsi Sosial:</strong> Meningkatkan efektivitas transmisi ilmu, mendorong partisipasi aktif santri, menjembatani teks klasik dengan konteks lokal.</li>
+                            <li><strong>Nilai Filosofis:</strong> Menekankan pentingnya pemahaman mendalam (tafaqquh fi al-din) dan relevansi ilmu agama dengan realitas sosial.</li>
+                            <li><strong>Status:</strong> Menjadi ciri khas pengajaran di <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Pesantren Fiktif 2">Pesantren Fiktif 2</a> dan diadopsi oleh beberapa pesantren lain.</li>
+                            <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                        </ul>
+                         <h6 class="mt-3">Sub-Entitas:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Sistem Pendidikan">Jenis: Sistem Pendidikan</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XVIII-XIX">Periode: Abad XVIII-XIX</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya di Wilayah Jawa">Wilayah: Jawa</a>
+                        </div>
+                         <h6 class="mt-3">Atribut Relasional:</h6>
+                        <ul class="attribute-list">
+                            <li><strong>Terkait dengan Tokoh:</strong> Dikembangkan oleh <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Ulama pengembang metode ini">Syekh Fulan Al-Jawi</a></li>
+                            <li><strong>Tempat Pengembangan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Dikembangkan di Pesantren Fiktif 2">Pesantren Fiktif 2</a></li>
+                            <li><strong>Pengaruh:</strong> Mempengaruhi metode pengajaran di pesantren-pesantren lain di Jawa.</li>
+                            <li><strong>Adaptasi Lokal:</strong> Menggunakan Bahasa Jawa Pegon dalam proses pengajaran.</li>
+                        </ul>
+                    </div>
+                </div>
+
+
                 <div class="card mt-4">
                     <div class="card-header bg-primary text-white">
                         <h5>Kontribusi dan Pengaruh</h5>
                     </div>
                     <div class="card-body">
-                        <p>Syekh Nawawi Al-Bantani merupakan salah satu ulama Nusantara paling berpengaruh di Haramain (Mekah dan Madinah) pada abad ke-19. Beliau menjabat sebagai Imam Masjidil Haram dan mengajar ribuan murid dari berbagai penjuru dunia.</p>
-                        <p>Karya-karyanya menjadi rujukan utama di pesantren-pesantren Nusantara dan Timur Tengah. Pemikirannya banyak mempengaruhi perkembangan Islam Ahlussunnah wal Jamaah di Asia Tenggara.</p>
+                        <p>Syekh Fulan Al-Jawi merupakan ulama berpengaruh di tanah Jawa pada abad ke-18 hingga ke-19. Beliau dikenal karena kontribusinya dalam pengembangan fiqih lokal dan tasawuf yang berakar pada tradisi Jawa.</p>
+                        <p>Karya-karyanya menjadi rujukan penting di pesantren-pesantren dan majelis taklim, serta mempengaruhi praktik keagamaan masyarakat Jawa.</p>
                         
                         <div class="mt-4">
                             <h6>Status Verifikasi Data:</h6>
@@ -539,9 +753,9 @@
                             
                             <h6 class="mt-3">Sumber Referensi:</h6>
                             <ul>
-                                <li>Siyar A'lam al-Nubala</li>
-                                <li>Tarikh Ulama Jawa</li>
-                                <li>Biografi Syekh Nawawi Al-Bantani oleh Samsul Munir Amin</li>
+                                <li>Manuskrip Fiktif</li>
+                                <li>Babad Fiktif</li>
+                                <li>Penelitian Modern tentang Ulama Jawa</li>
                             </ul>
                         </div>
                     </div>
@@ -658,18 +872,25 @@
 
         // Initialize network visualization
         function initNetwork() {
+            console.log("initNetwork called"); // Added console log
             const container = document.getElementById('network-visualization');
             
             // Data untuk visualisasi jaringan
             const nodes = new vis.DataSet([
-                { id: 1, label: 'Syekh Nawawi\nAl-Bantani', shape: 'circularImage', image: 'https://via.placeholder.com/150', size: 30, group: 'central' },
-                { id: 2, label: 'Syekh Ahmad\nKhatib Sambas', shape: 'dot', size: 20, group: 'guru' },
-                { id: 3, label: 'Syekh Yusuf\nSumbulaweni', shape: 'dot', size: 20, group: 'guru' },
-                { id: 4, label: 'KH. Hasyim\nAsy\'ari', shape: 'dot', size: 20, group: 'murid' },
-                { id: 5, label: 'Syekh Mahfudz\nTermas', shape: 'dot', size: 20, group: 'murid' },
-                { id: 6, label: 'KH. Asy\'ari', shape: 'dot', size: 20, group: 'murid' },
+                { id: 1, label: 'Syekh Fulan\nAl-Jawi', shape: 'circularImage', image: 'https://via.placeholder.com/150', size: 30, group: 'central' },
+                { id: 2, label: 'Syekh Fiktif 1', shape: 'dot', size: 20, group: 'guru' },
+                { id: 3, label: 'Kyai Fiktif 2', shape: 'dot', size: 20, group: 'guru' },
+                { id: 4, label: 'Kyai Fiktif 3', shape: 'dot', size: 20, group: 'murid' },
+                { id: 5, label: 'Raden Fiktif 4', shape: 'dot', size: 20, group: 'murid' },
+                { id: 6, label: 'Tokoh Fiktif Lain', shape: 'dot', size: 20, group: 'murid' },
                 { id: 7, label: 'Imam Syafi\'i', shape: 'dot', size: 20, group: 'pengaruh' },
-                { id: 8, label: 'Imam Al-Ghazali', shape: 'dot', size: 20, group: 'pengaruh' }
+                { id: 8, label: 'Syekh Abdul Qadir Al-Jailani', shape: 'dot', size: 20, group: 'pengaruh' },
+                { id: 9, label: 'Tradisi Lokal Jawa', shape: 'dot', size: 20, group: 'pengaruh' },
+                // Added more fictional nodes
+                { id: 10, label: 'Kitab Fiqh Fiktif', shape: 'box', size: 20, group: 'karya' },
+                { id: 11, label: 'Pesantren Fiktif 1', shape: 'square', size: 20, group: 'institusi' },
+                { id: 12, label: 'Pusat Studi Fiktif', shape: 'square', size: 20, group: 'institusi' },
+                { id: 13, label: 'Masjid Agung Fiktif', shape: 'triangle', size: 20, group: 'karya' }
             ]);
 
             const edges = new vis.DataSet([
@@ -679,7 +900,13 @@
                 { from: 1, to: 5, arrows: 'to', label: 'Guru', color: '#C1CFA1' },
                 { from: 1, to: 6, arrows: 'to', label: 'Guru', color: '#C1CFA1' },
                 { from: 7, to: 1, arrows: 'to', dashes: true, label: 'Pengaruh', color: '#B17F59' },
-                { from: 8, to: 1, arrows: 'to', dashes: true, label: 'Pengaruh', color: '#B17F59' }
+                { from: 8, to: 1, arrows: 'to', dashes: true, label: 'Pengaruh', color: '#B17F59' },
+                { from: 9, to: 1, arrows: 'to', dashes: true, label: 'Pengaruh', color: '#B17F59' },
+                // Added more fictional edges
+                { from: 1, to: 10, arrows: 'to', label: 'Menulis', color: '#C1CFA1' },
+                { from: 11, to: 1, arrows: 'to', label: 'Belajar di', color: '#A5B68D' },
+                { from: 12, to: 1, arrows: 'to', label: 'Belajar di', color: '#A5B68D' },
+                { from: 1, to: 13, arrows: 'to', label: 'Berkontribusi', color: '#C1CFA1' }
             ]);
 
             const data = {
@@ -704,6 +931,14 @@
                     pengaruh: { 
                         color: { background: '#EDE8DC', border: '#B17F59' },
                         font: { size: 14 }
+                    },
+                    karya: { // Added group for Karya
+                        color: { background: '#FFD700', border: '#FFA500' },
+                        font: { size: 14 }
+                    },
+                     institusi: { // Added group for Institusi
+                        color: { background: '#ADD8E6', border: '#87CEFA' },
+                        font: { size: 14 }
                     }
                 },
                 edges: {
@@ -723,41 +958,46 @@
                 }
             };
 
-            const network = new vis.Network(container, data, options);
+            try { // Added error handling
+                const network = new vis.Network(container, data, options);
+                 console.log("Vis.js network initialized successfully."); // Added success log
 
-            // Event handlers
-            network.on('click', function(params) {
-                if (params.nodes.length > 0) {
-                    const nodeId = params.nodes[0];
-                    const node = nodes.get(nodeId);
-                    alert(`Klik pada: ${node.label}`);
-                    // Implementasi: Navigate to ulama page
-                }
-            });
+                // Event handlers
+                network.on('click', function(params) {
+                    if (params.nodes.length > 0) {
+                        const nodeId = params.nodes[0];
+                        const node = nodes.get(nodeId);
+                        alert(`Klik pada: ${node.label}`);
+                        // Implementasi: Navigate to entity page
+                    }
+                });
 
-            // Filter handlers
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const relationType = this.nextElementSibling.textContent.trim();
-                    const edgesToUpdate = edges.get().filter(edge => edge.label === relationType);
-                    
-                    edgesToUpdate.forEach(edge => {
-                        edges.update({ id: edge.id, hidden: !this.checked });
+                // Filter handlers
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const relationType = this.nextElementSibling.textContent.trim();
+                        const edgesToUpdate = edges.get().filter(edge => edge.label === relationType);
+                        
+                        edgesToUpdate.forEach(edge => {
+                            edges.update({ id: edge.id, hidden: !this.checked });
+                        });
                     });
                 });
-            });
 
-            // Generation distance handler
-            document.querySelector('input[type="range"]').addEventListener('input', function() {
-                const distance = parseInt(this.value);
-                const centralNode = 1; // Syekh Nawawi's ID
-                
-                edges.forEach(edge => {
-                    const pathLength = network.getConnectedNodes(edge.from).length;
-                    edge.hidden = pathLength > distance;
-                    edges.update(edge);
+                // Generation distance handler
+                document.querySelector('input[type="range"]').addEventListener('input', function() {
+                    const distance = parseInt(this.value);
+                    const centralNode = 1; // Syekh Fulan's ID
+                    
+                    edges.forEach(edge => {
+                        const pathLength = network.getConnectedNodes(edge.from).length;
+                        edge.hidden = pathLength > distance;
+                        edges.update(edge);
+                    });
                 });
-            });
+            } catch (error) {
+                console.error("Error initializing Vis.js network:", error); // Log any errors
+            }
         }
 
         // Initialize timeline
@@ -765,14 +1005,12 @@
             const container = document.getElementById('timeline-visualization');
             
             const items = new vis.DataSet([
-                { id: 1, content: 'Lahir di Tanara, Banten', start: '1815' },
-                { id: 2, content: 'Belajar di Pesantren Tanara', start: '1821', end: '1828' },
-                { id: 3, content: 'Pertama kali ke Mekah', start: '1828' },
-                { id: 4, content: 'Belajar di Masjidil Haram', start: '1830', end: '1833' },
-                { id: 5, content: 'Kembali ke Tanara', start: '1833' },
-                { id: 6, content: 'Menetap di Mekah', start: '1855' },
-                { id: 7, content: 'Menulis Tafsir Marah Labid', start: '1870', end: '1875' },
-                { id: 8, content: 'Wafat di Mekah', start: '1897' }
+                { id: 1, content: 'Lahir di Desa Fiktif, Jawa', start: '1750' },
+                { id: 2, content: 'Belajar di Pesantren Fiktif 1', start: '1760', end: '1770' },
+                { id: 3, content: 'Belajar di Pusat Studi Fiktif, Timur Tengah', start: '1775', end: '1785' },
+                { id: 4, content: 'Mendirikan Pesantren Fiktif 2', start: '1790' },
+                { id: 5, content: 'Menulis Kitab Fiqh Fiktif', start: '1800', end: '1810' },
+                { id: 6, content: 'Wafat di Kota Fiktif, Jawa', start: '1830' }
             ]);
 
             const options = {
@@ -792,7 +1030,7 @@
             const timeline = new vis.Timeline(container, items, options);
 
             // Zoom ke rentang waktu yang relevan
-            timeline.setWindow('1810', '1900');
+            timeline.setWindow('1740', '1840');
         }
 
         // Initialize visualizations when modals are shown
@@ -880,18 +1118,18 @@
         const structuredData = {
             "@context": "https://schema.org",
             "@type": "Person",
-            "name": "Muhammad Nawawi bin Umar Al-Bantani",
-            "birthDate": "1815",
-            "deathDate": "1897",
+            "name": "Fulan bin Alan Al-Jawi",
+            "birthDate": "Sekitar 1750",
+            "deathDate": "Sekitar 1830",
             "birthPlace": {
                 "@type": "Place",
-                "name": "Tanara, Banten"
+                "name": "Desa Fiktif, Jawa"
             },
             "deathPlace": {
                 "@type": "Place",
-                "name": "Mekah"
+                "name": "Kota Fiktif, Jawa"
             },
-            "description": "Ulama Nusantara yang berpengaruh di Haramain pada abad ke-19"
+            "description": "Ulama berpengaruh di tanah Jawa pada abad ke-18 hingga ke-19"
         };
 
         // Add the structured data to the page
