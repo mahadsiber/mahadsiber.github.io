@@ -9,8 +9,8 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Vis.js -->
-    <link href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/vis-network@9.1.2/dist/dist/vis-network.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.css" rel="stylesheet">
     <style>
         .entity-card {
             transition: transform 0.3s;
@@ -330,17 +330,35 @@
                         <div class="accordion" id="schemaAccordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                        <span data-translate="ulama">1. Ulama dan Tokoh</span>
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero">
+                                        <span data-translate="entitas_referensi">0. Entitas Referensi</span>
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#schemaAccordion">
+                                <div id="collapseZero" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
                                     <div class="accordion-body">
                                         <ul class="nav flex-column">
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="biodata">Biodata</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="pendidikan">Riwayat Pendidikan</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="karya">Karya</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="jaringan">Jaringan Keilmuan</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="lokasi_geografi">Lokasi/Geografi</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="periode_sejarah">Periode Sejarah</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="institusi_pendidikan">Institusi Pendidikan</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="aliran_pemikiran_ref">Aliran Pemikiran</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="mazhab_ref">Mazhab</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="bahasa_aksara_ref">Bahasa dan Aksara</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                        <span data-translate="ulama_tokoh">1. Ulama dan Tokoh</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="ulama_nusantara">Ulama Nusantara</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="tokoh_lokal">Tokoh Berpengaruh Lokal</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="tokoh_internasional">Tokoh Berpengaruh Internasional</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -354,9 +372,10 @@
                                 <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
                                     <div class="accordion-body">
                                         <ul class="nav flex-column">
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="kitab">Kitab</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="manuskrip">Manuskrip</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="fatwa">Fatwa</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="karya_tulis">Karya Tulis</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="karya_arsitektur">Karya Arsitektur dan Tata Ruang</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="karya_seni">Karya Seni dan Tradisi</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="karya_non_fisik">Karya Non-Fisik</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -381,7 +400,75 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Continue with other schema sections -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                        <span data-translate="aliran_pemikiran_mazhab">4. Aliran Pemikiran dan Mazhab</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="mazhab_fiqh">Mazhab Fiqh</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="aliran_teologi">Aliran Teologi</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="tarekat_sufi">Tarekat Sufi</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="metodologi_tafsir_hadits">Metodologi Tafsir dan Hadits</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="filsafat_pemikiran">Filsafat dan Pemikiran</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="gerakan_pembaruan">Gerakan Pembaruan</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                        <span data-translate="bahasa_aksara">5. Bahasa dan Aksara</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="bahasa">Bahasa</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="aksara">Aksara</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="literasi_tradisi_oral">Literasi dan Tradisi Oral</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                                        <span data-translate="jaringan_pengetahuan">6. Jaringan Pengetahuan dan Transmisi Ilmu</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="pusat_pendidikan">Pusat Pendidikan</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="metode_transmisi">Metode Transmisi</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="kitab_teks_kunci">Kitab dan Teks Kunci</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="tradisi_intelektual">Tradisi Intelektual</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven">
+                                        <span data-translate="dialektika_dinamika">7. Dialektika dan Dinamika Pemikiran</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#schemaAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="polemik_perdebatan">Polemik dan Perdebatan</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="sintesis_akomodasi">Sintesis dan Akomodasi</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="reformasi_pembaruan">Reformasi dan Pembaruan</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" data-translate="resistensi_konservasi">Resistensi dan Konservasi</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -404,17 +491,17 @@
             </div>
 
             <div class="col-lg-9">
-                <div class="card mb-4">
+                <!-- Section for 1. Ulama dan Tokoh -->
+                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
-                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
+                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUlamaTokoh" aria-expanded="true" aria-controls="collapseUlamaTokoh">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Profil Ulama: Syekh Fulan Al-Jawi</h4>
+                        <h4>1. Ulama dan Tokoh: Syekh Fulan Al-Jawi</h4>
                     </div>
-                    <div id="collapseProfile" class="collapse show">
+                    <div id="collapseUlamaTokoh" class="collapse">
                         <div class="card-body">
-                            <!-- Tambahkan tombol di bawah judul profil -->
-                            <div class="d-flex justify-content-end mb-3">
+                             <div class="d-flex justify-content-end mb-3">
                                 <div class="btn-group me-2">
                                     <button class="btn btn-outline-primary" onclick="toggleLanguage()" data-bs-toggle="tooltip" title="Ganti Bahasa (EN/ID)">
                                         <i class="bi bi-translate"></i> EN/ID
@@ -443,477 +530,354 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-header bg-info text-white">
-                                            <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBiodata" aria-expanded="true" aria-controls="collapseBiodata">
-                                                <i class="bi bi-chevron-down"></i>
-                                            </button>
-                                            <h5>Biodata</h5>
-                                        </div>
-                                        <div id="collapseBiodata" class="collapse show">
-                                            <div class="card-body">
-                                                <div class="text-center mb-3">
-                                                    <img src="https://placehold.co/150x150" class="rounded-circle" alt="Syekh Fulan">
-                                                </div>
-                                                <ul class="attribute-list">
-                                                    <li><strong>Nama Lengkap:</strong> Fulan bin Alan Al-Jawi</li>
-                                                    <li><strong>Nama Populer:</strong> Syekh Fulan</li>
-                                                    <li><strong>Tanggal Lahir:</strong> Sekitar 1750 M, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Desa Fiktif: Tempat lahir Syekh Fulan"><span class="badge bg-primary">Desa Fiktif</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah utama aktivitas Syekh Fulan"><span class="badge bg-primary">Jawa</span></a></li>
-                                                    <li><strong>Tanggal Wafat:</strong> Sekitar 1830 M, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kota Fiktif: Tempat wafat Syekh Fulan"><span class="badge bg-primary">Kota Fiktif</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah utama aktivitas Syekh Fulan"><span class="badge bg-primary">Jawa</span></a></li>
-                                                    <li><strong>Posisi Sosial:</strong> Pengasuh Pesantren, Penasihat Kesultanan</li>
-                                                    <li><strong>Gelar:</strong> Mujaddid Lokal</li>
-                                                    <li><strong>Mazhab:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Mazhab Syafi'i: Mazhab fiqih yang dianut dan diajarkan"><span class="badge bg-primary">Syafi'i</span></a> (dengan adaptasi lokal)</li>
-                                                    <li><strong>Status Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
-                                                    <li><strong>Sumber Referensi:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Manuskrip Fiktif: Sumber primer tentang kehidupan Syekh Fulan"><span class="badge bg-primary">Manuskrip Fiktif</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Babad Fiktif: Kronik sejarah lokal yang menyebut Syekh Fulan"><span class="badge bg-primary">Babad Fiktif</span></a></li>
-                                                </ul>
-                                                <h6 class="mt-3">Sub-Entitas:</h6>
-                                                <div class="d-flex flex-wrap gap-2">
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Ulama dari Periode Abad XVIII-XIX"><span class="badge bg-info">Abad XVIII-XIX</span></a>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Ulama dari Wilayah Jawa"><span class="badge bg-info">Jawa</span></a>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Fiqih"><span class="badge bg-info">Fiqih</span></a>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Tasawuf"><span class="badge bg-info">Tasawuf</span></a>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Hukum Adat"><span class="badge bg-info">Hukum Adat</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                     <div class="text-center mb-3">
+                                        <img src="https://placehold.co/150x150" class="rounded-circle" alt="Syekh Fulan">
                                     </div>
                                 </div>
-
                                 <div class="col-md-8">
-                                    <div class="card mb-4">
-                                        <div class="card-header bg-success text-white">
-                                            <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePendidikan" aria-expanded="true" aria-controls="collapsePendidikan">
-                                                <i class="bi bi-chevron-down"></i>
-                                            </button>
-                                            <h5>Riwayat Pendidikan & Silsilah Keilmuan</h5>
-                                        </div>
-                                        <div id="collapsePendidikan" class="collapse show">
-                                            <div class="card-body">
-                                                <h6>Pendidikan:</h6>
-                                                <ul>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 1: Tempat Syekh Fulan menimba ilmu awal"><span class="badge bg-primary">Pesantren Fiktif 1</span></a>                  </li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Pesantren yang didirikan oleh Syekh Fulan"><span class="badge bg-primary">Pesantren Fiktif 2</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pusat Studi Fiktif: Lokasi Syekh Fulan belajar di Timur Tengah"><span class="badge bg-primary">Pusat Studi Fiktif</span></a></li>
-                                                </ul>
-                                                <h6 class="mt-3">Bahasa yang Dikuasai:</h6>
-                                                <div class="d-flex flex-wrap gap-2">
-                                                    <span class="badge bg-success" data-bs-toggle="tooltip" title="Bahasa Arab: Bahasa utama kitab kuning">Arab</span>
-                                                    <span class="badge bg-success" data-bs-toggle="tooltip" title="Bahasa Jawa: Bahasa lokal yang digunakan dalam pengajaran">Jawa</span>
-                                                    <span class="badge bg-success" data-bs-toggle="tooltip" title="Bahasa Melayu: Lingua franca perdagangan dan keilmuan di Nusantara">Melayu</span>
-                                                </div>
-                                                <h6 class="mt-3">Guru-guru:</h6>
-                                                <ul>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fiktif 1: Salah satu guru Syekh Fulan"><span class="badge bg-warning">Syekh Fiktif 1</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 2: Guru Syekh Fulan di pesantren lokal"><span class="badge bg-warning">Kyai Fiktif 2</span></a></li>
-                                                </ul>
-                                                <h6 class="mt-3">Murid-murid:</h6>
-                                                <ul>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 3: Murid utama Syekh Fulan yang meneruskan ajarannya"><span class="badge bg-warning">Kyai Fiktif 3</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif 4: Murid dari kalangan bangsawan"><span class="badge bg-warning">Raden Fiktif 4</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tokoh Fiktif Lain: Murid lain yang berpengaruh"><span class="badge bg-warning">Tokoh Fiktif Lain</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-4">
-                                        <div class="card-header bg-info text-white">
-                                            <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAliran" aria-expanded="true" aria-controls="collapseAliran">
-                                                <i class="bi bi-chevron-down"></i>
-                                            </button>
-                                            <h5>Aliran Pemikiran & Pengaruh</h5>
-                                        </div>
-                                        <div id="collapseAliran" class="collapse show">
-                                            <div class="card-body">
-                                                <h6>Ideologi & Mazhab:</h6>
-                                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Ahlus Sunnah wal Jamaah: Orientasi teologis utama">Ahlus Sunnah wal Jamaah</span>
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Syafi'iyah: Mazhab fiqih yang diikuti">Syafi'iyah</span>
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Asy'ariyah: Aliran teologi yang dianut">Asy'ariyah</span>
-                                                    <span class="badge bg-info" data-bs-toggle="tooltip" title="Tradisionalis: Pendekatan dalam memahami ajaran Islam">Tradisionalis</span>
-                                                </div>
-
-                                                <h6>Dipengaruhi oleh:</h6>
-                                                <ul>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Imam Syafi'i: Pendiri mazhab Syafi'i"><span class="badge bg-warning">Imam Syafi'i</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Abdul Qadir Al-Jailani: Tokoh sufi pendiri Tarekat Qadiriyah"><span class="badge bg-warning">Syekh Abdul Qadir Al-Jailani</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tradisi Lokal Jawa: Pengaruh budaya dan adat lokal"><span class="badge bg-warning">Tradisi Lokal Jawa</span></a></li>
-                                                </ul>
-
-                                                <h6>Polemik & Perdebatan:</h6>
-                                                <ul>
-                                                    <li>Debat dengan <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tokoh Fiktif Modernis: Berbeda pandangan tentang adaptasi hukum Islam"><span class="badge bg-warning">Tokoh Fiktif Modernis</span></a> tentang adaptasi hukum Islam.</li>
-                                                    <li>Respon terhadap <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kebijakan Kolonial Fiktif: Sikap ulama terhadap kebijakan penguasa kolonial"><span class="badge bg-warning">Kebijakan Kolonial Fiktif</span></a>.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-4">
-                                        <div class="card-header bg-warning text-dark">
-                                            <button class="btn btn-link text-dark float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKaryaUtama" aria-expanded="true" aria-controls="collapseKaryaUtama">
-                                                <i class="bi bi-chevron-down"></i>
-                                            </button>
-                                            <h5>Karya Utama</h5>
-                                        </div>
-                                        <div id="collapseKaryaUtama" class="collapse show">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <ul>
-                                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kitab Fiqh Fiktif: Karya utama Syekh Fulan di bidang fiqih"><span class="badge bg-primary">Kitab Fiqh Fiktif</span></a></li>
-                                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Manuskrip Tasawuf Fiktif: Karya Syekh Fulan di bidang tasawuf"><span class="badge bg-primary">Manuskrip Tasawuf Fiktif</span></a></li>
-                                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kumpulan Fatwa Fiktif: Fatwa-fatwa Syekh Fulan"><span class="badge bg-primary">Kumpulan Fatwa Fiktif</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <ul>
-                                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syarah Kitab Fiktif: Penjelasan atas kitab lain"><span class="badge bg-primary">Syarah Kitab Fiktif</span></a></li>
-                                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Risalah Fiktif: Tulisan singkat Syekh Fulan"><span class="badge bg-primary">Risalah Fiktif</span></a></li>
-                                                            <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syair Nasihat Fiktif: Karya sastra Syekh Fulan"><span class="badge bg-primary">Syair Nasihat Fiktif</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-4">
-                                        <div class="card-header bg-success text-white">
-                                            <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSosioKultural" aria-expanded="true" aria-controls="collapseSosioKultural">
-                                                <i class="bi bi-chevron-down"></i>
-                                            </button>
-                                            <h5>Konteks Sosio-Kultural Terkait</h5>
-                                        </div>
-                                        <div id="collapseSosioKultural" class="collapse show">
-                                            <div class="card-body">
-                                                <h6>Struktur Sosial:</h6>
-                                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                                    <span class="badge bg-info" data-bs-toggle="tooltip" title="Kelas Sosial: Ulama">Kelas Sosial: Ulama</span>
-                                                    <span class="badge bg-info" data-bs-toggle="tooltip" title="Kelas Sosial: Bangsawan (melalui hubungan dengan Kesultanan)">Kelas Sosial: Bangsawan</span>
-                                                    <span class="badge bg-info" data-bs-toggle="tooltip" title="Komunitas Keagamaan: Ahlussunnah wal Jamaah">Komunitas Keagamaan: Ahlussunnah wal Jamaah</span>
-                                                </div>
-                                                <h6>Institusi Sosial:</h6>
-                                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Institusi yang didirikan dan dikelola"><span class="badge bg-primary">Pesantren Fiktif 2</span></a>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Institusi tempat menjadi penasihat"><span class="badge bg-primary">Kesultanan Fiktif</span></a>
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Tarekat Fiktif: Tarekat yang diikuti atau diajarkan">Tarekat Fiktif</span>
-                                                </div>
-                                                <h6>Norma dan Nilai:</h6>
-                                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Norma: Adat Istiadat Jawa">Norma: Adat Istiadat Jawa</span>
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Nilai: Harmonisasi Islam-Budaya Lokal">Nilai: Harmonisasi Islam-Budaya Lokal</span>
-                                                </div>
-                                                <h6>Produk Budaya:</h6>
-                                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Produk Budaya: Penggunaan Bahasa Jawa Pegon">Penggunaan Bahasa Jawa Pegon</span>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Masjid Agung Fiktif: Karya Arsitektur terkait"><span class="badge bg-primary">Masjid Agung Fiktif</span></a>
-                                                </div>
-                                                <h6>Peristiwa Sosio-Kultural:</h6>
-                                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                                    <span class="badge bg-primary" data-bs-toggle="tooltip" title="Peristiwa: Respon terhadap Kebijakan Kolonial">Respon terhadap Kebijakan Kolonial</span>
-                                                </div>
-                                                <h6>Relasi dengan Konteks:</h6>
-                                                <ul class="attribute-list">
-                                                    <li><strong>Mempengaruhi Pemikiran:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tradisi Lokal Jawa: Mempengaruhi pemikiran fiqih dan tasawuf"><span class="badge bg-warning">Tradisi Lokal Jawa</span></a></li>
-                                                    <li><strong>Terlibat dalam Institusi:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Terlibat dalam pendirian dan pengelolaan"><span class="badge bg-warning">Pesantren Fiktif 2</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Terlibat sebagai penasihat"><span class="badge bg-warning">Kesultanan Fiktif</span></a></li>
-                                                    <li><strong>Berinteraksi dengan Norma:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Adat Istiadat Jawa: Berinteraksi dan mengadaptasi ajaran Islam"><span class="badge bg-warning">Adat Istiadat Jawa</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    <h6>Atribut Internal:</h6>
+                                    <ul class="attribute-list">
+                                        <li><strong>Nama Lengkap:</strong> Fulan bin Alan Al-Jawi</li>
+                                        <li><strong>Nama Populer:</strong> Syekh Fulan</li>
+                                        <li><strong>Tanggal Lahir:</strong> Sekitar 1750 M</li>
+                                        <li><strong>Tanggal Wafat:</strong> Sekitar 1830 M</li>
+                                        <li><strong>Posisi Sosial:</strong> Pengasuh Pesantren, Penasihat Kesultanan</li>
+                                        <li><strong>Silsilah Keilmuan:</strong> Melalui Syekh Fiktif 1 dan Kyai Fiktif 2</li>
+                                        <li><strong>Karya Utama:</strong> Kitab Fiqh Fiktif, Manuskrip Tasawuf Fiktif</li>
+                                        <li><strong>Status Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                                        <li><strong>Sumber Referensi:</strong> Manuskrip Fiktif, Babad Fiktif</li>
+                                    </ul>
                                 </div>
                             </div>
-
-                            <div class="card mt-4">
-                                <div class="card-header bg-primary text-white">
-                                    <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJaringan" aria-expanded="true" aria-controls="collapseJaringan">
-                                        <i class="bi bi-chevron-down"></i>
-                                    </button>
-                                    <h5>Jaringan Keilmuan</h5>
+                            <h6 class="mt-3">Atribut Relasional:</h6>
+                            <ul class="attribute-list">
+                                <li><strong>Lahir di:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Desa Fiktif, Jawa</span></a></li>
+                                <li><strong>Wafat di:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kota Fiktif, Jawa</span></a></li>
+                                <li><strong>Belajar di:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pesantren Fiktif 1</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Pusat Studi Fiktif</span></a></li>
+                                <li><strong>Berkarir di:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pesantren Fiktif 2</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Kesultanan Fiktif</span></a></li>
+                                <li><strong>Menulis:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Tafsir Fiktif</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Kitab Fiqh Fiktif</span></a></li>
+                                <li><strong>Mengikuti Aliran:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ahlus Sunnah wal Jamaah</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Asy'ariyah</span></a></li>
+                                <li><strong>Menganut Mazhab:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Syafi'i</span></a></li>
+                                <li><strong>Hidup pada Periode:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Abad XVIII-XIX</span></a></li>
+                                <li><strong>Beraktivitas di Wilayah:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Jawa</span></a></li>
+                                <li><strong>Berspesialisasi dalam:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Fiqih</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Tasawuf</span></a></li>
+                                <li><strong>Memiliki Guru:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Syekh Fiktif 1</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Kyai Fiktif 2</span></a></li>
+                                <li><strong>Memiliki Murid:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kyai Fiktif 3</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Raden Fiktif 4</span></a></li>
+                                <li><strong>Terlibat dalam Polemik dengan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Tokoh Fiktif Modernis</span></a></li>
+                                <li><strong>Dipengaruhi oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Imam Syafi'i</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Syekh Abdul Qadir Al-Jailani</span></a></li>
+                                <li><strong>Mempengaruhi:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kyai Fiktif 3</span></a></li>
+                                <li><strong>Menggunakan Bahasa:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Arab</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Jawa</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Melayu</span></a></li>
+                            </ul>
+                             <h6 class="mt-3">Sub-Entitas:</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Ulama Nusantara</span>
+                                    <span class="badge bg-info">Periode Abad XVIII-XIX</span>
+                                    <span class="badge bg-info">Wilayah Jawa</span>
+                                    <span class="badge bg-info">Spesialisasi Fiqih</span>
+                                    <span class="badge bg-info">Spesialisasi Tasawuf</span>
                                 </div>
-                                <div id="collapseJaringan" class="collapse show">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h6>Guru-guru:</h6>
-                                                <ul>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fiktif 1: Salah satu guru Syekh Fulan"><span class="badge bg-warning">Syekh Fiktif 1</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 2: Guru Syekh Fulan di pesantren lokal"><span class="badge bg-warning">Kyai Fiktif 2</span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <h6>Murid-murid:</h6>
-                                                <ul>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kyai Fiktif 3: Murid utama Syekh Fulan yang meneruskan ajarannya"><span class="badge bg-warning">Kyai Fiktif 3</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif 4: Murid dari kalangan bangsawan"><span class="badge bg-warning">Raden Fiktif 4</span></a></li>
-                                                    <li><a href="#" class="link-entity" data-bs-toggle="tooltip" title="Tokoh Fiktif Lain: Murid lain yang berpengaruh"><span class="badge bg-warning">Tokoh Fiktif Lain</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card mb-4">
+                <!-- Section for 2. Karya dan Kontribusi -->
+                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
-                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKarya" aria-expanded="true" aria-controls="collapseKarya">
+                         <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKaryaKontribusi" aria-expanded="true" aria-controls="collapseKaryaKontribusi">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Karya: Tafsir Fiktif</h4>
+                        <h4>2. Karya dan Kontribusi: Tafsir Fiktif</h4>
                     </div>
-                    <div id="collapseKarya" class="collapse show">
+                    <div id="collapseKaryaKontribusi" class="collapse">
                         <div class="card-body">
+                            <h6>Atribut Internal:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Penulis:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Penulis kitab tafsir ini"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a></li>
-                                <li><strong>Judul Lengkap:</strong> Tafsir Nur al-Huda fi Bayan Ahkam al-Duha</li>
+                                <li><strong>Judul/Nama:</strong> Tafsir Nur al-Huda fi Bayan Ahkam al-Duha</li>
+                                <li><strong>Tahun Pembuatan:</strong> Sekitar 1800-1810 M</li>
+                                <li><strong>Bahasa:</strong> Arab, Jawa Pegon</li>
                                 <li><strong>Kategori:</strong> <span class="badge bg-success">Tafsir</span></li>
-                                <li><strong>Bahasa:</strong> <span class="badge bg-success">Arab</span>, dengan anotasi dalam Bahasa Jawa Pegon</li>
-                                <li><strong>Tahun Pembuatan:</strong> <span class="badge bg-success">Sekitar 1800-1810 M</span></li>
                                 <li><strong>Deskripsi:</strong> Kitab tafsir juz 'Amma yang fokus pada hukum-hukum terkait waktu Duha, menggabungkan pendekatan tekstual dan kontekstual lokal.</li>
                                 <li><strong>Status:</strong> Manuskrip asli tersimpan, sudah dicetak ulang beberapa kali.</li>
-                                <li><strong>Lokasi Fisik Manuskrip:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Perpustakaan Pesantren Fiktif 1: Tempat penyimpanan manuskrip asli"><span class="badge bg-success">Perpustakaan Pesantren Fiktif 1</span></a></li>
+                                <li><strong>Lokasi Fisik:</strong> Perpustakaan Pesantren Fiktif 1</li>
                                 <li><strong>Fungsi Sosial:</strong> Menjadi materi pengajian rutin di pesantren dan majelis taklim.</li>
                                 <li><strong>Nilai Filosofis:</strong> Menekankan pentingnya integrasi ibadah dan kehidupan sehari-hari.</li>
                                 <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
                             </ul>
-                            <h6 class="mt-3">Sub-Entitas:</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Kitab"><span class="badge bg-info">Kitab</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XIX"><span class="badge bg-info">Abad XIX</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya Berpengaruh di Wilayah Nusantara"><span class="badge bg-info">Nusantara</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya Berpengaruh di Wilayah Timur Tengah"><span class="badge bg-info">Timur Tengah</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Spesialisasi Karya: Tafsir"><span class="badge bg-info">Tafsir</span></a>
-                            </div>
+                             <h6 class="mt-3">Sub-Entitas:</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Karya Tulis</span>
+                                    <span class="badge bg-info">Kitab</span>
+                                    <span class="badge bg-info">Periode Abad XIX</span>
+                                    <span class="badge bg-info">Spesialisasi Tafsir</span>
+                                </div>
                             <h6 class="mt-3">Atribut Relasional:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Tempat Penulisan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 1: Tempat penulisan kitab"><span class="badge bg-warning">Pesantren Fiktif 1</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Jawa: Wilayah penulisan kitab"><span class="badge bg-primary">Jawa</span></a></li>
-                                <li><strong>Pendanaan:</strong> Mandiri, didukung oleh komunitas pesantren.</li>
-                                <li><strong>Penggunaan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Pesantren Fiktif 1"><span class="badge bg-warning">Pesantren Fiktif 1</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Pesantren Fiktif 2"><span class="badge bg-warning">Pesantren Fiktif 2</span></a>, Majelis Taklim di berbagai daerah Jawa.</li>
-                                <li><strong>Pengaruh:</strong> Mempengaruhi penafsiran ayat-ayat hukum terkait waktu di kalangan ulama Jawa.</li>
-                                <li><strong>Transmisi:</strong> Diajarkan langsung oleh penulis kepada murid-muridnya, disalin dan disebarkan secara luas.</li>
-                                <li><strong>Konteks:</strong> Ditulis pada masa awal pengaruh kolonial, merespon kebutuhan pemahaman agama dalam konteks sosial yang berubah.</li>
-                                <li><strong>Pengembangan:</strong> Memiliki beberapa syarah dan hasyiyah yang ditulis oleh murid-murin Syekh Fulan.</li>
-                                <li><strong>Polemik:</strong> Menjadi bahan diskusi dalam beberapa bahtsul masail terkait hukum waktu salat Duha.</li>
-                                <li><strong>Ritual Terkait:</strong> Biasa dikaji pada menjelang atau seusai salat Duha.</li>
-                                <li><strong>Adaptasi Lokal:</strong> Menggunakan Bahasa Jawa Pegon dalam anotasi untuk memudahkan pemahaman santri lokal.</li>
-                                <li><strong>Legitimasi:</strong> Diakui oleh beberapa kesultanan lokal sebagai rujukan hukum.</li>
-                                <li><strong>Resistensi:</strong> Digunakan sebagai dasar argumentasi dalam merespon beberapa kebijakan kolonial yang dianggap bertentangan dengan syariah.</li>
-                                <li><strong>Modernisasi:</strong> Dicetak ulang dengan huruf Latin pada masa pergerakan nasional.</li>
-                                <li><strong>Ekonomi Terkait:</strong> Menjadi komoditas penting dalam industri percetakan kitab di Jawa.</li>
-                                <li><strong>Jaringan Terkait:</strong> Tersebar melalui jaringan pesantren dan tarekat di Jawa.</li>
+                                <li><strong>Ditulis oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a></li>
+                                <li><strong>Dibuat di:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pesantren Fiktif 1, Jawa</span></a></li>
+                                <li><strong>Didanai oleh:</strong> Komunitas pesantren</li>
+                                <li><strong>Digunakan di:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pesantren Fiktif 1</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Pesantren Fiktif 2</span></a>, Majelis Taklim</li>
+                                <li><strong>Mempengaruhi Karya:</strong> Beberapa syarah dan hasyiyah</li>
+                                <li><strong>Dipengaruhi oleh Karya:</strong> Kitab tafsir sebelumnya</li>
+                                <li><strong>Ditransmisikan oleh:</strong> Murid-murid Syekh Fulan</li>
+                                <li><strong>Dibuat pada Periode:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Abad XIX</span></a></li>
+                                <li><strong>Dikembangkan dari:</strong> Kitab tafsir sebelumnya</li>
+                                <li><strong>Menghasilkan Pengembangan:</strong> Beberapa syarah dan hasyiyah</li>
+                                <li><strong>Terlibat dalam Polemik dengan:</strong> Beberapa ulama terkait hukum Duha</li>
+                                <li><strong>Digunakan dalam Ritual:</strong> Pengajian rutin, kajian menjelang salat Duha</li>
+                                <li><strong>Diadaptasi dengan:</strong> Tradisi lokal Jawa</li>
+                                <li><strong>Digunakan untuk Legitimasi:</strong> Beberapa kesultanan lokal</li>
+                                <li><strong>Terlibat dalam Resistensi terhadap:</strong> Kebijakan kolonial</li>
+                                <li><strong>Mengalami Modernisasi:</strong> Dicetak ulang dengan huruf Latin</li>
+                                <li><strong>Terkait dengan Ekonomi:</strong> Industri percetakan kitab</li>
+                                <li><strong>Terkait dengan Jaringan:</strong> Jaringan pesantren dan tarekat</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="card mb-4">
+                <!-- Section for 3. Kontek Sosio-Kultural -->
+                 <div class="card mb-4">
                     <div class="card-header bg-info text-white">
-                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTokohLokal" aria-expanded="true" aria-controls="collapseTokohLokal">
+                         <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKonteksSosioKultural" aria-expanded="true" aria-controls="collapseKonteksSosioKultural">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Tokoh Berpengaruh Lokal: Raden Fiktif</h4>
+                        <h4>3. Konteks Sosio-Kultural: Adat Istiadat Jawa</h4>
                     </div>
-                    <div id="collapseTokohLokal" class="collapse show">
+                    <div id="collapseKonteksSosioKultural" class="collapse">
                         <div class="card-body">
+                            <h6>Atribut Internal:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Nama Lengkap:</strong> Raden Fiktif bin Pangeran Fiktif</li>
-                                <li><strong>Nama Populer:</strong> Raden Fiktif</li>
-                                <li><strong>Periode:</strong> <span class="badge bg-success">Abad XVIII-XIX</span></li>
-                                <li><strong>Wilayah:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Wilayah kekuasaan Raden Fiktif"><span class="badge bg-success">Kesultanan Fiktif</span></a>, Jawa</li>
-                                <li><strong>Posisi Sosial:</strong> <span class="badge bg-success">Bangsawan, Penasihat Agama Kesultanan</span></li>
-                                <li><strong>Kontribusi:</strong> Mendukung pendirian pesantren, mendanai pencetakan kitab, menjadi murid Syekh Fulan Al-Jawi.</li>
-                                <li><strong>Status Verifikasi:</strong> <span class="badge bg-warning">Data Parsial</span></li>
+                                <li><strong>Nama Entitas:</strong> Adat Istiadat Jawa</li>
+                                <li><strong>Deskripsi:</strong> Tradisi dan kebiasaan lokal masyarakat Jawa yang telah ada secara turun-temurun.</li>
+                                <li><strong>Periode Historis:</strong> Abad XIII-XIX</li>
+                                <li><strong>Lokasi Geografis:</strong> Jawa</li>
+                                <li><strong>Status Keberadaan:</strong> Masih Ada (dengan adaptasi)</li>
+                                <li><strong>Sumber Data:</strong> Babad, Serat, Penelitian Antropologi</li>
+                                <li><strong>Dampak:</strong> Mempengaruhi praktik keagamaan dan struktur sosial</li>
+                                <li><strong>Tokoh Terkait Langsung:</strong> Ulama lokal, Pemimpin Adat, Bangsawan</li>
                             </ul>
-                            <h6 class="mt-3">Sub-Entitas:</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Tokoh: Bangsawan"><span class="badge bg-info">Bangsawan</span></a>
-                            </div>
+                             <h6 class="mt-3">Sub-Entitas (Aspek Penting):</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Norma dan Nilai</span>
+                                    <span class="badge bg-info">Praktik Keagamaan</span>
+                                    <span class="badge bg-info">Produk Budaya</span>
+                                </div>
                             <h6 class="mt-3">Atribut Relasional:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Hubungan dengan Ulama:</strong> Murid dari <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Guru Raden Fiktif"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a></li>
-                                <li><strong>Dukungan terhadap Institusi:</strong> Mendanai <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Pesantren yang didukung oleh Raden Fiktif"><span class="badge bg-warning">Pesantren Fiktif 2</span></a></li>
-                                <li><strong>Konteks Politik:</strong> Berperan dalam pemerintahan <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Kesultanan tempat Raden Fiktif bertahta"><span class="badge bg-warning">Kesultanan Fiktif</span></a></li>
+                                <li><strong>Mempengaruhi Pemikiran:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama Nusantara</span></a></li>
+                                <li><strong>Dipengaruhi oleh Pemikiran:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama Nusantara</span></a></li>
+                                <li><strong>Menjadi Tempat Transmisi Pengetahuan:</strong> Jaringan Pesantren</li>
+                                <li><strong>Berinteraksi dengan Ajaran:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Aliran Pemikiran dan Mazhab</span></a></li>
+                                <li><strong>Membentuk Identitas:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama dan Tokoh</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Karya dan Kontribusi</span></a></li>
+                                <li><strong>Bernegosiasi dengan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Hukum dan Sistem Peradilan</span></a></li>
+                                <li><strong>Mempengaruhi Ekonomi:</strong> Sistem Ekonomi Tradisional</li>
+                                <li><strong>Mempengaruhi Akses Pendidikan:</strong> Struktur Sosial</li>
+                                <li><strong>Merepresentasikan Konsep:</strong> Seni Rupa</li>
+                                <li><strong>Digunakan dalam Dakwah:</strong> Seni Pertunjukan</li>
+                                <li><strong>Terkait dengan Penyembuhan:</strong> Obat-obatan Tradisional</li>
+                                <li><strong>Dipengaruhi oleh Geografi:</strong> Pola Permukiman</li>
+                                <li><strong>Terkait dengan Konflik:</strong> Polemik</li>
+                                <li><strong>Mempengaruhi Kebijakan:</strong> Kolonialisme</li>
+                                <li><strong>Menggunakan Bahasa:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Bahasa Jawa</span></a></li>
+                                <li><strong>Digunakan sebagai Media Transmisi:</strong> Wayang Sadat</li>
+                                <li><strong>Terlibat dalam Peristiwa:</strong> Peristiwa Sosio-Kultural</li>
+                                <li><strong>Memiliki Hierarki:</strong> Struktur Sosial</li>
+                                <li><strong>Terkait Kekerabatan:</strong> Struktur Sosial</li>
+                                <li><strong>Mengalami Mobilitas:</strong> Struktur Sosial</li>
+                                <li><strong>Menggunakan Kurikulum:</strong> Institusi Sosial</li>
+                                <li><strong>Terkait Silsilah:</strong> Institusi Sosial</li>
+                                <li><strong>Mengekspresikan Norma/Nilai:</strong> Praktik Keagamaan</li>
+                                <li><strong>Dimanfaatkan Produk Budaya:</strong> Dakwah</li>
+                                <li><strong>Memiliki Dampak:</strong> Peristiwa Sosio-Kultural</li>
+                                <li><strong>Terlibat Langsung:</strong> Peristiwa Sosio-Kultural</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <!-- Section for 4. Aliran Pemikiran dan Mazhab -->
                  <div class="card mb-4">
                     <div class="card-header bg-warning text-dark">
-                        <button class="btn btn-link text-dark float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTokohInternasional" aria-expanded="true" aria-controls="collapseTokohInternasional">
+                         <button class="btn btn-link text-dark float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAliranMazhab" aria-expanded="true" aria-controls="collapseAliranMazhab">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Tokoh Berpengaruh Internasional: Syekh Fiktif Timur Tengah</h4>
+                        <h4>4. Aliran Pemikiran dan Mazhab: Syafi'i</h4>
                     </div>
-                    <div id="collapseTokohInternasional" class="collapse show">
+                    <div id="collapseAliranMazhab" class="collapse">
                         <div class="card-body">
+                            <h6>Atribut Internal:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Nama Lengkap:</strong> Syekh Fiktif bin Syekh Fiktif</li>
-                                <li><strong>Nama Populer:</strong> Syekh Fiktif Timur Tengah</li>
-                                <li><strong>Periode:</strong> <span class="badge bg-success">Abad XVIII</span></li>
-                                <li><strong>Wilayah Asal:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pusat Studi Fiktif: Lokasi pusat keilmuan di Timur Tengah"><span class="badge bg-success">Pusat Studi Fiktif</span></a>, Timur Tengah</li>
-                                <li><strong>Spesialisasi:</strong> <span class="badge bg-success">Fiqih, Hadits</span></li>
-                                <li><strong>Kontribusi:</strong> Mengajar ulama Nusantara di Haramain, menulis kitab yang menjadi rujukan di Nusantara.</li>
-                                <li><strong>Status Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                                <li><strong>Nama Aliran/Mazhab:</strong> Syafi'i</li>
+                                <li><strong>Periode Relevansi:</strong> Abad XIII-XIX</li>
+                                <li><strong>Wilayah Pengaruh:</strong> Nusantara, Timur Tengah</li>
+                                <li><strong>Tokoh Terkait Langsung:</strong> Imam Syafi'i, Syekh Nawawi Al-Bantani</li>
+                                <li><strong>Karya Rujukan Utama:</strong> Kitab Al-Umm, Nihayat al-Zain</li>
+                                <li><strong>Deskripsi Singkat:</strong> Mazhab fiqh yang didirikan oleh Imam Muhammad bin Idris Al-Syafi'i, dominan di Asia Tenggara.</li>
+                                <li><strong>Status Keberadaan:</strong> Masih Ada</li>
+                                <li><strong>Sumber Data:</strong> Kitab Fiqh, Penelitian Akademik</li>
                             </ul>
-                            <h6 class="mt-3">Sub-Entitas:</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Tokoh: Ulama Timur Tengah"><span class="badge bg-info">Ulama Timur Tengah</span></a>
-                            </div>
+                             <h6 class="mt-3">Sub-Entitas (Aspek Penting):</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Mazhab Fiqh</span>
+                                </div>
                             <h6 class="mt-3">Atribut Relasional:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Hubungan with Ulama Nusantara:</strong> Guru dari <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Murid dari Syekh Fiktif Timur Tengah"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a></li>
-                                <li><strong>Karya yang Berpengaruh di Nusantara:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kitab Hadits Fiktif: Karya Syekh Fiktif Timur Tengah yang tersebar di Nusantara"><span class="badge bg-warning">Kitab Hadits Fiktif</span></a></li>
-                                <li><strong>Pusat Aktivitas:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pusat Studi Fiktif: Lokasi utama aktivitas Syekh Fiktif Timur Tengah"><span class="badge bg-warning">Pusat Studi Fiktif</span></a>, Timur Tengah</li>
+                                <li><strong>Diikuti oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama Nusantara</span></a></li>
+                                <li><strong>Mempengaruhi Karya:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Karya Tulis Fiqh</span></a></li>
+                                <li><strong>Berinteraksi dengan Konteks:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Adat Istiadat Jawa</span></a></li>
+                                <li><strong>Terkait dengan Geopolitik:</strong> Peristiwa Sejarah Dunia</li>
+                                <li><strong>Menggunakan Bahasa:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Bahasa Arab</span></a></li>
+                                <li><strong>Mempengaruhi Praktik Keagamaan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Praktik Ibadah</span></a></li>
+                                <li><strong>Terlibat dalam Konflik:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Polemik Antar Mazhab</span></a></li>
+                                <li><strong>Mempengaruhi Pendidikan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kurikulum Pesantren</span></a></li>
+                                <li><strong>Terkait dengan Gerakan Sosial:</strong> Gerakan Pembaruan</li>
+                                <li><strong>Memiliki Tokoh Kunci:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Imam Syafi'i</span></a></li>
+                                <li><strong>Memiliki Prinsip Dasar:</strong> Kaidah Ushul Fiqh Syafi'i</li>
+                                <li><strong>Memiliki Perkembangan Historis:</strong> Sejarah penyebaran di Nusantara</li>
+                                <li><strong>Memiliki Perdebatan:</strong> Bahtsul Masail</li>
+                                <li><strong>Memiliki Adaptasi Lokal:</strong> Fiqh lokal</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <!-- Section for 5. Bahasa dan Aksara -->
                  <div class="card mb-4">
                     <div class="card-header bg-success text-white">
-                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKaryaArsitektur" aria-expanded="true" aria-controls="collapseKaryaArsitektur">
+                         <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBahasaAksara" aria-expanded="true" aria-controls="collapseBahasaAksara">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Karya Arsitektur dan Tata Ruang: Masjid Agung Fiktif</h4>
+                        <h4>5. Bahasa dan Aksara: Bahasa Jawa Pegon</h4>
                     </div>
-                    <div id="collapseKaryaArsitektur" class="collapse show">
+                    <div id="collapseBahasaAksara" class="collapse">
                         <div class="card-body">
+                            <h6>Atribut Internal:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Nama:</strong> Masjid Agung Fiktif</li>
-                                <li><strong>Tahun Pembangunan:</strong> <span class="badge bg-success">Sekitar 1780 M</span></li>
-                                <li><strong>Lokasi:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kota Fiktif: Lokasi Masjid Agung Fiktif"><span class="badge bg-success">Kota Fiktif</span></a>, Jawa</li>
-                                <li><strong>Arsitek/Kontributor Utama:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Memberikan masukan desain arsitektur"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a> (memberikan masukan desain berbasis filosofi Islam-Jawa), <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif: Mendanai pembangunan masjid"><span class="badge bg-warning">Raden Fiktif</span></a> (pendanaan dan pengawasan).</li>
-                                <li><strong>Deskripsi:</strong> Masjid utama di Kesultanan Fiktif, menggabungkan arsitektur tradisional Jawa dengan elemen Islam. Memiliki atap tumpang tiga dan mustaka dengan ornamen kaligrafi.</li>
-                                <li><strong>Fungsi Sosial:</strong> Pusat ibadah, pendidikan, musyawarah, dan upacara kesultanan.</li>
-                                <li><strong>Nilai Filosofis:</strong> Melambangkan harmonisasi Islam dan budaya lokal, serta hirarki kosmik.</li>
-                                <li><strong>Status:</strong> Terpelihara dengan baik, menjadi situs sejarah dan religi.</li>
-                                <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                                <li><strong>Nama Bahasa/Aksara:</strong> Bahasa Jawa Pegon</li>
+                                <li><strong>Periode Relevansi:</strong> Abad XVIII-XIX</li>
+                                <li><strong>Wilayah Penggunaan:</strong> Jawa</li>
+                                <li><strong>Deskripsi Singkat:</strong> Bahasa Jawa yang ditulis menggunakan aksara Arab.</li>
+                                <li><strong>Status Keberadaan:</strong> Masih Digunakan (terutama di pesantren)</li>
+                                <li><strong>Sumber Data:</strong> Manuskrip, Kitab Kuning, Penelitian Linguistik</li>
                             </ul>
-                             <h6 class="mt-3">Sub-Entitas:</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Masjid"><span class="badge bg-info">Masjid</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XVIII"><span class="badge bg-info">Abad XVIII</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya di Wilayah Jawa"><span class="badge bg-info">Jawa</span></a>
-                            </div>
-                             <h6 class="mt-3">Atribut Relasional:</h6>
+                             <h6 class="mt-3">Sub-Entitas (Aspek Penting):</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Bahasa</span>
+                                    <span class="badge bg-info">Aksara</span>
+                                </div>
+                            <h6 class="mt-3">Atribut Relasional:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Kontributor:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Kontributor desain"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a>, <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Raden Fiktif: Kontributor pendanaan"><span class="badge bg-warning">Raden Fiktif</span></a></li>
-                                <li><strong>Lokasi Terkait:</strong> Berada dalam kompleks <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Kesultanan Fiktif: Kesultanan tempat masjid berada"><span class="badge bg-warning">Kesultanan Fiktif</span></a></li>
-                                <li><strong>Penggunaan dalam Ritual:</strong> Tempat pelaksanaan salat Jumat, salat Id, dan upacara Grebeg Fiktif.</li>
-                                <li><strong>Pengaruh:</strong> Menjadi model arsitektur masjid di wilayah sekitar.</li>
+                                <li><strong>Digunakan oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama Jawa</span></a></li>
+                                <li><strong>Digunakan dalam Karya:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kitab Kuning</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Manuskrip</span></a></li>
+                                <li><strong>Mempengaruhi Pemikiran:</strong> Aliran Pemikiran</li>
+                                <li><strong>Terkait dengan Budaya:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Adat Istiadat Jawa</span></a></li>
+                                <li><strong>Digunakan dalam Transmisi:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Metode Pengajaran Bandongan</span></a></li>
+                                <li><strong>Terkait dengan Pendidikan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pesantren</span></a></li>
+                                <li><strong>Digunakan dalam Media:</strong> Media Tradisional</li>
+                                <li><strong>Terkait dengan Hukum:</strong> Manuskrip Administratif</li>
+                                <li><strong>Digunakan dalam Seni:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Seni Kaligrafi</span></a></li>
+                                <li><strong>Memiliki Sejarah Perkembangan:</strong> Evolusi Bahasa</li>
+                                <li><strong>Memiliki Fungsi Sosial:</strong> Media komunikasi keilmuan lokal</li>
+                                <li><strong>Memiliki Variasi:</strong> Dialek regional</li>
+                                <li><strong>Memiliki Interaksi:</strong> Dengan Bahasa Arab dan Melayu</li>
+                                <li><strong>Mengalami Evolusi Makna:</strong> Evolusi Makna Istilah</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <!-- Section for 6. Jaringan Pengetahuan dan Transmisi Ilmu -->
                  <div class="card mb-4">
                     <div class="card-header bg-info text-white">
-                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKaryaSeni" aria-expanded="true" aria-controls="collapseKaryaSeni">
+                         <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJaringanPengetahuan" aria-expanded="true" aria-controls="collapseJaringanPengetahuan">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Karya Seni dan Tradisi: Seni Kaligrafi Gaya Fiktif</h4>
+                        <h4>6. Jaringan Pengetahuan dan Transmisi Ilmu: Jaringan Pesantren</h4>
                     </div>
-                    <div id="collapseKaryaSeni" class="collapse show">
+                    <div id="collapseJaringanPengetahuan" class="collapse">
                         <div class="card-body">
+                            <h6>Atribut Internal:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Nama:</strong> Seni Kaligrafi Gaya Fiktif</li>
-                                <li><strong>Periode Pengembangan:</strong> <span class="badge bg-success">Abad XIX</span></li>
-                                <li><strong>Pencipta/Kontributor Utama:</strong> Dikembangkan di lingkungan <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Pesantren Fiktif 2: Tempat pengembangan gaya kaligrafi"><span class="badge bg-warning">Pesantren Fiktif 2</span></a>, dipopulerkan oleh murid-murid <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Ulama yang muridnya mempopulerkan gaya ini"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a>.</li>
-                                <li><strong>Deskripsi:</strong> Gaya kaligrafi Arab yang menggabungkan khat Naskhi atau Tsuluts dengan ornamen flora dan fauna lokal yang disederhanakan, menghindari penggambaran makhluk bernyawa secara utuh. Sering digunakan untuk menghias mushaf, dinding masjid, dan batu nisan.</li>
-                                <li><strong>Fungsi Sosial:</strong> Media dakwah visual, ekspresi estetika Islam, penanda identitas komunitas pesantren.</li>
-                                <li><strong>Nilai Filosofis:</strong> Menggambarkan keindahan asma Allah dan ayat Al-Qur'an dalam bingkai budaya lokal.</li>
-                                <li><strong>Status:</strong> Masih dipraktikkan di beberapa pesantren tradisional.</li>
-                                <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                                <li><strong>Kurikulum:</strong> Berbasis Kitab Kuning</li>
+                                <li><strong>Metodologi Pengajaran:</strong> Sorogan, Bandongan</li>
+                                <li><strong>Hierarki Keilmuan:</strong> Kiai, Ustadz, Santri Senior, Santri</li>
+                                <li><strong>Spesialisasi Keilmuan:</strong> Fiqh, Tafsir, Hadits, Tasawuf</li>
+                                <li><strong>Proses Validasi Ilmu:</strong> Sanad, Ijazah</li>
+                                <li><strong>Evolusi Metode:</strong> Adaptasi dengan sistem klasikal</li>
+                                <li><strong>Pengaruh Teknologi:</strong> Penggunaan kitab cetak</li>
+                                <li><strong>Status Keberadaan:</strong> Masih Ada</li>
+                                <li><strong>Sumber Data:</strong> Arsip Pesantren, Penelitian Pendidikan</li>
                             </ul>
-                             <h6 class="mt-3">Sub-Entitas:</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Seni Rupa"><span class="badge bg-info">Seni Rupa</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XIX"><span class="badge bg-info">Abad XIX</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya di Wilayah Jawa"><span class="badge bg-info">Jawa</span></a>
-                            </div>
-                             <h6 class="mt-3">Atribut Relasional:</h6>
+                             <h6 class="mt-3">Sub-Entitas (Aspek Penting):</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Pusat Pendidikan</span>
+                                    <span class="badge bg-info">Metode Transmisi</span>
+                                    <span class="badge bg-info">Tradisi Intelektual</span>
+                                </div>
+                            <h6 class="mt-3">Atribut Relasional:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Terkait dengan Tokoh:</strong> Dipopulerkan oleh murid-murid <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Ulama terkait pengembangan gaya kaligrafi"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a></li>
-                                <li><strong>Tempat Pengembangan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Dikembangkan di Pesantren Fiktif 2"><span class="badge bg-warning">Pesantren Fiktif 2</span></a></li>
-                                <li><strong>Penggunaan:</strong> Menghias <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Masjid Agung Fiktif"><span class="badge bg-warning">Masjid Agung Fiktif</span></a>, mushaf Al-Qur'an, batu nisan.</li>
-                                <li><strong>Pengaruh:</strong> Mempengaruhi gaya kaligrafi di pesantren-pesantren lain di Jawa.</li>
+                                <li><strong>Melibatkan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama Nusantara</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Santri</span></a></li>
+                                <li><strong>Menggunakan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kitab Kuning</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Manuskrip</span></a></li>
+                                <li><strong>Dipengaruhi oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Aliran Pemikiran dan Mazhab</span></a></li>
+                                <li><strong>Terkait dengan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Konteks Sosio-Kultural</span></a></li>
+                                <li><strong>Dipengaruhi oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Geopolitik dan Sejarah Dunia</span></a></li>
+                                <li><strong>Menggunakan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Bahasa Arab</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Bahasa Jawa Pegon</span></a></li>
+                                <li><strong>Bagian dari:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pendidikan dan Transmisi Pengetahuan</span></a></li>
+                                <li><strong>Mempengaruhi Mobilitas Sosial:</strong> Meningkatkan status sosial santri</li>
+                                <li><strong>Dipengaruhi oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Teknologi dan Inovasi (Percetakan)</span></a></li>
+                                <li><strong>Memiliki Atribut Penting:</strong> Kurikulum, Metodologi Pengajaran</li>
+                                <li><strong>Menjadi Arena bagi:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Bahtsul Masail</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <!-- Section for 7. Dialektika dan Dinamika Pemikiran -->
                  <div class="card mb-4">
                     <div class="card-header bg-warning text-dark">
-                        <button class="btn btn-link text-dark float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKaryaNonFisik" aria-expanded="true" aria-controls="collapseKaryaNonFisik">
+                         <button class="btn btn-link text-dark float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDialektikaDinamika" aria-expanded="true" aria-controls="collapseDialektikaDinamika">
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4>Karya Non-Fisik: Metode Pengajaran Bandongan Adaptif</h4>
+                        <h4>7. Dialektika dan Dinamika Pemikiran: Polemik Tradisionalis-Modernis</h4>
                     </div>
-                    <div id="collapseKaryaNonFisik" class="collapse show">
+                    <div id="collapseDialektikaDinamika" class="collapse">
                         <div class="card-body">
+                            <h6>Atribut Internal:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Nama:</strong> Metode Pengajaran Bandongan Adaptif</li>
-                                <li><strong>Periode Pengembangan:</strong> <span class="badge bg-success">Abad XVIII akhir - XIX awal</span></li>
-                                <li><strong>Pencipta/Kontributor Utama:</strong> Dikembangkan oleh <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Pengembang metode pengajaran ini"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a> di pesantrennya.</li>
-                                <li><strong>Deskripsi:</strong> Modifikasi dari metode bandongan tradisional (kyai membaca dan santri menyimak), di mana Syekh Fulan menambahkan sesi diskusi interaktif dan penggunaan anotasi dalam Bahasa Jawa Pegon untuk memudahkan pemahaman santri yang beragam latar belakang.</li>
-                                <li><strong>Fungsi Sosial:</strong> Meningkatkan efektivitas transmisi ilmu, mendorong partisipasi aktif santri, menjembatani teks klasik dengan konteks lokal.</li>
-                                <li><strong>Nilai Filosofis:</strong> Menekankan pentingnya pemahaman mendalam (tafaqquh fi al-din) dan relevansi ilmu agama dengan realitas sosial.</li>
-                                <li><strong>Status:</strong> Menjadi ciri khas pengajaran di <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Digunakan di Pesantren Fiktif 2"><span class="badge bg-warning">Pesantren Fiktif 2</span></a> dan diadopsi oleh beberapa pesantren lain.</li>
-                                <li><strong>Verifikasi:</strong> <span class="badge bg-success">Data Terverifikasi</span></li>
+                                <li><strong>Argumen Utama:</strong> Perbedaan pandangan tentang ijtihad, bid'ah, dan pendidikan modern.</li>
+                                <li><strong>Konteks Sosio-Politik:</strong> Respon terhadap kolonialisme dan pengaruh ide-ide dari Timur Tengah.</li>
+                                <li><strong>Dampak Jangka Panjang:</strong> Munculnya organisasi massa Islam modern.</li>
+                                <li><strong>Evolusi Posisi:</strong> Pergeseran sikap terhadap modernitas seiring waktu.</li>
+                                <li><strong>Status Keberadaan:</strong> Historis (dalam bentuk awal), berlanjut dalam bentuk lain.</li>
+                                <li><strong>Sumber Data:</strong> Kitab polemik, Jurnal Islam, Catatan Sejarah.</li>
                             </ul>
-                             <h6 class="mt-3">Sub-Entitas:</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Jenis Karya: Sistem Pendidikan"><span class="badge bg-info">Sistem Pendidikan</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya dari Periode Abad XVIII-XIX"><span class="badge bg-info">Abad XVIII-XIX</span></a>
-                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Karya di Wilayah Jawa"><span class="badge bg-info">Jawa</span></a>
-                            </div>
-                             <h6 class="mt-3">Atribut Relasional:</h6>
+                             <h6 class="mt-3">Sub-Entitas (Aspek Penting):</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-info">Polemik dan Perdebatan</span>
+                                    <span class="badge bg-info">Reformasi dan Pembaruan</span>
+                                    <span class="badge bg-info">Resistensi dan Konservasi</span>
+                                </div>
+                            <h6 class="mt-3">Atribut Relasional:</h6>
                             <ul class="attribute-list">
-                                <li><strong>Terkait dengan Tokoh:</strong> Dikembangkan oleh <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Syekh Fulan Al-Jawi: Ulama pengembang metode ini"><span class="badge bg-warning">Syekh Fulan Al-Jawi</span></a></li>
-                                <li><strong>Tempat Pengembangan:</strong> <a href="#" class="link-entity" data-bs-toggle="tooltip" title="Dikembangkan di Pesantren Fiktif 2"><span class="badge bg-warning">Pesantren Fiktif 2</span></a></li>
-                                <li><strong>Pengaruh:</strong> Mempengaruhi metode pengajaran di pesantren-pesantren lain di Jawa.</li>
-                                <li><strong>Adaptasi Lokal:</strong> Menggunakan Bahasa Jawa Pegon dalam proses pengajaran.</li>
+                                <li><strong>Melibatkan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Ulama Tradisionalis</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Tokoh Modernis</span></a></li>
+                                <li><strong>Menghasilkan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Kitab Bantahan</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Organisasi Massa Islam</span></a></li>
+                                <li><strong>Terkait dengan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Aliran Pemikiran dan Mazhab</span></a></li>
+                                <li><strong>Dipengaruhi oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Konteks Sosio-Kultural (Pengaruh Barat)</span></a></li>
+                                <li><strong>Dipengaruhi oleh:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Geopolitik dan Sejarah Dunia (Kolonialisme)</span></a></li>
+                                <li><strong>Menggunakan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Bahasa Melayu</span></a>, <a href="#" class="link-entity"><span class="badge bg-warning">Media Cetak</span></a></li>
+                                <li><strong>Mempengaruhi:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Pendidikan dan Transmisi Pengetahuan</span></a></li>
+                                <li><strong>Terkait dengan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Gerakan Sosial dan Aktivisme Islam</span></a></li>
+                                <li><strong>Memiliki Atribut Penting:</strong> Argumen Utama, Dampak Jangka Panjang</li>
+                                <li><strong>Terkait dengan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Konflik dan Resolusi</span></a></li>
+                                <li><strong>Menggunakan:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Media dan Komunikasi</span></a></li>
+                                <li><strong>Menjadi Arena bagi:</strong> <a href="#" class="link-entity"><span class="badge bg-warning">Bahtsul Masail</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="card mt-4">
-                    <div class="card-header bg-primary text-white">
-                        <button class="btn btn-link text-white float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKontribusi" aria-expanded="true" aria-controls="collapseKontribusi">
-                            <i class="bi bi-chevron-down"></i>
-                        </button>
-                        <h5>Kontribusi dan Pengaruh</h5>
-                    </div>
-                    <div id="collapseKontribusi" class="collapse show">
-                        <div class="card-body">
-                            <p>Syekh Fulan Al-Jawi merupakan ulama berpengaruh di tanah Jawa pada abad ke-18 hingga ke-19. Beliau dikenal karena kontribusinya dalam pengembangan fiqih lokal dan tasawuf yang berakar pada tradisi Jawa.</p>
-                            <p>Karya-karyanya menjadi rujukan penting di pesantren-pesantren dan majelis taklim, serta mempengaruhi praktik keagamaan masyarakat Jawa.</p>
-
-                            <div class="mt-4">
-                                <h6>Status Verifikasi Data:</h6>
-                                <span class="badge bg-success">Data Terverifikasi</span>
-
-                                <h6 class="mt-3">Sumber Referensi:</h6>
-                                <ul>
-                                    <li>Manuskrip Fiktif</li>
-                                    <li>Babad Fiktif</li>
-                                    <li>Penelitian Modern tentang Ulama Jawa</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -996,9 +960,9 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vis-data@7.1.6/dist/vis-data.min.js"></script>
+    <script src="https://unpkg.com/vis-network@9.1.2/dist/dist/vis-network.min.js"></script>
+    <script src="https://unpkg.com/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.js"></script>
+    <script src="https://unpkg.com/vis-data@7.1.6/dist/vis-data.min.js"></script>
 
     <!-- Custom JavaScript for interactive features -->
     <script>
@@ -1241,7 +1205,7 @@
                 "fatwa": "Religious Edicts",
                 "konteks_sosio_kultural": "3. Socio-Cultural Context",
                 "struktur_sosial": "Social Structure",
-                "institusi_sosial": "Social Institutions",
+                "institusi_social": "Social Institutions",
                 "norma_nilai": "Norms and Values",
                 "praktik_keagamaan": "Religious Practices",
                 "produk_budaya": "Cultural Products",
@@ -1261,7 +1225,7 @@
                 "fatwa": "الفتاوى",
                 "konteks_sosio_kultural": "٣. السياق الاجتماعي والثقافي",
                 "struktur_sosial": "الهيكل الاجتماعي",
-                "institusi_sosial": "المؤسسات الاجتماعية",
+                "institusi_social": "المؤسسات الاجتماعية",
                 "norma_nilai": "المعايير والقيم",
                 "praktik_keagamaan": "الممارسات الدينية",
                 "produk_budaya": "المنتجات الثقافية",
