@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Manajemen Madrasah Nahdliyyah</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .sidebar {
+        height: 100vh;
+        background-color: green;
+        padding-top: 20px;
+        overflow-y: scroll;
+      }
+      .sidebar a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 18px;
+        color: white;
+        display: block;
+      }
+      .sidebar a:hover {
+        background-color: black;
+      }
+      .content {
+        padding: 20px;
+      }
+      #header {
+        height: 70px;
+        position: sticky;
+        color: white;
+      }
+      #sistem {
+        background: black;
+        text-align: right;
+        padding: 10px;
+      }
+      #madrasah {
+        background: green;
+        padding: 10px;
+      }
+      .chart-container {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 20px;
+      }
+
+      .section {
+        width: 100%;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+        overflow-y: auto;
+        width: 100%;
+        max-height: 300px;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table th,
+      .table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+      }
+
+      .table th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row" id="header">
+        <div class="col-md-2" id="sistem">
+          <strong>SiMaNah</strong>
+          <br /><small>Sistem Informasi Madrasah Nahdliyah</small>
+        </div>
+        <div class="col-md-10" id="madrasah">
+          <strong>MA Pathok Negara 5 Yogyakarta</strong>
+          <br />Jl. Pathok Negara no.99, Kota Yogyakarta
+        </div>
+      </div>
+      <div class="row" id="konten">
+        <div class="col-md-2 sidebar">
+          <a href="#data-santri" onclick="showSection('data-santri')"><i class="fas fa-user"></i> Data Santri</a>
+          <a href="#data-pengajar" onclick="showSection('data-pengajar')"><i class="fas fa-chalkboard-teacher"></i> Data Pengajar</a>
+          <a href="#kurikulum" onclick="showSection('kurikulum')"><i class="fas fa-book"></i> Kurikulum</a>
+          <a href="#evaluasi" onclick="showSection('evaluasi')"><i class="fas fa-chart-bar"></i> Evaluasi</a>
+          <a href="#acara" onclick="showSection('acara')"><i class="fas fa-calendar-alt"></i> Acara</a>
+          <a href="#komunikasi" onclick="showSection('komunikasi')"><i class="fas fa-comments"></i> Komunikasi</a>
+          <a href="#dokumen" onclick="showSection('dokumen')"><i class="fas fa-file-alt"></i> Dokumen</a>
+          <a href="#kesehatan" onclick="showSection('kesehatan')"><i class="fas fa-heartbeat"></i> Kesehatan</a>
+          <a href="#keamanan" onclick="showSection('keamanan')"><i class="fas fa-lock"></i> Keamanan</a>
+          <a href="#laporan" onclick="showSection('laporan')"><i class="fas fa-chart-pie"></i> Laporan</a>
+          <a href="#perpustakaan" onclick="showSection('perpustakaan')"><i class="fas fa-book-open"></i> Perpustakaan</a>
+          <a href="#fasilitas" onclick="showSection('fasilitas')"><i class="fas fa-building"></i> Fasilitas</a>
+          <a href="#sertifikasi" onclick="showSection('sertifikasi')"><i class="fas fa-certificate"></i> Sertifikasi</a>
+          <a href="#kebijakan" onclick="showSection('kebijakan')"><i class="fas fa-gavel"></i> Kebijakan</a>
+          <a href="#kemitraan" onclick="showSection('kemitraan')"><i class="fas fa-handshake"></i> Kemitraan</a>
+          <a href="#pengembangan" onclick="showSection('pengembangan')"><i class="fas fa-graduation-cap"></i> Pengembangan</a>
+          <a href="#lingkungan" onclick="showSection('lingkungan')"><i class="fas fa-leaf"></i> Lingkungan</a>
+          <a href="#ti" onclick="showSection('ti')"><i class="fas fa-desktop"></i> TI</a>
+          <a href="#pelatihan" onclick="showSection('pelatihan')"><i class="fas fa-users"></i> Pelatihan</a>
+          <a href="#kebudayaan" onclick="showSection('kebudayaan')"><i class="fas fa-globe"></i> Kebudayaan</a>
+          <a href="#kesehatan-mental" onclick="showSection('kesehatan-mental')"><i class="fas fa-brain"></i> Kesehatan Mental</a>
+        </div>
+        <div class="col-md-10 content">
+          <div id="data-santri" class="section">
+            <h2><i class="fas fa-user"></i> Data Santri</h2>
+            <div class="chart-container">
+              <canvas id="demografiSantri"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_santri</th>
+                    <th>nama_lengkap</th>
+                    <th>nomor_induk</th>
+                    <th>tanggal_lahir</th>
+                    <th>tempat_lahir</th>
+                    <th>jenis_kelamin</th>
+                    <th>alamat_lengkap</th>
+                    <th>kota</th>
+                    <th>provinsi</th>
+                    <th>kode_pos</th>
+                    <th>nama_wali</th>
+                    <th>kontak_wali</th>
+                    <th>tahun_masuk</th>
+                    <th>status</th>
+                    <th>program_studi</th>
+                    <th>kelas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>S001</td>
+                    <td>Luqman Hakim</td>
+                    <td>12345</td>
+                    <td>2000-01-01</td>
+                    <td>Yogyakarta</td>
+                    <td>L</td>
+                    <td>Jl. Example No. 123</td>
+                    <td>Yogyakarta</td>
+                    <td>DI Yogyakarta</td>
+                    <td>55123</td>
+                    <td>Bapak Hakim</td>
+                    <td>081234567890</td>
+                    <td>2018</td>
+                    <td>Aktif</td>
+                    <td>Bahasa Arab</td>
+                    <td>10A</td>
+                  </tr>
+                  <tr>
+                    <td>S002</td>
+                    <td>Luthfiatus Shofiah</td>
+                    <td>12346</td>
+                    <td>2002-05-15</td>
+                    <td>Yogyakarta</td>
+                    <td>P</td>
+                    <td>Jl. Example No. 456</td>
+                    <td>Yogyakarta</td>
+                    <td>DI Yogyakarta</td>
+                    <td>55123</td>
+                    <td>Ibu Shofiah</td>
+                    <td>081234567891</td>
+                    <td>2019</td>
+                    <td>Aktif</td>
+                    <td>Bahasa Inggris</td>
+                    <td>11B</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="data-pengajar" class="section" style="display: none">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Data Pengajar</h2>
+            <div class="chart-container">
+              <canvas id="profilPengajar"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_pengajar</th>
+                    <th>nip</th>
+                    <th>nama_lengkap</th>
+                    <th>gelar_akademik</th>
+                    <th>tanggal_lahir</th>
+                    <th>jenis_kelamin</th>
+                    <th>alamat</th>
+                    <th>email</th>
+                    <th>nomor_telepon</th>
+                    <th>bidang_keahlian</th>
+                    <th>mata_pelajaran</th>
+                    <th>status_kepegawaian</th>
+                    <th>tanggal_bergabung</th>
+                    <th>pendidikan_terakhir</th>
+                    <th>sertifikasi</th>
+                    <th>jadwal_mengajar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>P001</td>
+                    <td>1234567890</td>
+                    <td>M. Shodiq</td>
+                    <td>S.Pd</td>
+                    <td>1980-05-10</td>
+                    <td>L</td>
+                    <td>Jl. Pengajar No. 1</td>
+                    <td>shodiq@example.com</td>
+                    <td>081234567892</td>
+                    <td>Matematika, Fisika</td>
+                    <td>Matematika, Fisika</td>
+                    <td>PNS</td>
+                    <td>2010-08-01</td>
+                    <td>S2 Pendidikan</td>
+                    <td>Sertifikasi Pendidik</td>
+                    <td>Senin, Rabu, Jumat</td>
+                  </tr>
+                  <tr>
+                    <td>P002</td>
+                    <td>1234567891</td>
+                    <td>Siti Ngasiyah</td>
+                    <td>M.Pd</td>
+                    <td>1985-07-20</td>
+                    <td>P</td>
+                    <td>Jl. Pengajar No. 2</td>
+                    <td>ngasiyah@example.com</td>
+                    <td>081234567893</td>
+                    <td>Bahasa Indonesia, Sejarah</td>
+                    <td>Bahasa Indonesia, Sejarah</td>
+                    <td>GTT</td>
+                    <td>2012-08-01</td>
+                    <td>S2 Pendidikan</td>
+                    <td>Sertifikasi Pendidik</td>
+                    <td>Selasa, Kamis, Sabtu</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="kurikulum" class="section" style="display: none">
+            <h2><i class="fas fa-book"></i> Kurikulum</h2>
+            <div class="chart-container">
+              <canvas id="strukturKurikulum"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_mapel</th>
+                    <th>nama_mapel</th>
+                    <th>kategori</th>
+                    <th>tingkat_kelas</th>
+                    <th>jam_pelajaran</th>
+                    <th>standar_kompetensi</th>
+                    <th>kompetensi_dasar</th>
+                    <th>indikator_pencapaian</th>
+                    <th>materi_pokok</th>
+                    <th>metode_pembelajaran</th>
+                    <th>sistem_penilaian</th>
+                    <th>sumber_belajar</th>
+                    <th>alokasi_waktu</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>M001</td>
+                    <td>Matematika</td>
+                    <td>Umum</td>
+                    <td>[7, 8, 9]</td>
+                    <td>4</td>
+                    <td>Mampu mengerjakan soal matematika dasar</td>
+                    <td>Mampu mengerjakan soal matematika dasar</td>
+                    <td>Mampu mengerjakan soal matematika dasar</td>
+                    <td>Aljabar, Geometri</td>
+                    <td>Ceramah, Diskusi</td>
+                    <td>Ujian, Tugas</td>
+                    <td>Buku Matematika</td>
+                    <td>120 menit</td>
+                  </tr>
+                  <tr>
+                    <td>M002</td>
+                    <td>Bahasa Indonesia</td>
+                    <td>Umum</td>
+                    <td>[7, 8, 9]</td>
+                    <td>4</td>
+                    <td>Mampu menulis dan membaca teks sederhana</td>
+                    <td>Mampu menulis dan membaca teks sederhana</td>
+                    <td>Mampu menulis dan membaca teks sederhana</td>
+                    <td>Teks Narasi, Eksposisi</td>
+                    <td>Ceramah, Diskusi</td>
+                    <td>Ujian, Tugas</td>
+                    <td>Buku Bahasa Indonesia</td>
+                    <td>120 menit</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="evaluasi" class="section" style="display: none">
+            <h2><i class="fas fa-chart-bar"></i> Evaluasi</h2>
+            <div class="chart-container">
+              <canvas id="performaAkademik"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_evaluasi</th>
+                    <th>id_santri</th>
+                    <th>id_mapel</th>
+                    <th>jenis_evaluasi</th>
+                    <th>tanggal_evaluasi</th>
+                    <th>nilai_angka</th>
+                    <th>nilai_huruf</th>
+                    <th>komponen_penilaian</th>
+                    <th>catatan_evaluator</th>
+                    <th>remedial</th>
+                    <th>nilai_remedial</th>
+                    <th>kehadiran</th>
+                    <th>partisipasi</th>
+                    <th>tugas</th>
+                    <th>ujian</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>E001</td>
+                    <td>S001</td>
+                    <td>M001</td>
+                    <td>Ujian Tengah Semester</td>
+                    <td>2023-10-01</td>
+                    <td>85</td>
+                    <td>B</td>
+                    <td>Ujian: 70%, Tugas: 30%</td>
+                    <td>Mengerjakan dengan baik</td>
+                    <td>false</td>
+                    <td>0</td>
+                    <td>100</td>
+                    <td>90</td>
+                    <td>[{id: 1, nilai: 80}, {id: 2, nilai: 85}]</td>
+                    <td>[{id: 1, nilai: 90}, {id: 2, nilai: 85}]</td>
+                  </tr>
+                  <tr>
+                    <td>E002</td>
+                    <td>S002</td>
+                    <td>M002</td>
+                    <td>Ujian Tengah Semester</td>
+                    <td>2023-10-01</td>
+                    <td>88</td>
+                    <td>B+</td>
+                    <td>Ujian: 70%, Tugas: 30%</td>
+                    <td>Mengerjakan dengan baik</td>
+                    <td>false</td>
+                    <td>0</td>
+                    <td>100</td>
+                    <td>90</td>
+                    <td>[{id: 1, nilai: 85}, {id: 2, nilai: 90}]</td>
+                    <td>[{id: 1, nilai: 90}, {id: 2, nilai: 88}]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="acara" class="section" style="display: none">
+            <h2><i class="fas fa-calendar-alt"></i> Acara</h2>
+            <div class="chart-container">
+              <canvas id="kalenderKegiatan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_acara</th>
+                    <th>nama_acara</th>
+                    <th>kategori</th>
+                    <th>tanggal_mulai</th>
+                    <th>tanggal_selesai</th>
+                    <th>lokasi</th>
+                    <th>penanggung_jawab</th>
+                    <th>peserta</th>
+                    <th>anggaran</th>
+                    <th>status</th>
+                    <th>dokumentasi</th>
+                    <th>evaluasi</th>
+                    <th>target_capaian</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>A001</td>
+                    <td>Seminar Pendidikan</td>
+                    <td>Seminar</td>
+                    <td>2023-10-15</td>
+                    <td>2023-10-15</td>
+                    <td>Aula Utama</td>
+                    <td>M. Shodiq</td>
+                    <td>[S001, S002]</td>
+                    <td>{total: 5000000, terpakai: 4500000}</td>
+                    <td>Selesai</td>
+                    <td>[{foto: 'foto1.jpg'}, {foto: 'foto2.jpg'}]</td>
+                    <td>{kualitas: 'Baik', partisipasi: 'Tinggi'}</td>
+                    <td>[{capaian: 'Meningkatkan pengetahuan'}]</td>
+                  </tr>
+                  <tr>
+                    <td>A002</td>
+                    <td>Lomba Bahasa Arab</td>
+                    <td>Lomba</td>
+                    <td>2023-11-05</td>
+                    <td>2023-11-05</td>
+                    <td>Ruang Kelas 3A</td>
+                    <td>Siti Ngasiyah</td>
+                    <td>[S001, S002]</td>
+                    <td>{total: 3000000, terpakai: 2500000}</td>
+                    <td>Selesai</td>
+                    <td>[{foto: 'foto3.jpg'}, {foto: 'foto4.jpg'}]</td>
+                    <td>{kualitas: 'Baik', partisipasi: 'Tinggi'}</td>
+                    <td>[{capaian: 'Meningkatkan kemampuan bahasa Arab'}]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="komunikasi" class="section" style="display: none">
+            <h2><i class="fas fa-comments"></i> Komunikasi</h2>
+            <div class="chart-container">
+              <canvas id="analisisKomunikasi"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_komunikasi</th>
+                    <th>pengirim</th>
+                    <th>penerima</th>
+                    <th>subjek</th>
+                    <th>konten</th>
+                    <th>tanggal</th>
+                    <th>kategori</th>
+                    <th>prioritas</th>
+                    <th>status</th>
+                    <th>lampiran</th>
+                    <th>tindak_lanjut</th>
+                    <th>tags</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>K001</td>
+                    <td>M. Shodiq</td>
+                    <td>[S001, S002]</td>
+                    <td>Reminder: Ujian Matematika besok</td>
+                    <td>Ujian Matematika akan dilaksanakan besok</td>
+                    <td>2023-10-10</td>
+                    <td>Informasi</td>
+                    <td>Tinggi</td>
+                    <td>Dibaca</td>
+                    <td>[{file: 'ujian.pdf'}]</td>
+                    <td>
+                      [{tanggal: '2023-10-11', tindakan: 'Persiapan ujian'}]
+                    </td>
+                    <td>[{tag: 'Ujian'}, {tag: 'Matematika'}]</td>
+                  </tr>
+                  <tr>
+                    <td>K002</td>
+                    <td>Siti Ngasiyah</td>
+                    <td>[S001, S002]</td>
+                    <td>Pembagian materi Bahasa Indonesia</td>
+                    <td>Materi Bahasa Indonesia telah dibagikan</td>
+                    <td>2023-10-09</td>
+                    <td>Informasi</td>
+                    <td>Sedang</td>
+                    <td>Dibaca</td>
+                    <td>[{file: 'materi.pdf'}]</td>
+                    <td>
+                      [{tanggal: '2023-10-10', tindakan: 'Belajar materi'}]
+                    </td>
+                    <td>[{tag: 'Materi'}, {tag: 'Bahasa Indonesia'}]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="dokumen" class="section" style="display: none">
+            <h2><i class="fas fa-file-alt"></i> Dokumen</h2>
+            <div class="chart-container">
+              <canvas id="analisisDokumen"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_dokumen</th>
+                    <th>nama_dokumen</th>
+                    <th>kategori</th>
+                    <th>tanggal_upload</th>
+                    <th>file</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>D001</td>
+                    <td>Ijazah Luqman Hakim</td>
+                    <td>Santri</td>
+                    <td>2023-09-20</td>
+                    <td>ijazah_luqman.pdf</td>
+                    <td>Ijazah Luqman Hakim</td>
+                  </tr>
+                  <tr>
+                    <td>D002</td>
+                    <td>Silabus Matematika</td>
+                    <td>Kurikulum</td>
+                    <td>2023-08-15</td>
+                    <td>silabus_matematika.pdf</td>
+                    <td>Silabus Matematika Kelas 7</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="kesehatan" class="section" style="display: none">
+            <h2><i class="fas fa-heartbeat"></i> Kesehatan</h2>
+            <div class="chart-container">
+              <canvas id="statusKesehatan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_kesehatan</th>
+                    <th>id_santri</th>
+                    <th>tinggi_badan</th>
+                    <th>berat_badan</th>
+                    <th>golongan_darah</th>
+                    <th>riwayat_penyakit</th>
+                    <th>alergi</th>
+                    <th>vaksinasi</th>
+                    <th>pemeriksaan_berkala</th>
+                    <th>obat_rutin</th>
+                    <th>kontak_darurat</th>
+                    <th>catatan_khusus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>KS001</td>
+                    <td>S001</td>
+                    <td>170</td>
+                    <td>65</td>
+                    <td>A</td>
+                    <td>[{penyakit: 'Hipertensi', tahun: 2020}]</td>
+                    <td>[{alergi: 'Kacang', tahun: 2020}]</td>
+                    <td>[{vaksin: 'COVID-19', tahun: 2021}]</td>
+                    <td>[{tanggal: '2023-01-01', hasil: 'Baik'}]</td>
+                    <td>[{obat: 'Obat Hipertensi', dosis: '1x sehari'}]</td>
+                    <td>{nama: 'Bapak Hakim', nomor: '081234567890'}</td>
+                    <td>Perlu pemantauan kesehatan rutin</td>
+                  </tr>
+                  <tr>
+                    <td>KS002</td>
+                    <td>S002</td>
+                    <td>160</td>
+                    <td>55</td>
+                    <td>B</td>
+                    <td>[{penyakit: 'Asma', tahun: 2019}]</td>
+                    <td>[{alergi: 'Dust', tahun: 2019}]</td>
+                    <td>[{vaksin: 'COVID-19', tahun: 2021}]</td>
+                    <td>[{tanggal: '2023-01-01', hasil: 'Baik'}]</td>
+                    <td>[{obat: 'Obat Asma', dosis: '2x sehari'}]</td>
+                    <td>{nama: 'Ibu Shofiah', nomor: '081234567891'}</td>
+                    <td>Perlu pemantauan kesehatan rutin</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="keamanan" class="section" style="display: none">
+            <h2><i class="fas fa-lock"></i> Keamanan</h2>
+            <div class="chart-container">
+              <canvas id="analisisKeamanan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_keamanan</th>
+                    <th>pengguna</th>
+                    <th>aktivitas</th>
+                    <th>waktu</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>KM001</td>
+                    <td>Admin</td>
+                    <td>Login</td>
+                    <td>2023-10-10 08:00</td>
+                    <td>Login berhasil</td>
+                  </tr>
+                  <tr>
+                    <td>KM002</td>
+                    <td>M. Shodiq</td>
+                    <td>Mengubah jadwal mengajar</td>
+                    <td>2023-10-10 09:30</td>
+                    <td>Jadwal mengajar berhasil diubah</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="laporan" class="section" style="display: none">
+            <h2><i class="fas fa-chart-pie"></i> Laporan</h2>
+            <div class="chart-container">
+              <canvas id="analisisLaporan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_laporan</th>
+                    <th>nama_laporan</th>
+                    <th>tanggal</th>
+                    <th>keterangan</th>
+                    <th>file</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>LP001</td>
+                    <td>Laporan Nilai Santri</td>
+                    <td>2023-10-01</td>
+                    <td>Laporan nilai bulan September</td>
+                    <td>laporan_nilai.pdf</td>
+                  </tr>
+                  <tr>
+                    <td>LP002</td>
+                    <td>Laporan Kehadiran Santri</td>
+                    <td>2023-10-01</td>
+                    <td>Laporan kehadiran bulan September</td>
+                    <td>laporan_kehadiran.pdf</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="perpustakaan" class="section" style="display: none">
+            <h2><i class="fas fa-book-open"></i> Perpustakaan</h2>
+            <div class="chart-container">
+              <canvas id="koleksiPerpustakaan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_buku</th>
+                    <th>judul</th>
+                    <th>pengarang</th>
+                    <th>penerbit</th>
+                    <th>tahun_terbit</th>
+                    <th>kategori</th>
+                    <th>lokasi_rak</th>
+                    <th>status</th>
+                    <th>kondisi</th>
+                    <th>peminjaman</th>
+                    <th>stok</th>
+                    <th>isbn</th>
+                    <th>bahasa</th>
+                    <th>deskripsi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>B001</td>
+                    <td>Matematika Dasar</td>
+                    <td>John Doe</td>
+                    <td>Penerbit A</td>
+                    <td>2020</td>
+                    <td>[{kategori: 'Matematika'}]</td>
+                    <td>Rak 1</td>
+                    <td>Tersedia</td>
+                    <td>Baik</td>
+                    <td>[{id_santri: 'S001', tanggal_pinjam: '2023-09-25'}]</td>
+                    <td>5</td>
+                    <td>1234567890</td>
+                    <td>Indonesia</td>
+                    <td>Buku tentang matematika dasar</td>
+                  </tr>
+                  <tr>
+                    <td>B002</td>
+                    <td>Bahasa Indonesia Kelas 7</td>
+                    <td>Jane Doe</td>
+                    <td>Penerbit B</td>
+                    <td>2019</td>
+                    <td>[{kategori: 'Bahasa Indonesia'}]</td>
+                    <td>Rak 2</td>
+                    <td>Tersedia</td>
+                    <td>Baik</td>
+                    <td>[{id_santri: 'S002', tanggal_pinjam: '2023-09-26'}]</td>
+                    <td>3</td>
+                    <td>1234567891</td>
+                    <td>Indonesia</td>
+                    <td>Buku tentang bahasa Indonesia kelas 7</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="fasilitas" class="section" style="display: none">
+            <h2><i class="fas fa-building"></i> Fasilitas</h2>
+            <div class="chart-container">
+              <canvas id="statusFasilitas"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_fasilitas</th>
+                    <th>nama_fasilitas</th>
+                    <th>kategori</th>
+                    <th>lokasi</th>
+                    <th>kapasitas</th>
+                    <th>kondisi</th>
+                    <th>tanggal_pengadaan</th>
+                    <th>jadwal_pemeliharaan</th>
+                    <th>riwayat_perbaikan</th>
+                    <th>penanggung_jawab</th>
+                    <th>inventaris</th>
+                    <th>status_penggunaan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>F001</td>
+                    <td>Ruang Kelas 1A</td>
+                    <td>Kelas</td>
+                    <td>Gedung A</td>
+                    <td>30</td>
+                    <td>Baik</td>
+                    <td>2020-01-01</td>
+                    <td>[{tanggal: '2023-01-01'}, {tanggal: '2024-01-01'}]</td>
+                    <td>
+                      [{tanggal: '2022-05-10', keterangan: 'Perbaikan AC'}]
+                    </td>
+                    <td>M. Shodiq</td>
+                    <td>
+                      [{nama: 'Meja', jumlah: 30}, {nama: 'Kursi', jumlah: 30}]
+                    </td>
+                    <td>Digunakan</td>
+                  </tr>
+                  <tr>
+                    <td>F002</td>
+                    <td>Lab Komputer</td>
+                    <td>Lab</td>
+                    <td>Gedung B</td>
+                    <td>20</td>
+                    <td>Perlu Perbaikan</td>
+                    <td>2019-01-01</td>
+                    <td>[{tanggal: '2023-01-01'}, {tanggal: '2024-01-01'}]</td>
+                    <td>
+                      [{tanggal: '2022-05-10', keterangan: 'Perbaikan
+                      Komputer'}]
+                    </td>
+                    <td>Siti Ngasiyah</td>
+                    <td>
+                      [{nama: 'Komputer', jumlah: 20}, {nama: 'Meja', jumlah:
+                      20}]
+                    </td>
+                    <td>Digunakan</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="sertifikasi" class="section" style="display: none">
+            <h2><i class="fas fa-certificate"></i> Sertifikasi</h2>
+            <div class="chart-container">
+              <canvas id="analisisSertifikasi"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_sertifikasi</th>
+                    <th>id_santri</th>
+                    <th>sertifikat</th>
+                    <th>tanggal_diterima</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SR001</td>
+                    <td>S001</td>
+                    <td>Sertifikat Bahasa Arab</td>
+                    <td>2023-08-10</td>
+                    <td>Sertifikat Bahasa Arab</td>
+                  </tr>
+                  <tr>
+                    <td>SR002</td>
+                    <td>S002</td>
+                    <td>Sertifikat Bahasa Inggris</td>
+                    <td>2023-08-15</td>
+                    <td>Sertifikat Bahasa Inggris</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="kebijakan" class="section" style="display: none">
+            <h2><i class="fas fa-gavel"></i> Kebijakan</h2>
+            <div class="chart-container">
+              <canvas id="analisisKebijakan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_kebijakan</th>
+                    <th>nama_kebijakan</th>
+                    <th>tanggal_berlaku</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>KB001</td>
+                    <td>Kebijakan Kehadiran Santri</td>
+                    <td>2023-09-01</td>
+                    <td>Santri harus hadir minimal 90%</td>
+                  </tr>
+                  <tr>
+                    <td>KB002</td>
+                    <td>Kebijakan Penilaian</td>
+                    <td>2023-09-01</td>
+                    <td>Penilaian berdasarkan ujian dan tugas</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="kemitraan" class="section" style="display: none">
+            <h2><i class="fas fa-handshake"></i> Kemitraan</h2>
+            <div class="chart-container">
+              <canvas id="analisisKemitraan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_kemitraan</th>
+                    <th>mitra</th>
+                    <th>proyek_kerjasama</th>
+                    <th>tanggal_mulai</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>KM001</td>
+                    <td>Universitas A</td>
+                    <td>Program Magang</td>
+                    <td>2023-07-01</td>
+                    <td>Program magang untuk santri</td>
+                  </tr>
+                  <tr>
+                    <td>KM002</td>
+                    <td>Lembaga B</td>
+                    <td>Pelatihan Bahasa Arab</td>
+                    <td>2023-08-15</td>
+                    <td>Pelatihan bahasa Arab untuk santri</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="pengembangan" class="section" style="display: none">
+            <h2><i class="fas fa-graduation-cap"></i> Pengembangan</h2>
+            <div class="chart-container">
+              <canvas id="analisisPengembangan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_pengembangan</th>
+                    <th>id_santri</th>
+                    <th>program_pengembangan</th>
+                    <th>tanggal_mulai</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PG001</td>
+                    <td>S001</td>
+                    <td>Pelatihan Public Speaking</td>
+                    <td>2023-09-10</td>
+                    <td>Pelatihan public speaking untuk santri</td>
+                  </tr>
+                  <tr>
+                    <td>PG002</td>
+                    <td>S002</td>
+                    <td>Pelatihan Bahasa Inggris</td>
+                    <td>2023-09-15</td>
+                    <td>Pelatihan bahasa Inggris untuk santri</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="lingkungan" class="section" style="display: none">
+            <h2><i class="fas fa-leaf"></i> Lingkungan</h2>
+            <div class="chart-container">
+              <canvas id="analisisLingkungan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_lingkungan</th>
+                    <th>program_lingkungan</th>
+                    <th>tanggal_mulai</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>LG001</td>
+                    <td>Hari Bersih Pesantren</td>
+                    <td>2023-10-05</td>
+                    <td>Membersihkan lingkungan pesantren</td>
+                  </tr>
+                  <tr>
+                    <td>LG002</td>
+                    <td>Tanam Pohon</td>
+                    <td>2023-11-01</td>
+                    <td>Menanam pohon di sekitar pesantren</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="ti" class="section" style="display: none">
+            <h2><i class="fas fa-desktop"></i> TI</h2>
+            <div class="chart-container">
+              <canvas id="analisisTI"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_ti</th>
+                    <th>aplikasi</th>
+                    <th>versi</th>
+                    <th>tanggal_update</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TI001</td>
+                    <td>Sistem Informasi Manajemen</td>
+                    <td>1.2.3</td>
+                    <td>2023-09-20</td>
+                    <td>Update sistem informasi manajemen</td>
+                  </tr>
+                  <tr>
+                    <td>TI002</td>
+                    <td>Perpustakaan Online</td>
+                    <td>2.0.1</td>
+                    <td>2023-08-15</td>
+                    <td>Update perpustakaan online</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="pelatihan" class="section" style="display: none">
+            <h2><i class="fas fa-users"></i> Pelatihan</h2>
+            <div class="chart-container">
+              <canvas id="analisisPelatihan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_pelatihan</th>
+                    <th>pengajar</th>
+                    <th>program_pelatihan</th>
+                    <th>tanggal_mulai</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PL001</td>
+                    <td>M. Shodiq</td>
+                    <td>Pelatihan Pembelajaran Online</td>
+                    <td>2023-09-10</td>
+                    <td>Pelatihan pembelajaran online untuk pengajar</td>
+                  </tr>
+                  <tr>
+                    <td>PL002</td>
+                    <td>Siti Ngasiyah</td>
+                    <td>Pelatihan Waktu</td>
+                    <td>2023-09-15</td>
+                    <td>Pelatihan waktu untuk pengajar</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="kebudayaan" class="section" style="display: none">
+            <h2><i class="fas fa-globe"></i> Kebudayaan</h2>
+            <div class="chart-container">
+              <canvas id="analisisKebudayaan"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_kebudayaan</th>
+                    <th>program_kebudayaan</th>
+                    <th>tanggal_mulai</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>KB001</td>
+                    <td>Pameran Seni</td>
+                    <td>2023-10-10</td>
+                    <td>Pameran karya seni santri</td>
+                  </tr>
+                  <tr>
+                    <td>KB002</td>
+                    <td>Pertunjukan Tari Tradisional</td>
+                    <td>2023-11-05</td>
+                    <td>Pertunjukan tari tradisional</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="kesehatan-mental" class="section" style="display: none">
+            <h2><i class="fas fa-brain"></i> Kesehatan Mental</h2>
+            <div class="chart-container">
+              <canvas id="analisisKesehatanMental"></canvas>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id_kesehatan_mental</th>
+                    <th>id_santri</th>
+                    <th>program_kesehatan_mental</th>
+                    <th>tanggal_mulai</th>
+                    <th>keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>KM001</td>
+                    <td>S001</td>
+                    <td>Konseling Pribadi</td>
+                    <td>2023-09-10</td>
+                    <td>Konseling pribadi untuk santri</td>
+                  </tr>
+                  <tr>
+                    <td>KM002</td>
+                    <td>S002</td>
+                    <td>Grup Diskusi Kesehatan Mental</td>
+                    <td>2023-09-15</td>
+                    <td>Grup diskusi kesehatan mental untuk santri</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function showSection(sectionId) {
+        // Sembunyikan semua bagian
+        var sections = document.querySelectorAll(".section");
+        sections.forEach(function (section) {
+          section.style.display = "none";
+        });
+
+        // Tampilkan bagian yang sesuai dengan menu yang diklik
+        var section = document.getElementById(sectionId);
+        if (section) {
+          section.style.display = "block";
+        }
+      }
+
+      // Tampilkan bagian pertama saat halaman dimuat
+      window.onload = function () {
+        showSection("data-santri");
+        createDemografiSantriChart();
+        createProfilPengajarChart();
+        createStrukturKurikulumChart();
+        createPerformaAkademikChart();
+        createKalenderKegiatanChart();
+        createAnalisisKomunikasiChart();
+        createAnalisisDokumenChart();
+        createStatusKesehatanChart();
+        createAnalisisKeamananChart();
+        createAnalisisLaporanChart();
+        createKoleksiPerpustakaanChart();
+        createStatusFasilitasChart();
+        createAnalisisSertifikasiChart();
+        createAnalisisKebijakanChart();
+        createAnalisisKemitraanChart();
+        createAnalisisPengembanganChart();
+        createAnalisisLingkunganChart();
+        createAnalisisTIChart();
+        createAnalisisPelatihanChart();
+        createAnalisisKebudayaanChart();
+        createAnalisisKesehatanMentalChart();
+      };
+
+      function createDemografiSantriChart() {
+        var ctx = document.getElementById("demografiSantri").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Laki-laki", "Perempuan"],
+            datasets: [
+              {
+                label: "Distribusi Gender",
+                data: [60, 40],
+                backgroundColor: [
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 99, 132, 0.2)",
+                ],
+                borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createProfilPengajarChart() {
+        var ctx = document.getElementById("profilPengajar").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["S.Pd", "M.Pd"],
+            datasets: [
+              {
+                label: "Kualifikasi Akademik",
+                data: [50, 30],
+                backgroundColor: [
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createStrukturKurikulumChart() {
+        var ctx = document.getElementById("strukturKurikulum").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: ["Matematika", "Bahasa Indonesia"],
+            datasets: [
+              {
+                label: "Distribusi Mata Pelajaran",
+                data: [60, 40],
+                backgroundColor: [
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 206, 86, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createPerformaAkademikChart() {
+        var ctx = document.getElementById("performaAkademik").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Nilai Rata-rata",
+                data: [85, 88, 90, 87, 89, 92],
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createKalenderKegiatanChart() {
+        var ctx = document.getElementById("kalenderKegiatan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Seminar", "Lomba"],
+            datasets: [
+              {
+                label: "Jumlah Acara",
+                data: [5, 3],
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisKomunikasiChart() {
+        var ctx = document
+          .getElementById("analisisKomunikasi")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Volume Komunikasi",
+                data: [120, 130, 140, 135, 145, 150],
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisDokumenChart() {
+        var ctx = document.getElementById("analisisDokumen").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Santri", "Kurikulum"],
+            datasets: [
+              {
+                label: "Distribusi Dokumen",
+                data: [70, 30],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createStatusKesehatanChart() {
+        var ctx = document.getElementById("statusKesehatan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["A", "B", "O"],
+            datasets: [
+              {
+                label: "Distribusi Golongan Darah",
+                data: [40, 30, 30],
+                backgroundColor: [
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisKeamananChart() {
+        var ctx = document.getElementById("analisisKeamanan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Aktivitas Keamanan",
+                data: [120, 130, 140, 135, 145, 150],
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisLaporanChart() {
+        var ctx = document.getElementById("analisisLaporan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Nilai", "Kehadiran"],
+            datasets: [
+              {
+                label: "Distribusi Laporan",
+                data: [70, 30],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createKoleksiPerpustakaanChart() {
+        var ctx = document
+          .getElementById("koleksiPerpustakaan")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Matematika", "Bahasa Indonesia"],
+            datasets: [
+              {
+                label: "Jumlah Buku",
+                data: [5, 3],
+                backgroundColor: [
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 206, 86, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createStatusFasilitasChart() {
+        var ctx = document.getElementById("statusFasilitas").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Baik", "Perlu Perbaikan"],
+            datasets: [
+              {
+                label: "Kondisi Fasilitas",
+                data: [70, 30],
+                backgroundColor: [
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(255, 99, 132, 0.2)",
+                ],
+                borderColor: ["rgba(75, 192, 192, 1)", "rgba(255, 99, 132, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisSertifikasiChart() {
+        var ctx = document
+          .getElementById("analisisSertifikasi")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Bahasa Arab", "Bahasa Inggris"],
+            datasets: [
+              {
+                label: "Jumlah Sertifikat",
+                data: [5, 3],
+                backgroundColor: [
+                  "rgba(153, 102, 255, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(153, 102, 255, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisKebijakanChart() {
+        var ctx = document.getElementById("analisisKebijakan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Kehadiran", "Penilaian"],
+            datasets: [
+              {
+                label: "Distribusi Kebijakan",
+                data: [70, 30],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisKemitraanChart() {
+        var ctx = document.getElementById("analisisKemitraan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Universitas A", "Lembaga B"],
+            datasets: [
+              {
+                label: "Jumlah Proyek Kerjasama",
+                data: [5, 3],
+                backgroundColor: [
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 206, 86, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisPengembanganChart() {
+        var ctx = document
+          .getElementById("analisisPengembangan")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Jumlah Program Pengembangan",
+                data: [120, 130, 140, 135, 145, 150],
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisLingkunganChart() {
+        var ctx = document
+          .getElementById("analisisLingkungan")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Hari Bersih", "Tanam Pohon"],
+            datasets: [
+              {
+                label: "Distribusi Program Lingkungan",
+                data: [70, 30],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisTIChart() {
+        var ctx = document.getElementById("analisisTI").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Sistem Informasi Manajemen", "Perpustakaan Online"],
+            datasets: [
+              {
+                label: "Jumlah Aplikasi",
+                data: [5, 3],
+                backgroundColor: [
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 206, 86, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisPelatihanChart() {
+        var ctx = document.getElementById("analisisPelatihan").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Jumlah Program Pelatihan",
+                data: [120, 130, 140, 135, 145, 150],
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisKebudayaanChart() {
+        var ctx = document
+          .getElementById("analisisKebudayaan")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Pameran Seni", "Pertunjukan Tari"],
+            datasets: [
+              {
+                label: "Distribusi Program Kebudayaan",
+                data: [70, 30],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                ],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function createAnalisisKesehatanMentalChart() {
+        var ctx = document
+          .getElementById("analisisKesehatanMental")
+          .getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Konseling Pribadi", "Grup Diskusi"],
+            datasets: [
+              {
+                label: "Jumlah Program Kesehatan Mental",
+                data: [5, 3],
+                backgroundColor: [
+                  "rgba(153, 102, 255, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(153, 102, 255, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
