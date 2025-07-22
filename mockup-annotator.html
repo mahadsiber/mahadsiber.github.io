@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AL ILLM Dataset Tool</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    .container-fluid {
+      padding: 20px;
+      max-height: 100vh;
+      overflow-y: scroll;
+    }
+
+    .txt-viewer {
+      background-color: #f8f9fa;
+      padding: 15px;
+      height: 100%;
+      overflow-y: scroll;
+      font-size: 1.2em;
+      line-height: 2.7;
+      max-height: 93vh;
+    }
+
+    .qa-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .rank-concepts-area {
+      border: 1px solid #ced4da;
+      padding: 10px;
+      min-height: 100px;
+      margin-bottom: 20px;
+    }
+
+    .rank-concepts-area .badge {
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    .badge {
+      font-size: 16px !important;
+    }
+
+    .context-menu {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 5px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .context-menu button {
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Bagian Kiri: Txt Viewer -->
+      <div class="col-md-5">
+        <div class="txt-viewer">
+          <h5>Judul Kitab: <span id="judul-kitab">Kitab Al-Fiqh</span></h5>
+          <h6>Penulis: <span id="penulis-kitab">Imam Malik</span></h6>
+          <h6>Editor: <span id="editor">Editor Name</span></h6>
+          <h6>Penerbit: <span id="penerbit">Publisher Name</span></h6>
+          <h6>Lokasi Publikasi: <span id="lokasi-publikasi">Publication Location</span></h6>
+          <h6>Tahun Publikasi: <span id="tahun-publikasi">Publication Year</span></h6>
+          <h6>Bab: <span id="bab">Bab 1</span></h6>
+          <h6>Sub Bab: <span id="sub-bab">Sub Bab 1.1</span></h6>
+          <h6>Halaman: <span id="halaman">123</span></h6>
+          <hr>
+          <p id="placeholder-text" style="text-align: right; white-space: pre-wrap;">
+            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            الحَمْدُ لِلَّهِ رَبِّ العَالَمِينَ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى سَيِّدِنَا مُحَمَّدٍ، وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ.
+            يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً، وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالأَرْحَامَ، إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا.
+            وَإِنَّ اللَّهَ لَهُوَ الْعَزِيزُ الْحَكِيمُ، وَلَا تَقْتُلُوا أَنْفُسَكُمْ، إِنَّ اللَّهَ كَانَ بِكُمْ رَحِيمًا، وَمَنْ يَقْتُلْ مِنْكُمْ مُتَعَمِّدًا فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا، وَمَنْ يَقْتُلْهُ مُتَعَمِّدًا فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا.
+            وَلَقَدْ أَرْسَلْنَا نُوحًا إِلَى قَوْمِهِ فَلَبِثَ فِيهِمْ أَلْفَ سَنَةٍ إِلَّا خَمْسِينَ عَامًا، فَأَخَذَهُمُ الطُّوفَانُ وَهُمْ ظَالِمُونَ.
+            وَلَقَدْ أَرْسَلْنَا مُوسَى بِآيَاتِنَا وَسُلْطَانٍ مُبِينٍ، إِلَى فِرْعَوْنَ وَمَلَئِهِ فَظَلَمُوا بِهِ وَبِآلِهِ فَأَخَذَهُمُ اللَّهُ بِذُنُوبِهِمْ، إِنَّ اللَّهَ قَوِيٌّ شَدِيدُ الْعِقَابِ.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bagian Kanan: Dropdown dan QA List -->
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="field-of-study">Field of Study</label>
+              <select class="form-control select2" id="field-of-study" multiple>
+                <option>Aqidah</option>
+                <option>Tasawuf</option>
+                <option>Fiqh</option>
+                <option>Usul Fiqh</option>
+                <option>Bahasa</option>
+                <option>Filsafat</option>
+                <option>Sejarah</option>
+                <option>Adab</option>
+                <option>Akhlak</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="rank-concepts-area" id="rank-concepts-area">
+              <span class="badge badge-primary">Rank: Quran</span>
+              <span class="badge badge-secondary">Concept: Ibadah</span>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary mb-3" id="buat-qa-baru">Buat Q&A Manual</button>
+            <button class="btn btn-success mb-3" id="generate-qa">Generate Q&A</button>
+            <button class="btn btn-danger mb-3" id="save-dataset">Save Dataset</button>
+            <div class="qa-list">
+              <!-- Q&A List will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Rank and Concept Selection -->
+  <div class="modal fade" id="rankConceptModal" tabindex="-1" role="dialog" aria-labelledby="rankConceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rankConceptModalLabel">Select Rank or Concept</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Rank</h6>
+              <button class="btn btn-primary btn-block mb-2" id="rank-quran">Ayat Quran</button>
+              <button class="btn btn-primary btn-block mb-2" id="rank-hadits">Hadits</button>
+              <button class="btn btn-primary btn-block mb-2" id="rank-ijma">Ijma</button>
+              <button class="btn btn-primary btn-block mb-2" id="rank-qiyas">Qiyas</button>
+            </div>
+            <div class="col-md-6">
+              <h6>Concept</h6>
+              <button class="btn btn-secondary btn-block mb-2" id="concept-nama_tokoh">Nama Tokoh</button>
+              <button class="btn btn-secondary btn-block mb-2" id="concept-lokasi">Lokasi</button>
+              <button class="btn btn-secondary btn-block mb-2" id="concept-kitab">Kitab</button>
+              <button class="btn btn-secondary btn-block mb-2" id="concept-lembaga">Lembaga</button>
+              <button class="btn btn-secondary btn-block mb-2" id="concept-sifat">Sifat</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $(".select2").select2();
+
+      // Sample chunk text with YAML frontmatter
+      const chunkText = `---
+booktitle: Kitab Al-Fiqh
+author: Imam Malik
+editor: Editor Name
+publisher: Publisher Name
+publication_location: Publication Location
+publication_year: 2023
+chapter: Bab 1
+subchapter: Sub Bab 1.1
+page: 123
+---
+بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+الحَمْدُ لِلَّهِ رَبِّ العَالَمِينَ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى سَيِّدِنَا مُحَمَّدٍ، وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ.
+يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً، وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالأَرْحَامَ، إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا.
+وَإِنَّ اللَّهَ لَهُوَ الْعَزِيزُ الْحَكِيمُ، وَلَا تَقْتُلُوا أَنْفُسَكُمْ، إِنَّ اللَّهَ كَانَ بِكُمْ رَحِيمًا، وَمَنْ يَقْتُلْ مِنْكُمْ مُتَعَمِّدًا فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا، وَمَنْ يَقْتُلْهُ مُتَعَمِّدًا فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا.
+وَلَقَدْ أَرْسَلْنَا نُوحًا إِلَى قَوْمِهِ فَلَبِثَ فِيهِمْ أَلْفَ سَنَةٍ إِلَّا خَمْسِينَ عَامًا، فَأَخَذَهُمُ الطُّوفَانُ وَهُمْ ظَالِمُونَ.
+وَلَقَدْ أَرْسَلْنَا مُوسَى بِآيَاتِنَا وَسُلْطَانٍ مُبِينٍ، إِلَى فِرْعَوْنَ وَمَلَئِهِ فَظَلَمُوا بِهِ وَبِآلِهِ فَأَخَذَهُمُ اللَّهُ بِذُنُوبِهِمْ، إِنَّ اللَّهَ قَوِيٌّ شَدِيدُ الْعِقَابِ.`;
+
+      // Parse YAML frontmatter
+      const parseFrontmatter = (text) => {
+        const yamlRegex = /^---$([\s\S]*?)^---$([\s\S]*)/m;
+        const match = text.match(yamlRegex);
+        if (match) {
+          const frontmatter = match[1].trim();
+          const content = match[2].trim();
+          const metadata = {};
+          frontmatter.split('\n').forEach(line => {
+            const [key, value] = line.split(':').map(item => item.trim());
+            metadata[key] = value;
+          });
+          return { metadata, content };
+        }
+        return { metadata: {}, content: text };
+      };
+
+      const { metadata, content } = parseFrontmatter(chunkText);
+
+      // Update txt-viewer with metadata and content
+      $('#judul-kitab').text(metadata.booktitle || 'Unknown');
+      $('#penulis-kitab').text(metadata.author || 'Unknown');
+      $('#editor').text(metadata.editor || 'Unknown');
+      $('#penerbit').text(metadata.publisher || 'Unknown');
+      $('#lokasi-publikasi').text(metadata.publication_location || 'Unknown');
+      $('#tahun-publikasi').text(metadata.publication_year || 'Unknown');
+      $('#bab').text(metadata.chapter || 'Unknown');
+      $('#sub-bab').text(metadata.subchapter || 'Unknown');
+      $('#halaman').text(metadata.page || 'Unknown');
+      $('#placeholder-text').text(content);
+
+      // Event listener for right-click on text viewer
+      $("#placeholder-text").on("contextmenu", function(e) {
+        e.preventDefault();
+        var contextMenu = $('<div class="context-menu">')
+          .append('<button class="btn btn-primary" id="add-rank">Add Rank</button>')
+          .append(
+            '<button class="btn btn-secondary" id="add-concept">Add Concept</button>'
+          )
+          .css({
+            position: "absolute",
+            left: e.pageX + "px",
+            top: e.pageY + "px",
+            background: "#fff",
+            border: "1px solid #ccc",
+            padding: "5px"
+          });
+        $("body").append(contextMenu);
+        $("#add-rank").click(function() {
+          contextMenu.remove();
+          $('#rankConceptModal').modal('show');
+        });
+        $("#add-concept").click(function() {
+          contextMenu.remove();
+          $('#rankConceptModal').modal('show');
+        });
+      });
+
+      // Hide context menu on click outside
+      $(document).on("click", function(e) {
+        $(".context-menu").remove();
+      });
+
+      // Event listeners for rank and concept buttons in modal
+      $('#rank-quran').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-primary">Rank: Ayat Quran</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#rank-hadits').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-primary">Rank: Hadits</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#rank-ijma').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-primary">Rank: Ijma</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#rank-qiyas').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-primary">Rank: Qiyas</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#concept-nama_tokoh').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-secondary">Concept: Nama Tokoh</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#concept-lokasi').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-secondary">Concept: Lokasi</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#concept-kitab').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-secondary">Concept: Kitab</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#concept-lembaga').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-secondary">Concept: Lembaga</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+      $('#concept-sifat').click(function() {
+        $('#rank-concepts-area').append('<span class="badge badge-secondary">Concept: Sifat</span>');
+        $('#rankConceptModal').modal('hide');
+      });
+
+      // Function to generate Q&A from LLM API
+      const generateQA = () => {
+        // Mock API call to generate Q&A
+        const mockQA = [
+          {
+            question: "Apa itu Fiqh?",
+            answer: "Fiqh adalah ilmu yang mempelajari hukum-hukum Islam yang bersumber dari Al-Qur'an, Hadits, Ijma, dan Qiyas."
+          },
+          {
+            question: "Apa perbedaan antara Ijma dan Qiyas?",
+            answer: "Ijma adalah kesepakatan para ulama, sedangkan Qiyas adalah analogi dalam menetapkan hukum Islam."
+          },
+          {
+            question: "Apa yang dimaksud dengan Muamalah?",
+            answer: "Muamalah adalah ilmu yang mempelajari hukum-hukum Islam dalam urusan jual-beli, perjanjian, dan hubungan antar manusia."
+          },
+          {
+            question: "Apa itu Aqidah?",
+            answer: "Aqidah adalah kepercayaan dasar dalam Islam yang meliputi keyakinan tentang Allah, malaikat, kitab-kitab suci, nabi, hari akhir, dan qada' wa qadar."
+          },
+          {
+            question: "Apa yang dimaksud dengan Ibadah?",
+            answer: "Ibadah adalah segala bentuk aktivitas yang dilakukan untuk mendekatkan diri kepada Allah, seperti shalat, puasa, zakat, haji, dan dzikir."
+          }
+        ];
+
+        const qaList = $(".qa-list");
+        qaList.empty();
+        mockQA.forEach(qa => {
+          const qaCard = `
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Q: ${qa.question}</h5>
+                <p class="card-text">A: ${qa.answer}</p>
+                <button class="btn btn-success">Setujui</button>
+                <button class="btn btn-danger">Tolak</button>
+              </div>
+            </div>
+          `;
+          qaList.append(qaCard);
+        });
+      };
+
+      // Event listener for generate Q&A button
+      $("#generate-qa").click(generateQA);
+
+      // Event listener for manual Q&A button
+      $("#buat-qa-baru").click(function() {
+        const qaForm = `
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Buat Q&A Manual</h5>
+              <div class="form-group">
+                <label for="question">Pertanyaan</label>
+                <textarea class="form-control" id="question" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="answer">Jawaban</label>
+                <textarea class="form-control" id="answer" rows="3"></textarea>
+              </div>
+              <button class="btn btn-primary" id="submit-qa">Submit</button>
+            </div>
+          </div>
+        `;
+        $(".qa-list").prepend(qaForm);
+
+        $("#submit-qa").click(function() {
+          const question = $("#question").val();
+          const answer = $("#answer").val();
+          if (question && answer) {
+            const qaCard = `
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Q: ${question}</h5>
+                  <p class="card-text">A: ${answer}</p>
+                  <button class="btn btn-success">Setujui</button>
+                  <button class="btn btn-danger">Tolak</button>
+                </div>
+              </div>
+            `;
+            $(".qa-list").prepend(qaCard);
+            $("#question").val("");
+            $("#answer").val("");
+          }
+        });
+      });
+
+      // Event listener for save dataset button
+      $("#save-dataset").click(function() {
+        const dataset = {
+          metadata: {
+            booktitle: metadata.booktitle,
+            author: metadata.author,
+            editor: metadata.editor,
+            publisher: metadata.publisher,
+            publication_location: metadata.publication_location,
+            publication_year: metadata.publication_year,
+            chapter: metadata.chapter,
+            subchapter: metadata.subchapter,
+            page: metadata.page,
+            data_contributor: "Username" // Replace with actual username input
+          },
+          content: content,
+          ranks: [],
+          concepts: [],
+          qa_list: []
+        };
+
+        $("#rank-concepts-area .badge-primary").each(function() {
+          dataset.ranks.push($(this).text().replace("Rank: ", ""));
+        });
+
+        $("#rank-concepts-area .badge-secondary").each(function() {
+          dataset.concepts.push($(this).text().replace("Concept: ", ""));
+        });
+
+        $(".qa-list .card").each(function() {
+          const question = $(this).find(".card-title").text().replace("Q: ", "");
+          const answer = $(this).find(".card-text").text().replace("A: ", "");
+          dataset.qa_list.push({ question, answer });
+        });
+
+        const jsonData = JSON.stringify(dataset, null, 2);
+        const blob = new Blob([jsonData], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "dataset.json";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+    });
+  </script>
+</body>
+
+</html>
