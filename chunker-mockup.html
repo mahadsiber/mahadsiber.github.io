@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MHS Penyalin Kitab</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10px;
+      background: #334155;
+      color: #fff;
+      margin-bottom: 20px;
+      margin-top: 0px;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 80px);
+    }
+
+    .pdf-viewer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #e2e8f0;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .pdf-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      margin-top: 16px;
+      background: #f8fafc;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+    }
+
+    #pdfContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+      max-height: calc(100vh - 200px);
+    }
+
+    .no-pdf {
+      text-align: center;
+      color: #94a3b8;
+    }
+
+    .editor-section {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metadata-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    .form-group label.required::after {
+      content: " *";
+      color: #ef4444;
+    }
+
+    .form-group input {
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      flex: 1;
+    }
+
+    .form-group input[id="page"],
+    .form-group input[id="publicationYear"],
+    .form-group input[id="publicationYearHijri"] {
+      width: 60px;
+    }
+
+    .controls {
+      margin-bottom: 16px;
+    }
+
+    .controls button {
+      padding: 8px 16px;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .controls button:hover {
+      background: #2563eb;
+    }
+
+    textarea {
+      flex: 1;
+      padding: 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      resize: none;
+      transition: all 0.2s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #status {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .zoom-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .zoom-controls button {
+      font-size: 20px;
+      padding: 8px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+
+    .zoom-controls button:hover {
+      background: #2563eb;
+    }
+
+    .file-input-container {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .file-input-container input[type="file"] {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .file-input-container input[type="file"]:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #texteditor {
+      direction: rtl;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="header">MHS Penyalin Kitab</h1>
+  <div class="container">
+    <div class="pdf-viewer" id="pdfViewer">
+      <div class="file-input-container">
+        <input type="file" id="pdfFile" accept="application/pdf">
+        <div class="zoom-controls">
+          <button class="icon-button" onclick="zoomIn()" title="Zoom In">
+            +
+          </button>
+          <button class="icon-button" onclick="zoomOut()" title="Zoom Out">
+            -
+          </button>
+        </div>
+      </div>
+      <div class="pdf-content">
+        <div id="pdfContainer">
+          <div class="no-pdf">
+            <i data-lucide="file-text" size="48"></i>
+            <p>Belum ada PDF yang ditambahkan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="editor-section">
+        <form class="metadata-form" id="metadataForm">
+            <div class="form-group full-width">
+              <label class="required" for="bookTitle">Judul Buku</label>
+              <input type="text" id="bookTitle" name="bookTitle" required>
+            </div>
+            <div class="form-group full-width">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="required" for="author">Penulis</label>
+                  <input type="text" id="author" name="author" required>
+                </div>
+                <div class="form-group">
+                  <label for="author_alias">Alias</label>
+                  <input type="text" id="author_alias" name="author_alias">
+                </div>
+                <div class="form-group">
+                  <label for="editor">Editor</label>
+                  <input type="text" id="editor" name="editor">
+                </div>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="publisher">Penerbit</label>
+                  <input type="text" id="publisher" name="publisher">
+                </div>
+                <div class="form-group">
+                  <label for="publicationLocation">Lokasi Terbit</label>
+                  <input type="text" id="publicationLocation" name="publicationLocation">
+                </div>
+                <div class="form-group">
+                  <label for="publicationYear">Tahun Terbit M</label>
+                  <input type="text" id="publicationYear" name="publicationYear" maxlength="4">
+                </div>
+                <div class="form-group">
+                  <label for="publicationYearHijri">Tahun Terbit H</label>
+                  <input type="text" id="publicationYearHijri" name="publicationYearHijri" maxlength="4">
+                </div>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <div class="form-row">
+                <div class="form-group">
+                    <label for="bookVolume">Volume Buku</label>
+                    <input type="text" id="bookVolume" name="bookVolume">
+                  </div>
+                <div class="form-group">
+                  <label for="chapter">Bab</label>
+                  <input type="text" id="chapter" name="chapter">
+                </div>
+                <div class="form-group">
+                  <label for="subchapter">Sub Bab</label>
+                  <input type="text" id="subchapter" name="subchapter">
+                </div>
+                <div class="form-group">
+                  <label for="page">Halaman</label>
+                  <input type="text" id="page" name="page" maxlength="9">
+                </div>
+              </div>
+            </div>
+          </form>
+      <div class="controls">
+        <button onclick="exportTxt()">
+          <i data-lucide="download" size="18"></i>
+          Ekspor
+        </button>
+      </div>
+      <textarea id="texteditor"></textarea>
+      <div id="status"></div>
+    </div>
+  </div>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+
+    let scale = 1;
+    let pdfDoc = null;
+
+    function zoomIn() {
+      scale += 0.1;
+      renderPDF();
+    }
+
+    function zoomOut() {
+      scale -= 0.1;
+      renderPDF();
+    }
+
+    async function renderPDF() {
+      const pdfContainer = document.getElementById('pdfContainer');
+      pdfContainer.innerHTML = '';
+
+      if (pdfDoc) {
+        for (let i = 1; i <= pdfDoc.numPages; i++) {
+          try {
+            const page = await pdfDoc.getPage(i);
+            const viewport = page.getViewport({ scale: scale });
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderContext = {
+              canvasContext: context,
+              viewport: viewport
+            };
+
+            await page.render(renderContext).promise;
+            pdfContainer.appendChild(canvas);
+          } catch (error) {
+            console.error(`Error rendering page ${i}:`, error);
+          }
+        }
+      }
+    }
+
+    function loadPDF(file) {
+      localStorage.removeItem('metadata');
+      updateStatus('Loading PDF...');
+
+      const fileReader = new FileReader();
+      fileReader.onload = function(event) {
+        const typedArray = new Uint8Array(event.target.result);
+        pdfjsLib.getDocument(typedArray).promise.then(pdf => {
+          pdfDoc = pdf;
+          renderPDF();
+          updateStatus('PDF loaded successfully');
+        }).catch(error => {
+          console.error('Error loading PDF:', error);
+          updateStatus('Error loading PDF. Please try again.');
+        });
+      };
+      fileReader.readAsArrayBuffer(file);
+    }
+
+    function exportTxt() {
+      const form = document.getElementById('metadataForm');
+      if (!form.checkValidity()) {
+        updateStatus('Please fill in the book title and author');
+        return;
+      }
+
+      const text = document.getElementById('texteditor').value;
+      if (!text.trim()) {
+        updateStatus('No text to export');
+        return;
+      }
+
+      const metadata = {};
+      form.querySelectorAll('input').forEach(input => {
+        if (input.value) {
+          metadata[input.id] = input.value;
+        }
+      });
+
+      const metadataText = ['---'];
+      for (const [key, value] of Object.entries(metadata)) {
+        metadataText.push(`${key}: ${value}`);
+      }
+      metadataText.push('---\n');
+
+
+      const fullText = metadataText.join('\n') + '\u202B' + text + '\u202C';
+
+      const blob = new Blob([fullText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${metadata.bookTitle.toLowerCase().replace(/\s+/g, '-')}-${metadata.page || 'unknown'}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      localStorage.removeItem('metadata');
+      updateStatus('File exported successfully');
+    }
+
+    function saveMetadata() {
+      const metadata = {};
+      document.querySelectorAll('.metadata-form input').forEach(input => {
+        metadata[input.id] = input.value;
+      });
+      localStorage.setItem('metadata', JSON.stringify(metadata));
+    }
+
+    function loadMetadata() {
+      const savedMetadata = localStorage.getItem('metadata');
+      if (savedMetadata) {
+        const metadata = JSON.parse(savedMetadata);
+        Object.keys(metadata).forEach(key => {
+          const input = document.getElementById(key);
+          if (input) {
+            input.value = metadata[key] || '';
+          }
+        });
+      }
+    }
+
+    document.querySelectorAll('.metadata-form input').forEach(input => {
+      input.addEventListener('input', saveMetadata);
+    });
+
+    window.addEventListener('load', loadMetadata);
+
+    function updateStatus(message) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      setTimeout(() => {
+        status.textContent = '';
+      }, 3000);
+    }
+
+    document.getElementById('pdfFile').addEventListener('change', function(event) {
+      loadPDF(event.target.files[0]);
+    });
+  </script>
+
+</body>
+
+</html>
